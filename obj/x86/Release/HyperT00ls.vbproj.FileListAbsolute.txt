@@ -1,0 +1,28 @@
+C:\Documents and Settings\Administrator\my documents\visual studio 2010\Projects\HyperT00ls\HyperT00ls\bin\Release\HyperT00ls.exe
+C:\Documents and Settings\Administrator\my documents\visual studio 2010\Projects\HyperT00ls\HyperT00ls\bin\Release\HyperT00ls.pdb
+C:\Documents and Settings\Administrator\my documents\visual studio 2010\Projects\HyperT00ls\HyperT00ls\bin\Release\HyperT00ls.xml
+C:\Documents and Settings\Administrator\my documents\visual studio 2010\Projects\HyperT00ls\HyperT00ls\obj\x86\Release\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrator\my documents\visual studio 2010\Projects\HyperT00ls\HyperT00ls\obj\x86\Release\HyperT00ls.Form1.resources
+C:\Documents and Settings\Administrator\my documents\visual studio 2010\Projects\HyperT00ls\HyperT00ls\obj\x86\Release\HyperT00ls.Resources.resources
+C:\Documents and Settings\Administrator\my documents\visual studio 2010\Projects\HyperT00ls\HyperT00ls\obj\x86\Release\GenerateResource.read.1.tlog
+C:\Documents and Settings\Administrator\my documents\visual studio 2010\Projects\HyperT00ls\HyperT00ls\obj\x86\Release\GenerateResource.write.1.tlog
+C:\Documents and Settings\Administrator\my documents\visual studio 2010\Projects\HyperT00ls\HyperT00ls\obj\x86\Release\HyperT00ls.exe
+C:\Documents and Settings\Administrator\my documents\visual studio 2010\Projects\HyperT00ls\HyperT00ls\obj\x86\Release\HyperT00ls.xml
+C:\Documents and Settings\Administrator\my documents\visual studio 2010\Projects\HyperT00ls\HyperT00ls\obj\x86\Release\HyperT00ls.pdb
+c:\Documents and Settings\Administrator\My Documents\Visual Studio 2010\Projects\HyperT00ls\HyperT00ls\obj\x86\Release\HyperT00ls.FrmReport.resources
+C:\Documents and Settings\Administrator\my documents\visual studio 2010\Projects\HyperT00ls\HyperT00ls\obj\x86\Release\HyperT00ls.SplashScreen1.resources
+C:\Documents and Settings\Administrator\my documents\visual studio 2010\Projects\HyperT00ls\HyperT00ls\obj\x86\Release\HyperT00ls.FrmRenameRom.resources
+C:\Documents and Settings\Administrator\my documents\visual studio 2010\Projects\HyperT00ls\HyperT00ls\obj\x86\Release\HyperT00ls.FrmCopyMedia.resources
+C:\Users\Inquisitom\Documents\Visual Studio 2010\Projects\HyperT00ls\HyperT00ls\obj\x86\Release\HyperT00ls.exe
+C:\Users\Inquisitom\Documents\Visual Studio 2010\Projects\HyperT00ls\HyperT00ls\obj\x86\Release\HyperT00ls.xml
+C:\Users\Inquisitom\Documents\Visual Studio 2010\Projects\HyperT00ls\HyperT00ls\obj\x86\Release\HyperT00ls.pdb
+C:\Users\Inquisitom\Documents\Visual Studio 2010\Projects\HyperT00ls\HyperT00ls\bin\Release\HyperT00ls.exe
+C:\Users\Inquisitom\Documents\Visual Studio 2010\Projects\HyperT00ls\HyperT00ls\bin\Release\HyperT00ls.pdb
+C:\Users\Inquisitom\Documents\Visual Studio 2010\Projects\HyperT00ls\HyperT00ls\bin\Release\HyperT00ls.xml
+C:\Users\Inquisitom\Documents\Visual Studio 2010\Projects\HyperT00ls\HyperT00ls\obj\x86\Release\HyperT00ls.FrmCopyMedia.resources
+C:\Users\Inquisitom\Documents\Visual Studio 2010\Projects\HyperT00ls\HyperT00ls\obj\x86\Release\HyperT00ls.Form1.resources
+C:\Users\Inquisitom\Documents\Visual Studio 2010\Projects\HyperT00ls\HyperT00ls\obj\x86\Release\HyperT00ls.FrmRenameRom.resources
+C:\Users\Inquisitom\Documents\Visual Studio 2010\Projects\HyperT00ls\HyperT00ls\obj\x86\Release\HyperT00ls.FrmReport.resources
+C:\Users\Inquisitom\Documents\Visual Studio 2010\Projects\HyperT00ls\HyperT00ls\obj\x86\Release\HyperT00ls.Resources.resources
+C:\Users\Inquisitom\Documents\Visual Studio 2010\Projects\HyperT00ls\HyperT00ls\obj\x86\Release\HyperT00ls.SplashScreen1.resources
+C:\Users\Inquisitom\Documents\Visual Studio 2010\Projects\HyperT00ls\HyperT00ls\obj\x86\Release\HyperT00ls.vbproj.GenerateResource.Cache
