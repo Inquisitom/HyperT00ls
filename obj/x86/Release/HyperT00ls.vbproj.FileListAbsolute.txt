@@ -26,3 +26,16 @@ C:\Users\Inquisitom\Documents\Visual Studio 2010\Projects\HyperT00ls\HyperT00ls\
 C:\Users\Inquisitom\Documents\Visual Studio 2010\Projects\HyperT00ls\HyperT00ls\obj\x86\Release\HyperT00ls.Resources.resources
 C:\Users\Inquisitom\Documents\Visual Studio 2010\Projects\HyperT00ls\HyperT00ls\obj\x86\Release\HyperT00ls.SplashScreen1.resources
 C:\Users\Inquisitom\Documents\Visual Studio 2010\Projects\HyperT00ls\HyperT00ls\obj\x86\Release\HyperT00ls.vbproj.GenerateResource.Cache
+C:\Users\Inquisitom\Documents\Visual Studio 2010\Projects\HyperT00ls_Git\HyperT00ls\bin\Release\HyperT00ls.exe
+C:\Users\Inquisitom\Documents\Visual Studio 2010\Projects\HyperT00ls_Git\HyperT00ls\bin\Release\HyperT00ls.pdb
+C:\Users\Inquisitom\Documents\Visual Studio 2010\Projects\HyperT00ls_Git\HyperT00ls\bin\Release\HyperT00ls.xml
+C:\Users\Inquisitom\Documents\Visual Studio 2010\Projects\HyperT00ls_Git\HyperT00ls\obj\x86\Release\HyperT00ls.FrmCopyMedia.resources
+C:\Users\Inquisitom\Documents\Visual Studio 2010\Projects\HyperT00ls_Git\HyperT00ls\obj\x86\Release\HyperT00ls.Form1.resources
+C:\Users\Inquisitom\Documents\Visual Studio 2010\Projects\HyperT00ls_Git\HyperT00ls\obj\x86\Release\HyperT00ls.FrmRenameRom.resources
+C:\Users\Inquisitom\Documents\Visual Studio 2010\Projects\HyperT00ls_Git\HyperT00ls\obj\x86\Release\HyperT00ls.FrmReport.resources
+C:\Users\Inquisitom\Documents\Visual Studio 2010\Projects\HyperT00ls_Git\HyperT00ls\obj\x86\Release\HyperT00ls.Resources.resources
+C:\Users\Inquisitom\Documents\Visual Studio 2010\Projects\HyperT00ls_Git\HyperT00ls\obj\x86\Release\HyperT00ls.SplashScreen1.resources
+C:\Users\Inquisitom\Documents\Visual Studio 2010\Projects\HyperT00ls_Git\HyperT00ls\obj\x86\Release\HyperT00ls.vbproj.GenerateResource.Cache
+C:\Users\Inquisitom\Documents\Visual Studio 2010\Projects\HyperT00ls_Git\HyperT00ls\obj\x86\Release\HyperT00ls.exe
+C:\Users\Inquisitom\Documents\Visual Studio 2010\Projects\HyperT00ls_Git\HyperT00ls\obj\x86\Release\HyperT00ls.xml
+C:\Users\Inquisitom\Documents\Visual Studio 2010\Projects\HyperT00ls_Git\HyperT00ls\obj\x86\Release\HyperT00ls.pdb
