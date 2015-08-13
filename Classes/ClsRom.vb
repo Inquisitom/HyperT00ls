@@ -157,7 +157,7 @@ Public Class ClsRom
     End Sub
 
     Private Sub SearchRom(ByVal pRomName As String, ByVal pFolder As String, Optional ByVal pLookInSubfolders As Boolean = False)
-        LogEntry(LogType._Debug, "        Func SearchRom: pRomNameWithExt=" & pRomName & " pFolder=" & pFolder)
+        LogEntry(LogType._Debug, "{0}", "        Func SearchRom: pRomNameWithExt=" & pRomName & " pFolder=" & pFolder)
         If Right(Trim(pFolder), 1) <> "\" Then
             pFolder = Trim(pFolder) & "\"
         End If
@@ -180,14 +180,14 @@ Public Class ClsRom
                     Next
                 End If
             Catch ex As System.Exception
-                LogEntry(LogType._Warning, "Searching for roms : " & ex.Message.ToString & "(" & pFolder & ")")
+                LogEntry(LogType._Warning, "{0}", "Searching for roms : " & ex.Message.ToString & "(" & pFolder & ")")
             End Try
         End If
 
         If Me.RomFound = True Then
-            LogEntry(LogType._Info, "        FOUND! in : " & Me.RomPath)
+            LogEntry(LogType._Info, "{0}", "        " & pRomName & " FOUND! in : " & Me.RomPath)
         Else
-            LogEntry(LogType._Info, "        NOT FOUND! in : " & pFolder)
+            LogEntry(LogType._Info, "{0}", "        " & pRomName & " NOT FOUND! in : " & pFolder)
         End If
     End Sub
 
@@ -200,74 +200,69 @@ Public Class ClsRom
         ResetValues()
 
         If gCheckRoms = True Then
-            LogEntry(LogType._Info, "Function CheckRomMedia (romFolder=" & pRomFolder & ", ext=" & Extensions & ")")
+            LogEntry(LogType._Debug, "{0}", Me.Name & " --> romFolder=" & pRomFolder & ", ext=" & Extensions & ")")
             Me.RomFound = False
             'First, we get ROMPATH + EXTENSIONS
             'The info is located within the INI file of the system under HyperSpin (and NOT HyperLaunch)  - but this might change!
             Dim HL3_INI As New IniFile
             Try
-                LogEntry(LogType._Info, "ROM search : " & Me.Name)
+                'LogEntry(LogType._Info, "{0}", "ROM search : " & Me.Name)
                 Dim EmulatorINI As String = gHLPath & "\Settings\" & Me.System & "\Emulators.ini"
-                LogEntry(LogType._Info, "    EmulatorINI = " & EmulatorINI)
+                EmulatorINI = EmulatorINI.Replace("\\", "\")
+                LogEntry(LogType._Debug, "{0}", "    EmulatorINI = " & EmulatorINI)
                 If File.Exists(EmulatorINI) Then
-                    LogEntry(LogType._Info, "    EmulatorINI = found")
+                    LogEntry(LogType._Debug, "{0}", "    EmulatorINI = found")
                     HL3_INI.Load(EmulatorINI)
                     Dim DefaultEmul As String = HL3_INI.GetKeyValue("ROMS", "Default_Emulator")
-                    LogEntry(LogType._Info, "    DefaultEmul = " & DefaultEmul)
+                    LogEntry(LogType._Debug, "{0}", "    DefaultEmul = " & DefaultEmul)
                     Dim GlobEmulINI As New IniFile
-                    Dim GlobEmulINIPath As String = gHLPath & "\Settings\Global Emulators.ini"
+                    Dim GlobEmulINIPath As String = Path.GetFullPath(gHLPath & "\Settings\Global Emulators.ini")
                     If File.Exists(GlobEmulINIPath) Then
                         Try
                             GlobEmulINI.Load(GlobEmulINIPath)
                             Extensions = GlobEmulINI.GetKeyValue(DefaultEmul, "Rom_Extension").Replace("|", ",")
-                            LogEntry(LogType._Info, "        Extensions = " & Extensions)
                         Catch ex As Exception
-                            LogEntry(LogType._Error, "        Error: Cannot load and get extensions of " & GlobEmulINIPath)
+                            LogEntry(LogType._Debug, "{0}", "        Error: Cannot load and get extensions of " & GlobEmulINIPath)
                         End Try
                     Else
-                        LogEntry(LogType._Warning, "        Warning: cannot find " & GlobEmulINIPath)
-                        LogEntry(LogType._Warning, "        Warning: so default extensions cannot be extracted")
+                        LogEntry(LogType._Debug, "{0}", "        Warning: cannot find " & GlobEmulINIPath)
                     End If
                     If Extensions = "" Then
-                        LogEntry(LogType._Warning, "        Warning: no extension defined in Global Emulators.ini for " & DefaultEmul)
-                        LogEntry(LogType._Warning, "        Warning: Using HyperHQ extension defined then ...")
+                        LogEntry(LogType._Debug, "{0}", "        Warning: no extension defined in Global Emulators.ini for " & DefaultEmul & ". Now using HyperHQ.")
                         Extensions = vExtensions
-                        If Extensions <> "" Then
-                            LogEntry(LogType._Info, "        Extensions = " & Extensions)
-                        Else
-                            LogEntry(LogType._Error, "        PLEASE CONFIGURE AT LEAST ROMS EXTENSIONS IN HyperHQ or HyperLaunch")
+                        If Extensions = "" Then
+                            LogEntry(LogType._Debug, "{0}", "        PLEASE CONFIGURE AT LEAST ROMS EXTENSIONS IN HyperHQ or HyperLaunch")
                         End If
                     End If
-                        For Each HL3Folder In HL3_INI.GetKeyValue("ROMS", "Rom_Path").Split(CChar("|"))
-                            If Me.RomFound = False Then
-                                If HL3Folder.Contains("..") = True Then
-                                    HL3Folder = gHLPath & "\" & HL3Folder
-                                End If
-                                LogEntry(LogType._Info, "        Now searching in : " & HL3Folder)
-                                For Each RomExt In Extensions.Split(CChar(","))
-                                    If Me.RomFound = False Then
-                                        LogEntry(LogType._Info, "            Scanning in " & HL3Folder & " with extension : " & RomExt)
-                                        'SearchRom(Me.Name & "." & Trim(OneExt), pRomFolder, pSearchSub)
-                                        SearchRom(Me.Name & "." & Trim(RomExt), HL3Folder, False) 'HL3 does NOT support subfolders
-                                    End If
-                                Next
+                    For Each HL3Folder In HL3_INI.GetKeyValue("ROMS", "Rom_Path").Split(CChar("|"))
+                        If Me.RomFound = False Then
+                            If HL3Folder.Contains("..") = True Then
+                                HL3Folder = gHLPath & "\" & HL3Folder
                             End If
-                        Next
-                    Else
-                        LogEntry(LogType._Info, "EmulatorINI = not found - doing classic search (HS, not HL3)")
-                        If pRomFolder = "" Or Extensions = "" Then
-                            LogEntry(LogType._Warning, "No RomFolder or Extension set in HyperHQ ... and no HL3 valid config found : aborted")
-                        Else
-                            For Each OneExt As String In Extensions.Split(CChar(","))
+                            HL3Folder = Path.GetFullPath(HL3Folder)
+                            For Each RomExt In Extensions.Split(CChar(","))
                                 If Me.RomFound = False Then
-                                    LogEntry(LogType._Info, "Searching " & Me.Name & "." & Trim(OneExt) & " in : " & pRomFolder)
-                                    SearchRom(Me.Name & "." & Trim(OneExt), pRomFolder, pSearchSub)
+                                    LogEntry(LogType._Debug, "{0}", "            Scanning in " & HL3Folder & " with extension : " & RomExt)
+                                    SearchRom(Me.Name & "." & Trim(RomExt), HL3Folder, False) 'HL3 does NOT support subfolders
                                 End If
                             Next
                         End If
+                    Next
+                Else
+                    LogEntry(LogType._Info, "{0}", "EmulatorINI = not found - doing classic search (HS, not HL/RL)")
+                    If pRomFolder = "" Or Extensions = "" Then
+                        LogEntry(LogType._Warning, "{0}", Me.Name & ": No RomFolder or Extension set in HyperHQ and no HL/RL valid config found : aborted")
+                    Else
+                        For Each OneExt As String In Extensions.Split(CChar(","))
+                            If Me.RomFound = False Then
+                                LogEntry(LogType._Debug, "{0}", "Searching " & Me.Name & "." & Trim(OneExt) & " in : " & pRomFolder)
+                                SearchRom(Me.Name & "." & Trim(OneExt), pRomFolder, pSearchSub)
+                            End If
+                        Next
                     End If
+                End If
             Catch ex As Exception
-                LogEntry(LogType._Error, "Function : SearchRom -> " & ex.Message)
+                LogEntry(LogType._Error, "{0}", "Function : SearchRom -> " & ex.Message)
             Finally
                 HL3_INI = Nothing
             End Try

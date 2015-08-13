@@ -124,7 +124,7 @@ Public Class ClsSystem
                 mRomPath = rINI.GetSection("exe info").GetKey("rompath").GetValue()
             Catch ex As Exception
                 If SystemName.ToLower <> "main menu" Then
-                    LogEntry(LogType._Error, "Cannot get default ROM path in " & INIPath & " : Error occured --> " & ex.Message.ToString)
+                    LogEntry(LogType._Error, "{0}", "Cannot get default ROM path in " & INIPath & " : Error occured --> " & ex.Message.ToString)
                 End If
             End Try
 
@@ -132,7 +132,7 @@ Public Class ClsSystem
                 mRomExtensions = rINI.GetSection("exe info").GetKey("romextension").GetValue()
             Catch ex As Exception
                 If SystemName.ToLower <> "main menu" Then
-                    LogEntry(LogType._Error, "Cannot get default ROM Extension in " & INIPath & " : Error occured --> " & ex.Message.ToString)
+                    LogEntry(LogType._Error, "{0}", "Cannot get default ROM Extension in " & INIPath & " : Error occured --> " & ex.Message.ToString)
                 End If
                 mRomExtensions = ""
                 'LogEntry(LogType._Warning, "Setting default extension to ZIP")
@@ -156,7 +156,7 @@ Public Class ClsSystem
         Dim vNODES As XmlNodeList
         vXML = New XmlDocument()
         If File.Exists(Me.XMLPath) = False Then
-            LogEntry(LogType._Error, "Ooops ! " & Me.XMLPath & " is not found, exiting.")
+            LogEntry(LogType._Error, "{0}", "Ooops ! " & Me.XMLPath & " is not found, exiting.")
             Return Nothing
         End If
 
@@ -170,7 +170,7 @@ Public Class ClsSystem
                 i = i + 1
             Next
         Catch ex As Exception
-            LogEntry(LogType._Error, "Loading Systems : Error occured --> " & ex.Message.ToString)
+            LogEntry(LogType._Error, "{0}", "Loading Systems : Error occured --> " & ex.Message.ToString)
         End Try
 
         Return xRoms
@@ -224,7 +224,7 @@ Public Class ClsSystem
                 mRomPath = rINI.GetSection("exe info").GetKey("rompath").GetValue()
             Catch ex As Exception
                 If mName.ToLower <> "main menu" Then
-                    LogEntry(LogType._Error, "Cannot get default ROM path in " & INIPath & " : Error occured --> " & ex.Message.ToString)
+                    LogEntry(LogType._Error, "{0}", "Cannot get default ROM path in " & INIPath & " : Error occured --> " & ex.Message.ToString)
                 End If
             End Try
 
@@ -232,7 +232,7 @@ Public Class ClsSystem
                 mRomExtensions = rINI.GetSection("exe info").GetKey("romextension").GetValue()
             Catch ex As Exception
                 If mName.ToLower <> "main menu" Then
-                    LogEntry(LogType._Error, "Cannot get default ROM Extension in " & INIPath & " : Error occured --> " & ex.Message.ToString)
+                    LogEntry(LogType._Error, "{0}", "Cannot get default ROM Extension in " & INIPath & " : Error occured --> " & ex.Message.ToString)
                 End If
                 mRomExtensions = ""
                 'LogEntry(LogType._Warning, "Setting default extension to ZIP")
@@ -261,23 +261,50 @@ Public Class ClsSystem
         vXML = New XmlDocument()
         If File.Exists(Me.XMLPath) = False Then
             MsgBox("Ooops ! " & Me.XMLPath & " is not found, exiting.", MsgBoxStyle.Critical, "Error")
-            LogEntry(LogType._Error, "Ooops ! " & Me.XMLPath & " is not found, exiting.")
+            LogEntry(LogType._Error, "{0}", "Ooops ! " & Me.XMLPath & " is not found, exiting.")
             'Form1.Close()
             Exit Sub
         End If
 
         Try
             vXML.Load(Me.XMLPath)
-            vNODES = vXML.SelectNodes("menu/game")
-            Dim i As Integer = 0
-            For Each vNode As XmlNode In vNODES
+        Catch ex As Exception
+            LogEntry(LogType._Error, "{0}", "Cannot load : " & Me.XMLPath & " --> ABORDING")
+            Exit Sub
+        End Try
+
+        vNODES = vXML.SelectNodes("menu/game")
+        Dim i As Integer = 0
+        Dim vSysName As String = mName
+        Dim pName As String = ""
+        Dim vError As Integer = 0
+
+        Try
+            If Form1.ProgressBar1.Visible = True And Form1.TabControl1.SelectedTab.Text.ToLower = "cleanup" Then
+                Form1.ProgressBar1.Maximum = vNODES.Count + 1
+                Form1.ProgressBar1.Value = 0
+            End If
+        Catch ex As Exception
+            LogEntry(LogType._Warning, "{0}", ex.Message.ToString)
+            Form1.ProgressBar1.Minimum = 1
+            Form1.ProgressBar1.Maximum = 2
+            Form1.ProgressBar1.Value = 1
+        End Try
+
+        For Each vNode As XmlNode In vNODES
+            Try
                 i = i + 1
+                Try
+                    If Form1.ProgressBar1.Visible = True And Form1.TabControl1.SelectedTab.Text.ToLower = "cleanup" Then
+                        Form1.ProgressBar1.Value = Form1.ProgressBar1.Value + 1
+                    End If
+                Catch ex As Exception
+
+                End Try
 
                 Form1.ToolStripStatusLabel1.Text = "Loading rom " & i.ToString & "/" & vNODES.Count
-                Dim vSysName As String = mName
+                pName = ""
                 Dim vSysEXE As Boolean = False
-
-                Dim pName As String
                 Dim pIndex As Boolean = False
                 Dim pImage As String = ""
                 Dim pDescription As String = ""
@@ -304,6 +331,16 @@ Public Class ClsSystem
                     pImage = vNode.Attributes.GetNamedItem("image").InnerText
                 Catch ex As Exception
                     pImage = ""
+                End Try
+
+                Try
+                    If vNode.Attributes.GetNamedItem("enabled").InnerText = "0" Then
+                        pEnabled = False
+                    Else
+                        pEnabled = True
+                    End If
+                Catch ex As Exception
+                    pEnabled = True
                 End Try
 
                 pName = vNode.Attributes.GetNamedItem("name").InnerText
@@ -334,12 +371,14 @@ Public Class ClsSystem
                             pGenre = vAttribute.InnerText
                         Case "rating"
                             pRating = vAttribute.InnerText
-                        Case "enabled"
-                            If Trim(vAttribute.InnerText).ToLower = "yes" Or Trim(vAttribute.InnerText).ToLower = "" Then
-                                pEnabled = True
-                            Else
-                                pEnabled = False
-                            End If
+                            'Case "enabled"
+                            '    If pEnabled = True Then
+                            '        If Trim(vAttribute.InnerText).ToLower = "yes" Or Trim(vAttribute.InnerText).ToLower = "" Then
+                            '            pEnabled = True
+                            '        Else
+                            '            pEnabled = False
+                            '        End If
+                            '    End If
                         Case Else
                             '
                     End Select
@@ -352,12 +391,17 @@ Public Class ClsSystem
                     Me.Roms.Add(New ClsRom(vSysName, pName, pDescription, mRomPath, mRomExtensions, True, mSearchSubfolders, pIndex, pImage, pYear, pManufacturer, pCloneOf, pCRC, pRating, pGenre, pEnabled))
                 End If
                 Application.DoEvents()
-            Next
-            Form1.ToolStripStatusLabel1.Text = "Loading rom " & i.ToString & "/" & vNODES.Count & " ---> DONE !"
-        Catch ex As Exception
-            Form1.ToolStripStatusLabel1.Text = "Error occured : " & ex.Message.ToString
-            LogEntry(LogType._Error, "Loading Systems : Error occured --> " & ex.Message.ToString)
-        End Try
+            Catch ex As Exception
+                Form1.ToolStripStatusLabel1.Text = "Error occured : " & ex.Message.ToString & " --> Seems rom : " & pName & " is found twice or contains errors ...SKIPPING IT"
+                LogEntry(LogType._Error, "{0}", "Loading Systems : Error occured --> " & ex.Message.ToString)
+                LogEntry(LogType._Error, "{0}", "Seems rom : " & pName & " is found or contains errors ...SKIPPING IT")
+                vError = vError + 1
+            End Try
+        Next
+        Form1.ToolStripStatusLabel1.Text = "Loading rom " & i.ToString & "/" & vNODES.Count & " ---> DONE !"
+        If vError > 0 Then
+            MsgBox("Looks like your XML contains errors, " & vError.ToString & " entries have been skipped ... check the DebugLog", MsgBoxStyle.Critical, "Errors found")
+        End If
     End Sub
 
     Public Property Name As String
@@ -385,8 +429,13 @@ Public Class ClsSystem
         Set(ByVal Value As Boolean)
             mIsEXE = Value
             If Value = True Then
-                gINI.Load(Me.INIPath)
-                mEXEPath = gINI.GetSection("exe info").GetKey("path").GetValue & gINI.GetSection("exe info").GetKey("exe").GetValue
+                Try
+                    gINI.Load(Me.INIPath)
+                    mEXEPath = gINI.GetSection("exe info").GetKey("path").GetValue & gINI.GetSection("exe info").GetKey("exe").GetValue
+                Catch ex As Exception
+                    LogEntry(LogType._Error, "{0}", "Problem while trying to get the EXE path for system " & Me.mName & " (ini=" & Me.INIPath & ") : " & ex.Message.ToString)
+                    mEXEPath = ""
+                End Try
             Else
                 mEXEPath = ""
             End If

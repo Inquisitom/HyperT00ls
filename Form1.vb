@@ -78,6 +78,7 @@ Imports System.Collections
 Imports System.Collections.ObjectModel
 Imports System.Net
 Imports System.Text.RegularExpressions
+Imports System.Reflection
 
 Public Class Form1
     Private fromIndex As Integer
@@ -104,21 +105,91 @@ Public Class Form1
 
         IsLoading = False
         TreeView2.ExpandAll()
+        TreeView3.ExpandAll()
         'SplashScreen1.Close()
         'Application.DoEvents()
 
+        LogEntry(LogType._Info, "{0}", "All systems ready :)")
+        Try
+            MakeGridViewDoubleBuffered(DataGridView1)
+            MakeGridViewDoubleBuffered(DataGridView2)
+            MakeGridViewDoubleBuffered(DataGridView3)
+            MakeGridViewDoubleBuffered(DataGridView4)
+            MakeGridViewDoubleBuffered(DataGridView5)
+        Catch ex As Exception
+            LogEntry(LogType._Warning, "{0}", ex.Message.ToString)
+        End Try
+
+        Try
+            SplitContainer7.SplitterDistance = TreeView3.Height + 15
+            SplitContainer9.SplitterDistance = CheckBox8.Width + 15
+        Catch ex As Exception
+
+        End Try
+
+        Try
+            File.Delete(gDebugLogFile)
+        Catch ex As Exception
+
+        End Try
+        ToolStripLabel3.Text = ""
         Me.Cursor = Cursors.Default
         Me.Visible = True
-        LogEntry(LogType._Info, "All systems ready :)")
         Me.Focus()
     End Sub
 
+    Private Sub Form1_Resize(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Resize
+        Try
+            SplitContainer7.SplitterDistance = TreeView3.Height + 15
+            SplitContainer9.SplitterDistance = CheckBox8.Width + 15
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
     Private Sub LoadSystems()
-        LogEntry(LogType._Info, "Func LoadSystems : reloading Systems in Treeview")
+        LogEntry(LogType._Info, "{0}", "Func LoadSystems : reloading Systems in Treeview")
         gHS = Nothing
         gHS = New clsHyperSpin(gHSPath)
+        Try
+            ComboBox1.Items.Clear()
+        Catch ex As Exception
+            '
+        End Try
         Me.Text = "HyperT00ls v" & Application.ProductVersion
+        Button13.Text = "Crop XML roms found"
+        Button16.Enabled = False
+        Button16.Visible = False
+        Button15.Enabled = False
+        Button15.Visible = False
+        CheckBox4.Enabled = False
+        CheckBox4.Visible = False
+        CheckBox7.Visible = False
+        CheckBox7.Checked = False
+        CheckBox9.Visible = False
+        CheckBox9.Checked = True
 
+        'we check if HyperSpin.exe is older than v1.4 (which handles the enabled tag)
+        Try
+            Dim HSversion As String = GetFileVersionInfo(gHSPath & "\Hyperspin.exe").ToString
+            Label10.Text = "Hyperspin version " & HSversion
+            Dim strAryFileVersion1() As String = Split(HSversion, ".")
+            If strAryFileVersion1(1) > 3 Then
+                gHSOldVersion = False
+                CheckBox7.Visible = True
+                CheckBox7.Enabled = True
+                CheckBox9.Visible = True
+                CheckBox7.Enabled = True
+                Button13.Text = "Disable roms not found"
+                Button15.Visible = True
+                Button16.Visible = True
+                CheckBox4.Enabled = True
+                CheckBox4.Visible = True
+            End If
+        Catch ex As Exception
+            gHSOldVersion = True
+            LogEntry(LogType._Warning, "{0}", ex.Message.ToString)
+        End Try
         'DataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect
 
         TreeView1.Nodes(0).Nodes.Clear()
@@ -127,6 +198,7 @@ Public Class Form1
         For Each Node As ClsSystem In gHS.Systems
             If Node.Name.ToLower <> "main menu" Then
                 If gDisplayAllSystems = True Then
+                    ComboBox1.Items.Add(Node.Name)
                     Dim vTreeNode As New TreeNode
                     vTreeNode.Name = Node.Name
                     vTreeNode.Text = Node.Name
@@ -136,6 +208,7 @@ Public Class Form1
                     TreeView1.Nodes(0).Nodes.Add(vTreeNode)
                 Else
                     If Node.IsEnabled = True Then
+                        ComboBox1.Items.Add(Node.Name)
                         Dim vTreeNode As New TreeNode
                         vTreeNode.Name = Node.Name
                         vTreeNode.Text = Node.Name
@@ -165,7 +238,7 @@ Public Class Form1
 
 #Region "Systems"
     Private Sub FillSystemsDatagrid(ByRef Grid As DataGridView, Optional ByVal LoadFolders As Boolean = False)
-        LogEntry(LogType._Info, "Filling Systems Grid")
+        LogEntry(LogType._Info, "{0}", "Filling Systems Grid")
         'First, clear the grid
         Grid.Rows.Clear()
 
@@ -290,6 +363,12 @@ Public Class Form1
                     col.Visible = True
                 Case "Description"
                     col.Visible = gColDesc
+                Case "Enabled"
+                    If gHSOldVersion = False Then
+                        col.Visible = gColEnabled
+                    Else
+                        col.Visible = False
+                    End If
                 Case "Rom"
                     col.Visible = gCheckRoms
                 Case "Wheel"
@@ -407,15 +486,19 @@ Public Class Form1
         End If
 
         'Enabled
-        'With vRow.Cells(2)
-        '    If vRom.Enabled = True Then
-        '        .Value = True
-        '        '.Style.BackColor = Color.LightGreen
-        '    Else
-        '        .Value = False
-        '        '.Style.BackColor = Color.Red
-        '    End If
-        'End With
+        If gHSOldVersion = False Then
+            If gColEnabled = True Then
+                With vRow.Cells(getColumnIDbyName("ColEnabled", Grid))
+                    If vRom.Enabled = True Then
+                        .Value = True
+                        '.Style.BackColor = Color.LightGreen
+                    Else
+                        .Value = False
+                        '.Style.BackColor = Color.Red
+                    End If
+                End With
+            End If
+        End If
 
         'RomFound
         If gCheckRoms = True Then
@@ -747,15 +830,6 @@ Public Class Form1
 
             'Name
             vRow.Cells(0).Value = vRom.Name.ToString
-            If CheckRoms = True Then
-                If vRom.RomFound = True Then
-                    vRow.Cells(0).Style.BackColor = Color.LightGreen
-                Else
-                    vRow.Cells(0).Style.BackColor = Color.Red
-                    vRow.Cells(0).Style.ForeColor = Color.White
-                End If
-            End If
-
             'Desc
             vRow.Cells(1).Value = vRom.Description.ToString
             'Manufacturer
@@ -768,10 +842,33 @@ Public Class Form1
             vRow.Cells(8).Value = vRom.Enabled
             vRow.Cells(9).Value = vRom.Image.ToString
             vRow.Cells(10).Value = vRom.Index
-
+            If vRom.Enabled = False Then
+                For i = 1 To 10
+                    vRow.Cells(i).Style.BackColor = Color.Gray
+                    vRow.Cells(i).Style.ForeColor = Color.Black
+                Next
+            End If
+            If CheckRoms = True Then
+                If vRom.RomFound = True Then
+                    vRow.Cells(0).Style.BackColor = Color.LightGreen
+                    vRow.Cells(0).Style.ForeColor = Color.Black
+                    vRow.Cells(8).Style.BackColor = Color.LightGreen
+                    vRow.Cells(8).Style.ForeColor = Color.Black
+                Else
+                    vRow.Cells(0).Style.BackColor = Color.Red
+                    vRow.Cells(0).Style.ForeColor = Color.White
+                    vRow.Cells(8).Style.BackColor = Color.Red
+                    vRow.Cells(8).Style.ForeColor = Color.White
+                End If
+            End If
             Grid.Rows.Add(vRow)
         Next
 
+        If gHSOldVersion = True Then
+            Grid.Columns(8).Visible = False
+        Else
+            Grid.Columns(8).Visible = True
+        End If
         Grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
         'ColorizeCells(Grid)
 
@@ -780,6 +877,7 @@ Public Class Form1
         'Grid.ScrollBars = ScrollBars.None
         Grid.ScrollBars = ScrollBars.Both
         Grid.ClearSelection()
+        Grid.Refresh()
     End Sub
 
     Private Sub ColorizeMediaRomsCells(ByVal Grid As DataGridView)
@@ -991,7 +1089,7 @@ Public Class Form1
     End Sub
 
     Private Sub AddNewSystemMedia(ByVal vMediaType As SystemMediaType, ByVal vSystemName As String, ByVal vAddingType As AddingTypes)
-        LogEntry(LogType._Info, "Add System Media : type->" & vMediaType.ToString & ", from->" & vAddingType.ToString & " in " & vSystemName)
+        LogEntry(LogType._Info, "{0}", "Add System Media : type->" & vMediaType.ToString & ", from->" & vAddingType.ToString & " in " & vSystemName)
         Dim openFileDialog1 As New OpenFileDialog()
         Dim DlgFilter As String = ""
         Dim destFolder As String = ""
@@ -1055,18 +1153,18 @@ Public Class Form1
             destFolder = destFolder.Replace("\\", "\")
         End If
 
-        LogEntry(LogType._Info, "         Filter applied = " & DlgFilter)
-        LogEntry(LogType._Info, "         Destination folder = " & destFolder)
-        LogEntry(LogType._Info, "         Fixed FileName = " & FixedName.ToString)
-        LogEntry(LogType._Info, "         Force png format = " & ForcePng.ToString)
+        LogEntry(LogType._Info, "{0}", "         Filter applied = " & DlgFilter)
+        LogEntry(LogType._Info, "{0}", "         Destination folder = " & destFolder)
+        LogEntry(LogType._Info, "{0}", "         Fixed FileName = " & FixedName.ToString)
+        LogEntry(LogType._Info, "{0}", "         Force png format = " & ForcePng.ToString)
         Try
             If Directory.Exists(destFolder) = False Then
                 Directory.CreateDirectory(destFolder)
                 Application.DoEvents()
             End If
         Catch ex As Exception
-            LogEntry(LogType._Error, "Cannot create destination folder (" & destFolder & "): " & ex.Message)
-            LogEntry(LogType._Error, "Abording copy of file ...")
+            LogEntry(LogType._Error, "{0}", "Cannot create destination folder (" & destFolder & "): " & ex.Message)
+            LogEntry(LogType._Error, "{0}", "Abording copy of file ...")
             vEndedOK = False
             Exit Sub
         End Try
@@ -1090,31 +1188,31 @@ Public Class Form1
                                     DestFilename = destFolder & vSystemName & ".png"
                                 End If
 
-                                LogEntry(LogType._Info, "          Complete File destination = " & DestFilename)
+                                LogEntry(LogType._Info, "{0}", "          Complete File destination = " & DestFilename)
                                 Try
                                     Dim todel As Boolean = False
                                     UnloadSystemMediaFromPictureBoxes(DestFilename)
                                     Application.DoEvents()
-                                    LogEntry(LogType._Info, "          Unloading file from Pictures Boxes")
+                                    LogEntry(LogType._Info, "{0}", "          Unloading file from Pictures Boxes")
                                     If File.Exists(DestFilename) = True Then
                                         todel = True
                                     End If
                                     Application.DoEvents()
                                     If todel = True Then
                                         Try
-                                            LogEntry(LogType._Info, "          Deleting " & DestFilename)
+                                            LogEntry(LogType._Info, "{0}", "          Deleting " & DestFilename)
                                             File.Delete(DestFilename)
                                             Application.DoEvents()
                                         Catch ex As Exception
-                                            LogEntry(LogType._Error, "Cannot delete original file. Error: " & ex.Message)
+                                            LogEntry(LogType._Error, "{0}", "Cannot delete original file. Error: " & ex.Message)
                                             ToolStripStatusLabel1.Text = "Cannot delete original file. Error: " & ex.Message
                                         End Try
                                     End If
                                     xx.Save(DestFilename, System.Drawing.Imaging.ImageFormat.Png)
-                                    LogEntry(LogType._Info, "File copied successfully")
+                                    LogEntry(LogType._Info, "{0}", "File copied successfully")
                                 Catch ex As Exception
                                     vEndedOK = False
-                                    LogEntry(LogType._Error, "Cannot copy file. Original error: " & ex.Message)
+                                    LogEntry(LogType._Error, "{0}", "Cannot copy file. Original error: " & ex.Message)
                                     ToolStripStatusLabel1.Text = "Cannot copy file. Original error: " & ex.Message
                                     Exit Sub
                                 End Try
@@ -1124,7 +1222,7 @@ Public Class Form1
                                 Else
                                     DestFilename = destFolder & vSystemName & vExt
                                 End If
-                                LogEntry(LogType._Info, "Complete File destination = " & DestFilename)
+                                LogEntry(LogType._Info, "{0}", "Complete File destination = " & DestFilename)
                                 Try
                                     UnloadSystemMediaFromPictureBoxes(DestFilename)
                                     If File.Exists(DestFilename) = True Then
@@ -1132,10 +1230,10 @@ Public Class Form1
                                         Application.DoEvents()
                                     End If
                                     File.Copy(openFileDialog1.FileName, DestFilename, True)
-                                    LogEntry(LogType._Info, "File copied successfully")
+                                    LogEntry(LogType._Info, "{0}", "File copied successfully")
                                 Catch ex As Exception
                                     vEndedOK = False
-                                    LogEntry(LogType._Error, "Cannot copy file. Original error: " & ex.Message)
+                                    LogEntry(LogType._Error, "{0}", "Cannot copy file. Original error: " & ex.Message)
                                     ToolStripStatusLabel1.Text = "Cannot copy file. Original error: " & ex.Message
                                     Exit Sub
                                 End Try
@@ -1146,7 +1244,7 @@ Public Class Form1
                             Else
                                 DestFilename = destFolder & vSystemName & ".png"
                             End If
-                            LogEntry(LogType._Info, "Complete File destination = " & DestFilename)
+                            LogEntry(LogType._Info, "{0}", "Complete File destination = " & DestFilename)
                             Try
                                 UnloadSystemMediaFromPictureBoxes(DestFilename)
                                 If File.Exists(DestFilename) = True Then
@@ -1154,10 +1252,10 @@ Public Class Form1
                                     Application.DoEvents()
                                 End If
                                 File.Copy(openFileDialog1.FileName, DestFilename, True)
-                                LogEntry(LogType._Info, "File copied successfully")
+                                LogEntry(LogType._Info, "{0}", "File copied successfully")
                             Catch ex As Exception
                                 vEndedOK = False
-                                LogEntry(LogType._Error, "Cannot copy file. Original error: " & ex.Message)
+                                LogEntry(LogType._Error, "{0}", "Cannot copy file. Original error: " & ex.Message)
                                 ToolStripStatusLabel1.Text = "Cannot copy file. Original error: " & ex.Message
                                 Exit Sub
                             End Try
@@ -1168,7 +1266,7 @@ Public Class Form1
                             Dim xx As Image = Image.FromFile(openFileDialog1.FileName)
                             Dim tempFile As String = Path.GetFileNameWithoutExtension(openFileDialog1.FileName)
                             DestFilename = destFolder & tempFile & ".png"
-                            LogEntry(LogType._Info, "Complete File destination = " & DestFilename)
+                            LogEntry(LogType._Info, "{0}", "Complete File destination = " & DestFilename)
                             Try
                                 UnloadSystemMediaFromPictureBoxes(DestFilename)
                                 If File.Exists(DestFilename) = True Then
@@ -1176,16 +1274,16 @@ Public Class Form1
                                     Application.DoEvents()
                                 End If
                                 xx.Save(DestFilename, System.Drawing.Imaging.ImageFormat.Png)
-                                LogEntry(LogType._Info, "File copied successfully")
+                                LogEntry(LogType._Info, "{0}", "File copied successfully")
                             Catch ex As Exception
                                 vEndedOK = False
-                                LogEntry(LogType._Error, "Cannot copy file. Original error: " & ex.Message)
+                                LogEntry(LogType._Error, "{0}", "Cannot copy file. Original error: " & ex.Message)
                                 ToolStripStatusLabel1.Text = "Cannot copy file. Original error: " & ex.Message
                                 Exit Sub
                             End Try
                         Else
                             DestFilename = destFolder & Path.GetFileName(openFileDialog1.FileName).ToLower
-                            LogEntry(LogType._Info, "Complete File destination = " & DestFilename)
+                            LogEntry(LogType._Info, "{0}", "Complete File destination = " & DestFilename)
                             Try
                                 UnloadSystemMediaFromPictureBoxes(DestFilename)
                                 If File.Exists(DestFilename) = True Then
@@ -1193,10 +1291,10 @@ Public Class Form1
                                     Application.DoEvents()
                                 End If
                                 File.Copy(openFileDialog1.FileName, DestFilename, True)
-                                LogEntry(LogType._Info, "File copied successfully")
+                                LogEntry(LogType._Info, "{0}", "File copied successfully")
                             Catch ex As Exception
                                 vEndedOK = False
-                                LogEntry(LogType._Error, "Cannot copy file. Original error: " & ex.Message)
+                                LogEntry(LogType._Error, "{0}", "Cannot copy file. Original error: " & ex.Message)
                                 ToolStripStatusLabel1.Text = "Cannot copy file. Original error: " & ex.Message
                                 Exit Sub
                             End Try
@@ -1218,22 +1316,22 @@ Public Class Form1
                         End If
                     End If
                     Try
-                        LogEntry(LogType._Info, "Complete File destination = " & DestFilename)
+                        LogEntry(LogType._Info, "{0}", "Complete File destination = " & DestFilename)
                         UnloadSystemMediaFromPictureBoxes(DestFilename)
                         If File.Exists(DestFilename) = True Then
                             File.Delete(DestFilename)
                             Application.DoEvents()
                         End If
                         Clipboard.GetImage.Save(DestFilename, System.Drawing.Imaging.ImageFormat.Png)
-                        LogEntry(LogType._Info, "File copied successfully")
+                        LogEntry(LogType._Info, "{0}", "File copied successfully")
                     Catch ex As Exception
                         vEndedOK = False
-                        LogEntry(LogType._Error, "Cannot copy file. Original error: " & ex.Message)
+                        LogEntry(LogType._Error, "{0}", "Cannot copy file. Original error: " & ex.Message)
                         ToolStripStatusLabel1.Text = "Cannot copy file. Original error: " & ex.Message
                     End Try
                 Else
                     vEndedOK = False
-                    LogEntry(LogType._Error, "Looks like clipboard does NOT contain an image, please retry.")
+                    LogEntry(LogType._Error, "{0}", "Looks like clipboard does NOT contain an image, please retry.")
                     ToolStripStatusLabel1.Text = "Looks like clipboard does NOT contain an image, please retry."
                 End If
             Case AddingTypes.FromURL
@@ -1254,7 +1352,7 @@ Public Class Form1
                         If ForcePng = True Then
                             Dim vTmp As String = Path.GetTempPath & vFileName
                             DestFilename = destFolder & vSystemName & ".png"
-                            LogEntry(LogType._Info, "Complete File destination = " & DestFilename)
+                            LogEntry(LogType._Info, "{0}", "Complete File destination = " & DestFilename)
                             Try
                                 If Path.GetExtension(vFileName).ToLower = ".png" Then
                                     UnloadSystemMediaFromPictureBoxes(DestFilename)
@@ -1263,7 +1361,7 @@ Public Class Form1
                                         Application.DoEvents()
                                     End If
                                     web_client.DownloadFile(vURL, DestFilename)
-                                    LogEntry(LogType._Info, "File copied successfully")
+                                    LogEntry(LogType._Info, "{0}", "File copied successfully")
                                 Else
                                     UnloadSystemMediaFromPictureBoxes(DestFilename)
                                     web_client.DownloadFile(vURL, vTmp)
@@ -1273,14 +1371,14 @@ Public Class Form1
                                         Application.DoEvents()
                                     End If
                                     vImg.Save(DestFilename, System.Drawing.Imaging.ImageFormat.Png)
-                                    LogEntry(LogType._Info, "File copied successfully")
+                                    LogEntry(LogType._Info, "{0}", "File copied successfully")
                                 End If
                             Catch ex As Exception
                                 web_client.CancelAsync()
                                 web_client = Nothing
                                 File.Delete(vTmp)
                                 vEndedOK = False
-                                LogEntry(LogType._Error, "Cannot download/copy file. Original error: " & ex.Message)
+                                LogEntry(LogType._Error, "{0}", "Cannot download/copy file. Original error: " & ex.Message)
                                 ToolStripStatusLabel1.Text = "Cannot download/copy file. Original error: " & ex.Message
                                 Me.Cursor = Cursors.Default
                                 Exit Sub
@@ -1288,19 +1386,19 @@ Public Class Form1
                         Else
                             Try
                                 DestFilename = destFolder & vSystemName & Path.GetExtension(vFileName)
-                                LogEntry(LogType._Info, "Complete File destination = " & DestFilename)
+                                LogEntry(LogType._Info, "{0}", "Complete File destination = " & DestFilename)
                                 UnloadSystemMediaFromPictureBoxes(DestFilename)
                                 If File.Exists(DestFilename) = True Then
                                     File.Delete(DestFilename)
                                     Application.DoEvents()
                                 End If
                                 web_client.DownloadFile(vURL, DestFilename)
-                                LogEntry(LogType._Info, "File copied successfully")
+                                LogEntry(LogType._Info, "{0}", "File copied successfully")
                             Catch ex As Exception
                                 web_client.CancelAsync()
                                 web_client = Nothing
                                 vEndedOK = False
-                                LogEntry(LogType._Error, "Cannot download/copy file. Original error: " & ex.Message)
+                                LogEntry(LogType._Error, "{0}", "Cannot download/copy file. Original error: " & ex.Message)
                                 ToolStripStatusLabel1.Text = "Cannot download/copy file. Original error: " & ex.Message
                                 Me.Cursor = Cursors.Default
                                 Exit Sub
@@ -1308,7 +1406,7 @@ Public Class Form1
                         End If
                     Else
                         DestFilename = destFolder & vFileName
-                        LogEntry(LogType._Info, "Complete File destination = " & DestFilename)
+                        LogEntry(LogType._Info, "{0}", "Complete File destination = " & DestFilename)
                         UnloadSystemMediaFromPictureBoxes(DestFilename)
                         Try
                             If File.Exists(DestFilename) = True Then
@@ -1316,10 +1414,10 @@ Public Class Form1
                                 Application.DoEvents()
                             End If
                             web_client.DownloadFile(vURL, DestFilename)
-                            LogEntry(LogType._Info, "File copied successfully")
+                            LogEntry(LogType._Info, "{0}", "File copied successfully")
                         Catch ex As Exception
                             vEndedOK = False
-                            LogEntry(LogType._Error, "Cannot download/copy file. Original error: " & ex.Message)
+                            LogEntry(LogType._Error, "{0}", "Cannot download/copy file. Original error: " & ex.Message)
                             ToolStripStatusLabel1.Text = "Cannot download/copy file. Original error: " & ex.Message
                             Me.Cursor = Cursors.Default
                             Exit Sub
@@ -1327,7 +1425,7 @@ Public Class Form1
                     End If
                 Catch ex As Exception
                     vEndedOK = False
-                    LogEntry(LogType._Error, "Cannot download/copy file. Original error: " & ex.Message)
+                    LogEntry(LogType._Error, "{0}", "Cannot download/copy file. Original error: " & ex.Message)
                     ToolStripStatusLabel1.Text = "Cannot download/copy file. Original error: " & ex.Message
                     Me.Cursor = Cursors.Default
                 End Try
@@ -1353,6 +1451,12 @@ Public Class Form1
     End Sub
 #End Region
 
+    Public Sub MakeGridViewDoubleBuffered(ByVal dgv As DataGridView)
+        Dim dgvType As Type = dgv.[GetType]()
+        Dim pi As PropertyInfo = dgvType.GetProperty("DoubleBuffered", BindingFlags.Instance Or BindingFlags.NonPublic)
+        pi.SetValue(dgv, True, Nothing)
+    End Sub
+
     Private Sub ToolStripButton1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripButton1.Click
         LoadFULLSystem(TreeView1.SelectedNode.Text)
     End Sub
@@ -1370,13 +1474,17 @@ Public Class Form1
         Try
             Dim psi As New ProcessStartInfo
             Dim p As New Process
-            psi.FileName = gHLPath & "\HyperLaunch.exe"
+            If File.Exists(gHLPath & "\RocketLauncher.exe") Then
+                psi.FileName = gHLPath & "\RocketLauncher.exe"
+            Else
+                psi.FileName = gHLPath & "\HyperLaunch.exe"
+            End If
             psi.Arguments = """" & vSystem & """ """ & vRom & """"
-            LogEntry(LogType._Info, "Launching : " & psi.FileName & " with arguments: " & psi.Arguments)
+            LogEntry(LogType._Info, "{0}", "Launching : " & psi.FileName & " with arguments: " & psi.Arguments)
             p.StartInfo = psi
             p.Start()
         Catch ex As Exception
-            LogEntry(LogType._Info, "Error: cannot launch " & vRom & " in System:" & vSystem & " ! -> " & ex.Message)
+            LogEntry(LogType._Info, "{0}", "Error: cannot launch " & vRom & " in System:" & vSystem & " ! -> " & ex.Message)
         End Try
     End Sub
 
@@ -1663,7 +1771,7 @@ Public Class Form1
                     ToolStripButton10.Enabled = False
                 End If
             Catch ex As Exception
-                LogEntry(LogType._Error, "Error: " & ex.Message)
+                LogEntry(LogType._Error, "{0}", "Error: " & ex.Message)
                 TreeViewMedia.Nodes.Clear()
                 WBMedia.Navigate("")
                 PictureBox11.Image = Nothing
@@ -1726,6 +1834,7 @@ Public Class Form1
                     DeleteSelectedFileToolStripMenuItem.Enabled = False
                     OpenToolStripMenuItem.Enabled = False
                     OpenContainingFolderToolStripMenuItem.Enabled = False
+                    LogEntry(LogType._Warning, "{0}", ex.Message.ToString)
                 End Try
                 TreeViewMedia.ContextMenuStrip.Show(TreeViewMedia, New Point(e.X, e.Y))
             End If
@@ -1741,7 +1850,7 @@ Public Class Form1
             p.StartInfo = psi
             p.Start()
         Catch ex As Exception
-            LogEntry(LogType._Error, "Error: " & ex.Message)
+            LogEntry(LogType._Error, "{0}", "Error: " & ex.Message)
         End Try
     End Sub
 
@@ -1759,11 +1868,11 @@ Public Class Form1
         TreeviewSystems.Nodes.Clear()
         '        If IsLoading = False Then
         'If DataGridView2.Enabled = True Then
-        Try
+        If DataGridView2.SelectedRows.Count > 0 Then
             CurrentSystem = DataGridView2.SelectedRows.Item(0).Cells(0).Value
-        Catch ex As Exception
+        Else
             Exit Sub
-        End Try
+        End If
 
         'WHEEL
         Try
@@ -1779,6 +1888,7 @@ Public Class Form1
                 PictureBox15.Image = Nothing
             End If
         Catch ex As Exception
+            LogEntry(LogType._Warning, "{0}", "Catch2: " & ex.Message.ToString)
             PictureBox15.Image = Nothing
         End Try
 
@@ -1794,6 +1904,7 @@ Public Class Form1
                 PictureBox14.Image = Nothing
             End If
         Catch ex As Exception
+            LogEntry(LogType._Warning, "{0}", "Catch3: " & ex.Message.ToString)
             PictureBox14.Image = Nothing
         End Try
 
@@ -1809,6 +1920,7 @@ Public Class Form1
                 PictureBox13.Image = Nothing
             End If
         Catch ex As Exception
+            LogEntry(LogType._Warning, "{0}", "Catch4: " & ex.Message.ToString)
             PictureBox13.Image = Nothing
         End Try
 
@@ -1825,6 +1937,7 @@ Public Class Form1
                 PictureBox12.Image = Nothing
             End If
         Catch ex As Exception
+            LogEntry(LogType._Warning, "{0}", "Catch5: " & ex.Message.ToString)
             PictureBox12.Image = Nothing
         End Try
 
@@ -1913,7 +2026,7 @@ Public Class Form1
                 TreeviewSystems.Nodes.Add(rootNode)
                 TreeviewSystems.ExpandAll()
             Catch ex As Exception
-                LogEntry(LogType._Error, "Error: " & ex.Message)
+                LogEntry(LogType._Error, "{0}", "Catch6: " & "Error: " & ex.Message)
                 TreeviewSystems.Nodes.Clear()
                 WBSystems.Navigate("")
                 PictureBox16.Image = Nothing
@@ -1944,13 +2057,24 @@ Public Class Form1
             Try
                 objWriter.WriteLine("<menu>")
                 For Each vRow As DataGridViewRow In DataGridView2.Rows
-                    If vRow.Cells(7).Value = False Then
+                    Dim Line As String = "  <game name=""" & EncodeForXml(vRow.Cells(0).Value) & """"
+                    If vRow.Cells(1).Value = True Then '
+                        Line = Line & " enabled=""1""" 'enabled
+                    Else
+                        Line = Line & " enabled=""0""" 'disabled
+                    End If
+                    If vRow.Cells(7).Value = True Then '
+                        Line = Line & " exe=""true"""
+                    End If
+                    Line = Line & "/>"
+                    If gHSOldVersion = True Then
                         If vRow.Cells(1).Value = True Then
-                            objWriter.WriteLine("  <game name=""" & EncodeForXml(vRow.Cells(0).Value) & """/>")
+                            objWriter.WriteLine(Line)
                         End If
                     Else
-                        If vRow.Cells(1).Value = True Then
-                            objWriter.WriteLine("  <game name=""" & EncodeForXml(vRow.Cells(0).Value) & """ exe=""true""/>")
+                        'HS1.4+
+                        If Not (vRow.Cells(1).Value = False And CheckBox4.Checked = False) Then 'disabled, and do not keep systems
+                            objWriter.WriteLine(Line)
                         End If
                     End If
                 Next
@@ -1960,7 +2084,8 @@ Public Class Form1
                 '</menu>
             Catch ex As Exception
                 ToolStripStatusLabel1.Text = ex.Message.ToString
-                LogEntry(LogType._Error, "Warning, error in writing Mail Menu.xml !")
+                LogEntry(LogType._Error, "{0}", "Warning, error in writing Mail Menu.xml !")
+                LogEntry(LogType._Warning, "{0}", ex.Message.ToString)
             Finally
                 objWriter.Close()
                 ToolStripStatusLabel1.Text = """Main Menu.xml"" backuped, and new changes applied."
@@ -1982,7 +2107,7 @@ Public Class Form1
                 End If
             End If
         Catch ex As Exception
-
+            'LogEntry(LogType._Warning, "{0}", ex.Message.ToString)
         End Try
 
         If ToolStripLabel1.Text <> e.Node.Text Then
@@ -2013,7 +2138,7 @@ Public Class Form1
 
                 End If
             Catch ex As Exception
-
+                LogEntry(LogType._Warning, "{0}", ex.Message.ToString)
             End Try
         End If
 
@@ -2025,6 +2150,7 @@ Public Class Form1
     Private Sub ToolStripButton6_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripButton6.Click
         'If MsgBox("Are you sure ?", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
         If ToolStripLabel2.Text <> "" And ToolStripLabel2.Text <> "Systems" And ToolStripLabel2.Text <> "System" Then
+            ToolStripLabel3.Text = ""
             DataGridView4.CommitEdit(DataGridViewDataErrorContexts.Commit)
             Dim vTime As String = Date.Now.ToString("yyyy-MM-dd_HH-mm-ss")
             Dim vDate As String = Date.Now.ToString("MM/dd/yyyy")
@@ -2051,98 +2177,100 @@ Public Class Form1
                 objWriter.WriteLine("  </header>")
                 For Each vRow As DataGridViewRow In DataGridView4.Rows
                     If vRow.Cells(0).Value <> "" Then
-                        Dim vAdd As String = ""
-                        'index="true" image="'"
-                        If vRow.Cells(10).Value = True Then
-                            vAdd = " index=""true"""
+                        If gHSOldVersion = True And vRow.Cells(8).Value = False Then
+                            'we do nothing because disabling a rom in HSv1.3 or less means deleting the entry in the XML
                         Else
-                            vAdd = " index="""""
+                            Dim vAdd As String = ""
+                            'index="true" image="'"
+                            If vRow.Cells(10).Value = True Then
+                                vAdd = " index=""true"""
+                            Else
+                                vAdd = " index="""""
+                            End If
+                            If vRow.Cells(9).Value <> "" Then
+                                vAdd = vAdd & " image=""" & vRow.Cells(9).Value.ToString & """"
+                            Else
+                                vAdd = vAdd & " image="""""
+                            End If
+                            If vRow.Cells(8).Value = False Then
+                                vAdd = vAdd & " enabled=""0""" 'disabled
+                            Else
+                                vAdd = vAdd & " enabled=""1""" 'enabled
+                            End If
+
+                            'Game name
+                            Dim vVal As String = ""
+                            Try
+                                vVal = EncodeForXml(vRow.Cells(0).Value.ToString)
+                            Catch ex As Exception
+                                vVal = ""
+                            Finally
+                                objWriter.WriteLine("  <game name=""" & vVal & """" & vAdd & ">")
+                            End Try
+
+                            'Description
+                            Try
+                                vVal = EncodeForXml(vRow.Cells(1).Value.ToString)
+                            Catch ex As Exception
+                                vVal = ""
+                            Finally
+                                objWriter.WriteLine("    <description>" & vVal & "</description>")
+                            End Try
+
+                            Try
+                                vVal = vRow.Cells(7).Value.ToString
+                            Catch ex As Exception
+                                vVal = ""
+                            Finally
+                                objWriter.WriteLine("    <cloneof>" & vVal & "</cloneof>")
+                            End Try
+
+
+                            Try
+                                vVal = vRow.Cells(6).Value.ToString
+                            Catch ex As Exception
+                                vVal = ""
+                            Finally
+                                objWriter.WriteLine("    <crc>" & vVal & "</crc>")
+                            End Try
+
+
+                            Try
+                                vVal = EncodeForXml(vRow.Cells(2).Value.ToString)
+                            Catch ex As Exception
+                                vVal = ""
+                            Finally
+                                objWriter.WriteLine("    <manufacturer>" & vVal & "</manufacturer>")
+                            End Try
+
+
+                            Try
+                                vVal = EncodeForXml(vRow.Cells(5).Value.ToString)
+                            Catch ex As Exception
+                                vVal = ""
+                            Finally
+                                objWriter.WriteLine("    <rating>" & vVal & "</rating>")
+                            End Try
+
+
+                            Try
+                                vVal = EncodeForXml(vRow.Cells(3).Value.ToString)
+                            Catch ex As Exception
+                                vVal = ""
+                            Finally
+                                objWriter.WriteLine("    <year>" & vVal & "</year>")
+                            End Try
+
+
+                            Try
+                                vVal = EncodeForXml(vRow.Cells(4).Value.ToString)
+                            Catch ex As Exception
+                                vVal = ""
+                            Finally
+                                objWriter.WriteLine("    <genre>" & vVal & "</genre>")
+                            End Try
+                            objWriter.WriteLine("  </game>")
                         End If
-                        If vRow.Cells(9).Value <> "" Then
-                            vAdd = vAdd & " image=""" & vRow.Cells(9).Value.ToString & """"
-                        Else
-                            vAdd = vAdd & " image="""""
-                        End If
-
-                        'Game name
-                        Dim vVal As String = ""
-                        Try
-                            vVal = EncodeForXml(vRow.Cells(0).Value.ToString)
-                        Catch ex As Exception
-                            vVal = ""
-                        Finally
-                            objWriter.WriteLine("  <game name=""" & vVal & """" & vAdd & ">")
-                        End Try
-
-                        'Description
-                        Try
-                            vVal = EncodeForXml(vRow.Cells(1).Value.ToString)
-                        Catch ex As Exception
-                            vVal = ""
-                        Finally
-                            objWriter.WriteLine("    <description>" & vVal & "</description>")
-                        End Try
-
-                        Try
-                            vVal = vRow.Cells(7).Value.ToString
-                        Catch ex As Exception
-                            vVal = ""
-                        Finally
-                            objWriter.WriteLine("    <cloneof>" & vVal & "</cloneof>")
-                        End Try
-
-
-                        Try
-                            vVal = vRow.Cells(6).Value.ToString
-                        Catch ex As Exception
-                            vVal = ""
-                        Finally
-                            objWriter.WriteLine("    <crc>" & vVal & "</crc>")
-                        End Try
-
-
-                        Try
-                            vVal = EncodeForXml(vRow.Cells(2).Value.ToString)
-                        Catch ex As Exception
-                            vVal = ""
-                        Finally
-                            objWriter.WriteLine("    <manufacturer>" & vVal & "</manufacturer>")
-                        End Try
-
-
-                        Try
-                            vVal = EncodeForXml(vRow.Cells(5).Value.ToString)
-                        Catch ex As Exception
-                            vVal = ""
-                        Finally
-                            objWriter.WriteLine("    <rating>" & vVal & "</rating>")
-                        End Try
-
-
-                        Try
-                            vVal = EncodeForXml(vRow.Cells(3).Value.ToString)
-                        Catch ex As Exception
-                            vVal = ""
-                        Finally
-                            objWriter.WriteLine("    <year>" & vVal & "</year>")
-                        End Try
-
-
-                        Try
-                            vVal = EncodeForXml(vRow.Cells(4).Value.ToString)
-                        Catch ex As Exception
-                            vVal = ""
-                        Finally
-                            objWriter.WriteLine("    <genre>" & vVal & "</genre>")
-                        End Try
-
-
-                        If vRow.Cells(8).Value = False Then
-                            objWriter.WriteLine("    <enabled>No</enabled>")
-                        Else
-                            objWriter.WriteLine("    <enabled>Yes</enabled>")
-                        End If
-                        objWriter.WriteLine("  </game>")
                     End If
                 Next
                 objWriter.WriteLine("</menu>")
@@ -2163,6 +2291,7 @@ Public Class Form1
                 '(...)
                 '</menu>
             Catch ex As Exception
+                LogEntry(LogType._Warning, "{0}", ex.Message.ToString)
                 ToolStripStatusLabel1.Text = ex.Message.ToString
             Finally
                 objWriter.Close()
@@ -2208,7 +2337,7 @@ Public Class Form1
         Try
             Process.Start(gHS.HSRootPath & "\Hyperspin.exe")
         Catch ex As Exception
-            LogEntry(LogType._Error, "Cannot launch " & gHS.HSRootPath & "\Hyperspin.exe : " & ex.Message.ToString)
+            LogEntry(LogType._Error, "{0}", "Cannot launch " & gHS.HSRootPath & "\Hyperspin.exe : " & ex.Message.ToString)
         End Try
     End Sub
 
@@ -2217,7 +2346,7 @@ Public Class Form1
         Try
             Process.Start(gHLPath & "\HyperLaunchHQ\HyperLaunchHQ.exe")
         Catch ex As Exception
-            LogEntry(LogType._Error, "Cannot launch " & gHLPath & "\HyperLaunchHQ\HyperLaunchHQ.exe : " & ex.Message.ToString)
+            LogEntry(LogType._Error, "{0}", "Cannot launch " & gHLPath & "\HyperLaunchHQ\HyperLaunchHQ.exe : " & ex.Message.ToString)
         End Try
     End Sub
 
@@ -2226,21 +2355,26 @@ Public Class Form1
         Try
             Process.Start(gHS.HSRootPath & "\HyperHQ.exe")
         Catch ex As Exception
-            LogEntry(LogType._Error, "Cannot launch " & gHS.HSRootPath & "\HyperHQ.exe here : " & ex.Message.ToString)
+            LogEntry(LogType._Error, "{0}", "Cannot launch " & gHS.HSRootPath & "\HyperHQ.exe here : " & ex.Message.ToString)
         End Try
     End Sub
 
     'delete xml entry
     Private Sub Button7_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button7.Click
-        Try
-            DataGridView4.Rows.RemoveAt(DataGridView4.SelectedCells(0).RowIndex)
-            DataGridView4.CommitEdit(DataGridViewDataErrorContexts.RowDeletion)
-            Label1.Text = "DO NOT FORGET TO SAVE !"
-            'Call ToolStripButton6.PerformClick()
-        Catch ex As Exception
-            LogEntry(LogType._Error, ex.Message.ToString)
-        End Try
-
+        If DataGridView4.SelectedRows.Count > 0 Then
+            For Each vRow In DataGridView4.SelectedRows
+                Try
+                    LogEntry(LogType._Info, "{0}", "Deleting XML rom entry : " & vRow.Cells(0).Value.ToString)
+                    DataGridView4.Rows.Remove(vRow)
+                    Application.DoEvents()
+                Catch ex As Exception
+                    LogEntry(LogType._Warning, "{0}", ex.Message.ToString)
+                End Try
+            Next
+        End If
+        DataGridView4.CommitEdit(DataGridViewDataErrorContexts.RowDeletion)
+        Label1.Text = "DO NOT FORGET TO SAVE !"
+        'Call ToolStripButton6.PerformClick()
     End Sub
 
     'Choose HyperSpin Path
@@ -2252,9 +2386,17 @@ Public Class Form1
             Try
                 gHSPath = GetHSPath.SelectedPath
                 TextBox2.Text = gHSPath
+                gHLPath = ""
+                TextBox3.Text = gHLPath
             Catch Ex As Exception
+                LogEntry(LogType._Warning, "{0}", Ex.Message.ToString)
             Finally
                 SaveHyperT00lsParameters()
+                DataGridView1.Rows.Clear()
+                DataGridView4.Rows.Clear()
+                'DataGridView3.Rows.Clear()
+                UnloadMediaFromPictureBoxes()
+                UnloadSystemMediaFromPictureBoxes()
             End Try
         End If
 
@@ -2331,7 +2473,7 @@ Public Class Form1
                     vErrors = vErrors & vbCrLf & "Please CORRECT this using HyperHQ"
                 End If
                 If vErrors <> "" Then
-                    LogEntry(LogType._Error, "Error occured while searching --> " & vErrors)
+                    LogEntry(LogType._Error, "{0}", "Error occured while searching --> " & vErrors)
                     'MsgBox(vErrors, MsgBoxStyle.Critical, "Errors")
                     Label1.Text = vErrors
                     Cursor = Cursors.Default
@@ -2359,7 +2501,7 @@ Public Class Form1
                                 'ListBox1.Items.Remove(item)
                             End If
                         Catch ex As Exception
-
+                            LogEntry(LogType._Warning, "{0}", ex.Message.ToString)
                         End Try
                     Next
                 Next
@@ -2401,7 +2543,7 @@ Public Class Form1
                     GetFiles(strFileFilter, fDirectory.FullName, intDepthLimit, intCurrentDepth + 1)
                 Next
             Catch ex As Exception
-                LogEntry(LogType._Error, "Error occured while searching (Dir=" & vCurrDir & ", Filter=" & strFileFilter & ")--> " & ex.Message.ToString)
+                LogEntry(LogType._Error, "{0}", "Error occured while searching (Dir=" & vCurrDir & ", Filter=" & strFileFilter & ")--> " & ex.Message.ToString)
                 StatusStrip1.Text = Trim(ex.Message.ToString)
                 'MsgBox("Error during scan ... check LogViewer", MsgBoxStyle.Critical, "Error")
                 Exit Sub
@@ -2445,7 +2587,7 @@ Public Class Form1
                 Next
             Next
         Catch ex As Exception
-            LogEntry(LogType._Error, "Error occured while processing --> " & ex.Message.ToString)
+            LogEntry(LogType._Error, "{0}", "Error occured while processing --> " & ex.Message.ToString)
         Finally
             ListBox1.Items.Add("Found " & vResult.ToString & " duplicate roms (highlighted in orange in the list)")
             If vDoublons <> "" Then
@@ -2467,18 +2609,40 @@ Public Class Form1
     Private Sub Button2_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
         Label1.Text = "Info :"
         Try
-            Dim rowID As Integer = DataGridView4.Rows.Add()
+            Dim rowID As Integer
             Dim xx As String = Path.GetFileNameWithoutExtension(ListBox1.SelectedItems(0).ToString)
-            DataGridView4.Rows(rowID).Cells(0).Value = xx
-            DataGridView4.Rows(rowID).Cells(1).Value = xx
-            DataGridView4.Rows(rowID).Cells(8).Value = True
-            DataGridView4.CommitEdit(DataGridViewDataErrorContexts.Commit)
+            Dim vIsAlreadyThere As Boolean = False
+            For Each vRow As DataGridViewRow In DataGridView4.Rows
+                Try
+                    If vRow.Cells(0).Value.ToString = xx Then
+                        vIsAlreadyThere = True
+                        LogEntry(LogType._Info, "{0}", "Rom : " & xx & " is already existing in your XML - skipping")
+                        ToolStripStatusLabel1.Text = "Rom : " & xx & " is already existing in your XML - skipping"
+                        Exit Try
+                    End If
+                Catch ex As Exception
+                    'reached last line
+                End Try
+            Next
+            If vIsAlreadyThere = False Then
+                rowID = DataGridView4.Rows.Add()
+                DataGridView4.Rows(rowID).Cells(0).Value = xx
+                DataGridView4.Rows(rowID).Cells(1).Value = xx
+                Try
+                    DataGridView4.Rows(rowID).Cells(8).Value = True
+                Catch ex As Exception
+
+                End Try
+                DataGridView4.CommitEdit(DataGridViewDataErrorContexts.Commit)
+                DataGridView4.Refresh()
+            End If
             Label1.Text = "Warning ! DO NOT FORGET TO SAVE !"
             DataGridView4.ClearSelection()
             DataGridView4.Rows(rowID).Cells(0).Selected = True
+            DataGridView4.FirstDisplayedScrollingRowIndex = rowID
             'Call ToolStripButton6.PerformClick()
         Catch ex As Exception
-            LogEntry(LogType._Error, ex.Message.ToString)
+            LogEntry(LogType._Error, "{0}", ex.Message.ToString)
         End Try
     End Sub
 
@@ -2489,22 +2653,42 @@ Public Class Form1
 
         Try
             For Each vEntry As String In ListBox1.Items
-                Dim rowID As Integer = DataGridView4.Rows.Add()
-                If vFirstRow = -1 Then
-                    vFirstRow = rowID
-                End If
+                Dim vIsAlreadyThere As Boolean = False
                 Dim xx As String = Path.GetFileNameWithoutExtension(vEntry)
-                DataGridView4.Rows(rowID).Cells(0).Value = xx
-                DataGridView4.Rows(rowID).Cells(1).Value = xx
-                DataGridView4.Rows(rowID).Cells(8).Value = True
-                Label1.Text = "Warning ! DO NOT FORGET TO SAVE !"
-                'Call ToolStripButton6.PerformClick()
+                For Each vRow As DataGridViewRow In DataGridView4.Rows
+                    Try
+                        If vRow.Cells(0).Value.ToString = xx Then
+                            vIsAlreadyThere = True
+                            LogEntry(LogType._Info, "{0}", "Rom : " & xx & " is already existing in your XML - skipping")
+                            ToolStripStatusLabel1.Text = "Rom : " & xx & " is already existing in your XML - skipping"
+                        End If
+                    Catch ex As Exception
+                        'Reached last line
+                    End Try
+                Next
+                If vIsAlreadyThere = False Then
+                    Dim rowID As Integer = DataGridView4.Rows.Add()
+                    If vFirstRow = -1 Then
+                        vFirstRow = rowID
+                    End If
+
+                    DataGridView4.Rows(rowID).Cells(0).Value = xx
+                    DataGridView4.Rows(rowID).Cells(1).Value = xx
+                    Try
+                        DataGridView4.Rows(rowID).Cells(8).Value = True
+                    Catch ex As Exception
+
+                    End Try
+                End If
             Next
+            Label1.Text = "Warning ! DO NOT FORGET TO SAVE !"
             DataGridView4.CommitEdit(DataGridViewDataErrorContexts.Commit)
+            'DataGridView4.Refresh()
             DataGridView4.ClearSelection()
             DataGridView4.Rows(vFirstRow).Cells(0).Selected = True
+            DataGridView4.FirstDisplayedScrollingRowIndex = vFirstRow
         Catch ex As Exception
-            LogEntry(LogType._Error, ex.Message.ToString)
+            LogEntry(LogType._Error, "{0}", ex.Message.ToString)
         End Try
     End Sub
 
@@ -2521,11 +2705,11 @@ Public Class Form1
                 p.StartInfo = psi
                 p.Start()
             Catch ex As Exception
-                LogEntry(LogType._Error, "Error: " & ex.Message)
+                LogEntry(LogType._Error, "{0}", "Error: " & ex.Message)
             End Try
         Else
             MsgBox("File : " & TreeViewMedia.SelectedNode.Tag & vbCrLf & "Not found !", MsgBoxStyle.Critical, "Error")
-            LogEntry(LogType._Warning, "File : " & TreeViewMedia.SelectedNode.Tag & vbCrLf & "Not found !")
+            LogEntry(LogType._Warning, "{0}", "File : " & TreeViewMedia.SelectedNode.Tag & vbCrLf & "Not found !")
         End If
     End Sub
 
@@ -2545,11 +2729,11 @@ Public Class Form1
                     vRow.Selected = True
                 End If
             Catch ex As Exception
-                LogEntry(LogType._Error, "Error: " & ex.Message)
+                LogEntry(LogType._Error, "{0}", "Error: " & ex.Message)
             End Try
         Else
             MsgBox("File : " & TreeViewMedia.SelectedNode.Tag & vbCrLf & "Not found !", MsgBoxStyle.Critical, "Error")
-            LogEntry(LogType._Warning, "File : " & TreeViewMedia.SelectedNode.Tag & vbCrLf & "Not found !")
+            LogEntry(LogType._Warning, "{0}", "File : " & TreeViewMedia.SelectedNode.Tag & vbCrLf & "Not found !")
         End If
     End Sub
 
@@ -2615,7 +2799,7 @@ Public Class Form1
     End Enum
 
     Private Sub AddNewMedia(ByVal vMediaType As MediaType, ByVal vSystemName As String, ByVal vRomName As String, ByVal vAddingType As AddingTypes)
-        LogEntry(LogType._Info, "AddMedia : type->" & vMediaType.ToString & ", from->" & vAddingType.ToString & " in " & vSystemName & "/" & vRomName)
+        LogEntry(LogType._Info, "{0}", "AddMedia : type->" & vMediaType.ToString & ", from->" & vAddingType.ToString & " in " & vSystemName & "/" & vRomName)
         Dim openFileDialog1 As New OpenFileDialog()
         Dim DlgFilter As String = ""
         Dim destFolder As String = ""
@@ -2742,18 +2926,18 @@ Public Class Form1
             destFolder = destFolder.Replace("\\", "\")
         End If
 
-        LogEntry(LogType._Info, "         Filter applied = " & DlgFilter)
-        LogEntry(LogType._Info, "         Destination folder = " & destFolder)
-        LogEntry(LogType._Info, "         Fixed FileName = " & FixedName.ToString)
-        LogEntry(LogType._Info, "         Force png format = " & ForcePng.ToString)
+        LogEntry(LogType._Info, "{0}", "         Filter applied = " & DlgFilter)
+        LogEntry(LogType._Info, "{0}", "         Destination folder = " & destFolder)
+        LogEntry(LogType._Info, "{0}", "         Fixed FileName = " & FixedName.ToString)
+        LogEntry(LogType._Info, "{0}", "         Force png format = " & ForcePng.ToString)
         Try
             If Directory.Exists(destFolder) = False Then
                 Directory.CreateDirectory(destFolder)
                 Application.DoEvents()
             End If
         Catch ex As Exception
-            LogEntry(LogType._Error, "Cannot create destination folder (" & destFolder & "): " & ex.Message)
-            LogEntry(LogType._Error, "Abording copy of file ...")
+            LogEntry(LogType._Error, "{0}", "Cannot create destination folder (" & destFolder & "): " & ex.Message)
+            LogEntry(LogType._Error, "{0}", "Abording copy of file ...")
             vEndedOK = False
             Exit Sub
         End Try
@@ -2773,7 +2957,7 @@ Public Class Form1
                             If ForcePng = True Then
                                 Dim xx As Image = Image.FromFile(openFileDialog1.FileName)
                                 DestFilename = destFolder & vRomName & ".png"
-                                LogEntry(LogType._Info, "Complete File destination = " & DestFilename)
+                                LogEntry(LogType._Info, "{0}", "Complete File destination = " & DestFilename)
                                 Try
                                     UnloadMediaFromPictureBoxes(DestFilename)
                                     If File.Exists(DestFilename) Then
@@ -2781,37 +2965,37 @@ Public Class Form1
                                         Application.DoEvents()
                                     End If
                                     xx.Save(DestFilename, System.Drawing.Imaging.ImageFormat.Png)
-                                    LogEntry(LogType._Info, "File copied successfully")
+                                    LogEntry(LogType._Info, "{0}", "File copied successfully")
                                 Catch ex As Exception
                                     vEndedOK = False
-                                    LogEntry(LogType._Error, "Cannot copy file. Original error: " & ex.Message)
+                                    LogEntry(LogType._Error, "{0}", "Cannot copy file. Original error: " & ex.Message)
                                     ToolStripStatusLabel1.Text = "Cannot copy file. Original error: " & ex.Message
                                     Exit Sub
                                 End Try
                             Else
                                 DestFilename = destFolder & vRomName & vExt
-                                LogEntry(LogType._Info, "Complete File destination = " & DestFilename)
+                                LogEntry(LogType._Info, "{0}", "Complete File destination = " & DestFilename)
                                 Try
                                     UnloadMediaFromPictureBoxes(DestFilename)
                                     File.Copy(openFileDialog1.FileName, DestFilename, True)
-                                    LogEntry(LogType._Info, "File copied successfully")
+                                    LogEntry(LogType._Info, "{0}", "File copied successfully")
                                 Catch ex As Exception
                                     vEndedOK = False
-                                    LogEntry(LogType._Error, "Cannot copy file. Original error: " & ex.Message)
+                                    LogEntry(LogType._Error, "{0}", "Cannot copy file. Original error: " & ex.Message)
                                     ToolStripStatusLabel1.Text = "Cannot copy file. Original error: " & ex.Message
                                     Exit Sub
                                 End Try
                             End If
                         Else
                             DestFilename = destFolder & vRomName & vExt
-                            LogEntry(LogType._Info, "Complete File destination = " & DestFilename)
+                            LogEntry(LogType._Info, "{0}", "Complete File destination = " & DestFilename)
                             Try
                                 UnloadMediaFromPictureBoxes(DestFilename)
                                 File.Copy(openFileDialog1.FileName, DestFilename, True)
-                                LogEntry(LogType._Info, "File copied successfully")
+                                LogEntry(LogType._Info, "{0}", "File copied successfully")
                             Catch ex As Exception
                                 vEndedOK = False
-                                LogEntry(LogType._Error, "Cannot copy file. Original error: " & ex.Message)
+                                LogEntry(LogType._Error, "{0}", "Cannot copy file. Original error: " & ex.Message)
                                 ToolStripStatusLabel1.Text = "Cannot copy file. Original error: " & ex.Message
                                 Exit Sub
                             End Try
@@ -2822,27 +3006,27 @@ Public Class Form1
                             Dim xx As Image = Image.FromFile(openFileDialog1.FileName)
                             Dim tempFile As String = Path.GetFileNameWithoutExtension(openFileDialog1.FileName)
                             DestFilename = destFolder & tempFile & ".png"
-                            LogEntry(LogType._Info, "Complete File destination = " & DestFilename)
+                            LogEntry(LogType._Info, "{0}", "Complete File destination = " & DestFilename)
                             Try
                                 UnloadMediaFromPictureBoxes(DestFilename)
                                 xx.Save(DestFilename, System.Drawing.Imaging.ImageFormat.Png)
-                                LogEntry(LogType._Info, "File copied successfully")
+                                LogEntry(LogType._Info, "{0}", "File copied successfully")
                             Catch ex As Exception
                                 vEndedOK = False
-                                LogEntry(LogType._Error, "Cannot copy file. Original error: " & ex.Message)
+                                LogEntry(LogType._Error, "{0}", "Cannot copy file. Original error: " & ex.Message)
                                 ToolStripStatusLabel1.Text = "Cannot copy file. Original error: " & ex.Message
                                 Exit Sub
                             End Try
                         Else
                             DestFilename = destFolder & Path.GetFileName(openFileDialog1.FileName).ToLower
-                            LogEntry(LogType._Info, "Complete File destination = " & DestFilename)
+                            LogEntry(LogType._Info, "{0}", "Complete File destination = " & DestFilename)
                             Try
                                 UnloadMediaFromPictureBoxes(DestFilename)
                                 File.Copy(openFileDialog1.FileName, DestFilename, True)
-                                LogEntry(LogType._Info, "File copied successfully")
+                                LogEntry(LogType._Info, "{0}", "File copied successfully")
                             Catch ex As Exception
                                 vEndedOK = False
-                                LogEntry(LogType._Error, "Cannot copy file. Original error: " & ex.Message)
+                                LogEntry(LogType._Error, "{0}", "Cannot copy file. Original error: " & ex.Message)
                                 ToolStripStatusLabel1.Text = "Cannot copy file. Original error: " & ex.Message
                                 Exit Sub
                             End Try
@@ -2866,18 +3050,18 @@ Public Class Form1
                         End If
                     End If
                     Try
-                        LogEntry(LogType._Info, "Complete File destination = " & DestFilename)
+                        LogEntry(LogType._Info, "{0}", "Complete File destination = " & DestFilename)
                         UnloadMediaFromPictureBoxes(DestFilename)
                         Clipboard.GetImage.Save(DestFilename, System.Drawing.Imaging.ImageFormat.Png)
-                        LogEntry(LogType._Info, "File copied successfully")
+                        LogEntry(LogType._Info, "{0}", "File copied successfully")
                     Catch ex As Exception
                         vEndedOK = False
-                        LogEntry(LogType._Error, "Cannot copy file. Original error: " & ex.Message)
+                        LogEntry(LogType._Error, "{0}", "Cannot copy file. Original error: " & ex.Message)
                         ToolStripStatusLabel1.Text = "Cannot copy file. Original error: " & ex.Message
                     End Try
                 Else
                     vEndedOK = False
-                    LogEntry(LogType._Error, "Looks like clipboard does NOT contain an image, please retry.")
+                    LogEntry(LogType._Error, "{0}", "Looks like clipboard does NOT contain an image, please retry.")
                     ToolStripStatusLabel1.Text = "Looks like clipboard does NOT contain an image, please retry."
                 End If
             Case AddingTypes.FromURL
@@ -2898,25 +3082,25 @@ Public Class Form1
                         If ForcePng = True Then
                             Dim vTmp As String = Path.GetTempPath & vFileName
                             DestFilename = destFolder & vRomName & ".png"
-                            LogEntry(LogType._Info, "Complete File destination = " & DestFilename)
+                            LogEntry(LogType._Info, "{0}", "Complete File destination = " & DestFilename)
                             Try
                                 If Path.GetExtension(vFileName).ToLower = ".png" Then
                                     UnloadMediaFromPictureBoxes(DestFilename)
                                     web_client.DownloadFile(vURL, DestFilename)
-                                    LogEntry(LogType._Info, "File copied successfully")
+                                    LogEntry(LogType._Info, "{0}", "File copied successfully")
                                 Else
                                     UnloadMediaFromPictureBoxes(DestFilename)
                                     web_client.DownloadFile(vURL, vTmp)
                                     Dim vImg As Image = Image.FromFile(vTmp)
                                     vImg.Save(DestFilename, System.Drawing.Imaging.ImageFormat.Png)
-                                    LogEntry(LogType._Info, "File copied successfully")
+                                    LogEntry(LogType._Info, "{0}", "File copied successfully")
                                 End If
                             Catch ex As Exception
                                 web_client.CancelAsync()
                                 web_client = Nothing
                                 File.Delete(vTmp)
                                 vEndedOK = False
-                                LogEntry(LogType._Error, "Cannot download/copy file. Original error: " & ex.Message)
+                                LogEntry(LogType._Error, "{0}", "Cannot download/copy file. Original error: " & ex.Message)
                                 ToolStripStatusLabel1.Text = "Cannot download/copy file. Original error: " & ex.Message
                                 Me.Cursor = Cursors.Default
                                 Exit Sub
@@ -2924,15 +3108,15 @@ Public Class Form1
                         Else
                             Try
                                 DestFilename = destFolder & vRomName & Path.GetExtension(vFileName)
-                                LogEntry(LogType._Info, "Complete File destination = " & DestFilename)
+                                LogEntry(LogType._Info, "{0}", "Complete File destination = " & DestFilename)
                                 UnloadMediaFromPictureBoxes(DestFilename)
                                 web_client.DownloadFile(vURL, DestFilename)
-                                LogEntry(LogType._Info, "File copied successfully")
+                                LogEntry(LogType._Info, "{0}", "File copied successfully")
                             Catch ex As Exception
                                 web_client.CancelAsync()
                                 web_client = Nothing
                                 vEndedOK = False
-                                LogEntry(LogType._Error, "Cannot download/copy file. Original error: " & ex.Message)
+                                LogEntry(LogType._Error, "{0}", "Cannot download/copy file. Original error: " & ex.Message)
                                 ToolStripStatusLabel1.Text = "Cannot download/copy file. Original error: " & ex.Message
                                 Me.Cursor = Cursors.Default
                                 Exit Sub
@@ -2940,14 +3124,14 @@ Public Class Form1
                         End If
                     Else
                         DestFilename = destFolder & vFileName
-                        LogEntry(LogType._Info, "Complete File destination = " & DestFilename)
+                        LogEntry(LogType._Info, "{0}", "Complete File destination = " & DestFilename)
                         UnloadMediaFromPictureBoxes(DestFilename)
                         Try
                             web_client.DownloadFile(vURL, DestFilename)
-                            LogEntry(LogType._Info, "File copied successfully")
+                            LogEntry(LogType._Info, "{0}", "File copied successfully")
                         Catch ex As Exception
                             vEndedOK = False
-                            LogEntry(LogType._Error, "Cannot download/copy file. Original error: " & ex.Message)
+                            LogEntry(LogType._Error, "{0}", "Cannot download/copy file. Original error: " & ex.Message)
                             ToolStripStatusLabel1.Text = "Cannot download/copy file. Original error: " & ex.Message
                             Me.Cursor = Cursors.Default
                             Exit Sub
@@ -2955,7 +3139,7 @@ Public Class Form1
                     End If
                 Catch ex As Exception
                     vEndedOK = False
-                    LogEntry(LogType._Error, "Cannot download/copy file. Original error: " & ex.Message)
+                    LogEntry(LogType._Error, "{0}", "Cannot download/copy file. Original error: " & ex.Message)
                     ToolStripStatusLabel1.Text = "Cannot download/copy file. Original error: " & ex.Message
                     Me.Cursor = Cursors.Default
                 End Try
@@ -3290,40 +3474,97 @@ Public Class Form1
                 p.StartInfo = psi
                 p.Start()
             Catch ex As Exception
-                LogEntry(LogType._Error, "Error: " & ex.Message)
+                LogEntry(LogType._Error, "{0}", "Error: " & ex.Message)
             End Try
         Else
             MsgBox("Folder : " & Path.GetDirectoryName(TreeViewMedia.SelectedNode.Tag) & vbCrLf & "Not found !", MsgBoxStyle.Critical, "Error")
-            LogEntry(LogType._Warning, "Folder : " & Path.GetDirectoryName(TreeViewMedia.SelectedNode.Tag) & vbCrLf & "Not found !")
+            LogEntry(LogType._Warning, "{0}", "Folder : " & Path.GetDirectoryName(TreeViewMedia.SelectedNode.Tag) & vbCrLf & "Not found !")
         End If
     End Sub
 
 #End Region
 
     Private Sub Button13_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button13.Click
-        Dim i As Integer = 0
-        If gCheckRoms = True Then
-            DataGridView4.CommitEdit(DataGridViewDataErrorContexts.Commit)
-            Dim vSystem As String = ToolStripLabel1.Text
-            Try
-                While RowsToDel() = True
+        If gHSOldVersion = False Then
+            If gCheckRoms = True Then
+                Dim i As Integer = 0
+                'DataGridView4.CommitEdit(DataGridViewDataErrorContexts.Commit)
+                'Dim vSystem As String = ToolStripLabel1.Text
+                Cursor = Cursors.WaitCursor
+                DataGridView4.CausesValidation = False
+                DataGridView4.SuspendLayout()
+                DataGridView4.Enabled = False
+                'DataGridView4.Visible = False
+                DataGridView4.Columns("DataGridViewCheckBoxColumn2").AutoSizeMode = DataGridViewAutoSizeColumnMode.None
+                Dim xx As Integer = DataGridView4.Columns.IndexOf(DataGridView4.Columns("DataGridViewCheckBoxColumn2"))
+                Try
                     For Each vRow As DataGridViewRow In DataGridView4.Rows
+                        ToolStripStatusLabel1.Text = "Checking rom " & vRow.Index.ToString & "/" & DataGridView4.Rows.Count.ToString
+                        Application.DoEvents()
                         If vRow.Cells(0).Style.BackColor = Color.Red Then
-                            DataGridView4.Rows.Remove(vRow)
-                            i = i + 1
+                            If vRow.Cells(xx).Value <> False Then
+                                vRow.Cells(xx).Value = False
+                                i = i + 1
+                            End If
+                        Else
+                            If vRow.Cells(xx).Value <> True Then
+                                vRow.Cells(xx).Value = True
+                            End If
                         End If
                     Next
-                End While
-            Catch ex As Exception
-                ToolStripStatusLabel1.Text = ex.Message.ToString
-            Finally
-                DataGridView4.CommitEdit(DataGridViewDataErrorContexts.RowDeletion)
-                Application.DoEvents()
-            End Try
-            MsgBox("Done ! " & i & " entries removed, do not forget to save.", MsgBoxStyle.Information, "Job done")
-            Label1.Text = "DO NOT FORGET TO SAVE !!"
+                Catch ex As Exception
+                    ToolStripStatusLabel1.Text = ex.Message.ToString
+                    LogEntry(LogType._Warning, "{0}", ex.Message.ToString)
+                Finally
+                    Cursor = Cursors.Default
+                    DataGridView4.CommitEdit(DataGridViewDataErrorContexts.Commit)
+                    DataGridView4.ResumeLayout()
+                    DataGridView4.CausesValidation = True
+                    DataGridView4.Refresh()
+                    DataGridView4.Enabled = True
+                    'DataGridView4.Visible = True
+                    Application.DoEvents()
+                End Try
+                MsgBox("Done ! " & i.ToString & " entries disabled, do not forget to save.", MsgBoxStyle.Information, "Job done")
+                Label1.Text = "DO NOT FORGET TO SAVE !!"
+            Else
+                Label1.Text = "Info : YOU MUST ENABLE ROM CHECK IN PARAMETERS, and reload this XML"
+            End If
         Else
-            Label1.Text = "Info : YOU MUST ENABLE ROM CHECK IN PARAMETERS, and reload this XML"
+            If gCheckRoms = True Then
+                Dim i As Integer = 0
+                DataGridView4.CommitEdit(DataGridViewDataErrorContexts.Commit)
+                'Dim vSystem As String = ToolStripLabel1.Text
+                Try
+                    DataGridView4.CausesValidation = False
+                    DataGridView4.SuspendLayout()
+                    DataGridView4.Enabled = False
+                    While RowsToDel() = True
+                        For Each vRow As DataGridViewRow In DataGridView4.Rows
+                            If vRow.Cells(0).Style.BackColor = Color.Red Then
+                                DataGridView4.Rows.Remove(vRow)
+                                i = i + 1
+                                ToolStripStatusLabel1.Text = "Removed " & i.ToString & " roms"
+                                Application.DoEvents()
+                            End If
+                        Next
+                    End While
+                Catch ex As Exception
+                    ToolStripStatusLabel1.Text = ex.Message.ToString
+                    LogEntry(LogType._Warning, "{0}", ex.Message.ToString)
+                Finally
+                    DataGridView4.CommitEdit(DataGridViewDataErrorContexts.RowDeletion)
+                    DataGridView4.ResumeLayout()
+                    DataGridView4.CausesValidation = True
+                    DataGridView4.Refresh()
+                    DataGridView4.Enabled = True
+                    Application.DoEvents()
+                End Try
+                MsgBox("Done ! " & i & " entries removed, do not forget to save.", MsgBoxStyle.Information, "Job done")
+                Label1.Text = "DO NOT FORGET TO SAVE !!"
+            Else
+                Label1.Text = "Info : YOU MUST ENABLE ROM CHECK IN PARAMETERS, and reload this XML"
+            End If
         End If
     End Sub
 
@@ -3355,7 +3596,7 @@ Public Class Form1
                 End If
             End If
         Catch ex As Exception
-
+            LogEntry(LogType._Warning, "{0}", ex.Message.ToString)
         End Try
     End Sub
 
@@ -3370,7 +3611,7 @@ Public Class Form1
             End If
 
         Catch ex As Exception
-
+            LogEntry(LogType._Warning, "{0}", ex.Message.ToString)
         End Try
     End Sub
 
@@ -3385,7 +3626,7 @@ Public Class Form1
             End If
 
         Catch ex As Exception
-
+            LogEntry(LogType._Warning, "{0}", ex.Message.ToString)
         End Try
     End Sub
 
@@ -3395,7 +3636,7 @@ Public Class Form1
                 Process.Start("explorer.exe", gHS.HSMediaPath & "\" & DataGridView2.SelectedRows.Item(0).Cells(0).Value & "\Images\Other\")
             End If
         Catch ex As Exception
-
+            LogEntry(LogType._Warning, "{0}", ex.Message.ToString)
         End Try
     End Sub
 
@@ -3501,11 +3742,11 @@ Public Class Form1
                     vRow.Selected = True
                 End If
             Catch ex As Exception
-                LogEntry(LogType._Error, "Error: " & ex.Message)
+                LogEntry(LogType._Error, "{0}", "Error: " & ex.Message)
             End Try
         Else
             MsgBox("File : " & TreeviewSystems.SelectedNode.Tag & vbCrLf & "Not found !", MsgBoxStyle.Critical, "Error")
-            LogEntry(LogType._Warning, "File : " & TreeviewSystems.SelectedNode.Tag & vbCrLf & "Not found !")
+            LogEntry(LogType._Warning, "{0}", "File : " & TreeviewSystems.SelectedNode.Tag & vbCrLf & "Not found !")
         End If
     End Sub
 
@@ -3518,11 +3759,11 @@ Public Class Form1
                 p.StartInfo = psi
                 p.Start()
             Catch ex As Exception
-                LogEntry(LogType._Error, "Error: " & ex.Message)
+                LogEntry(LogType._Error, "{0}", "Error: " & ex.Message)
             End Try
         Else
             MsgBox("File : " & TreeviewSystems.SelectedNode.Tag & vbCrLf & "Not found !", MsgBoxStyle.Critical, "Error")
-            LogEntry(LogType._Warning, "File : " & TreeviewSystems.SelectedNode.Tag & vbCrLf & "Not found !")
+            LogEntry(LogType._Warning, "{0}", "File : " & TreeviewSystems.SelectedNode.Tag & vbCrLf & "Not found !")
         End If
     End Sub
 
@@ -3535,11 +3776,11 @@ Public Class Form1
                 p.StartInfo = psi
                 p.Start()
             Catch ex As Exception
-                LogEntry(LogType._Error, "Error: " & ex.Message)
+                LogEntry(LogType._Error, "{0}", "Error: " & ex.Message)
             End Try
         Else
             MsgBox("Folder : " & Path.GetDirectoryName(TreeviewSystems.SelectedNode.Tag) & vbCrLf & "Not found !", MsgBoxStyle.Critical, "Error")
-            LogEntry(LogType._Warning, "Folder : " & Path.GetDirectoryName(TreeviewSystems.SelectedNode.Tag) & vbCrLf & "Not found !")
+            LogEntry(LogType._Warning, "{0}", "Folder : " & Path.GetDirectoryName(TreeviewSystems.SelectedNode.Tag) & vbCrLf & "Not found !")
         End If
     End Sub
 
@@ -3665,23 +3906,27 @@ Public Class Form1
             p.StartInfo = psi
             p.Start()
         Catch ex As Exception
-            LogEntry(LogType._Error, "Error: " & ex.Message)
+            LogEntry(LogType._Error, "{0}", "Error: " & ex.Message)
         End Try
     End Sub
 
     Private Sub Button5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button5.Click
-        Dim frmRen As New FrmRenameRom(ToolStripLabel2.Text, DataGridView4.SelectedCells(0).RowIndex)
+        Dim frmRen As New FrmRenameRom(ToolStripLabel2.Text, DataGridView4.SelectedRows(0).Cells(0).RowIndex)
         frmRen.Show()
     End Sub
 
     Private Sub DataGridView4_SelectionChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles DataGridView4.SelectionChanged
-        If DataGridView4.SelectedCells.Count > 0 Then
+        If DataGridView4.SelectedRows.Count > 0 Then
             Button7.Enabled = True
             Button5.Enabled = True
+            Button15.Enabled = True
+            Button16.Enabled = True
             ToolStripButton9.Enabled = True
         Else
             Button7.Enabled = False
             Button5.Enabled = False
+            Button15.Enabled = False
+            Button16.Enabled = False
             ToolStripButton9.Enabled = False
         End If
     End Sub
@@ -3691,6 +3936,15 @@ Public Class Form1
     End Sub
 
     Private Sub TreeView2_NodeMouseClick(ByVal sender As Object, ByVal e As System.Windows.Forms.TreeNodeMouseClickEventArgs) Handles TreeView2.NodeMouseClick
+        Select Case e.Node.Text
+            Case "Hyperspin", "HyperPause"
+                For Each vNode As TreeNode In e.Node.Nodes
+                    vNode.Checked = e.Node.Checked
+                Next
+        End Select
+    End Sub
+
+    Private Sub TreeView3_NodeMouseClick(ByVal sender As Object, ByVal e As System.Windows.Forms.TreeNodeMouseClickEventArgs) Handles TreeView3.NodeMouseClick
         Select Case e.Node.Text
             Case "Hyperspin", "HyperPause"
                 For Each vNode As TreeNode In e.Node.Nodes
@@ -3714,7 +3968,7 @@ Public Class Form1
             Dim vXML As New XmlDocument()
             If File.Exists(XMLPath) = False Then
                 MsgBox("Ooops ! " & XMLPath & " is not found, exiting.", MsgBoxStyle.Critical, "Error")
-                LogEntry(LogType._Error, "Ooops ! " & XMLPath & " is not found, exiting.")
+                LogEntry(LogType._Error, "{0}", "Ooops ! " & XMLPath & " is not found, exiting.")
                 'Form1.Close()
                 Exit Sub
             End If
@@ -3794,6 +4048,9 @@ Public Class Form1
     End Sub
 
     Private Sub LoadFULLSystem(ByVal systemName As String)
+        DataGridView5.Rows.Clear()
+        ListBox2.Items.Clear()
+        ToolStripLabel3.Text = ""
         Dim vSystem As String
         Try
             vSystem = systemName
@@ -3804,7 +4061,7 @@ Public Class Form1
 
         DataGridView1.Rows.Clear()
         DataGridView4.Rows.Clear()
-        DataGridView3.SuspendLayout()
+        'DataGridView3.SuspendLayout()
 
         ToolStripLabel2.Text = vSystem
         ListBox1.Items.Clear()
@@ -3820,6 +4077,8 @@ Public Class Form1
                 Button12.Enabled = False
                 Button13.Enabled = False
                 Button14.Enabled = False
+                Button15.Enabled = False
+                Button16.Enabled = False
                 Button2.Enabled = False
                 Button3.Enabled = False
                 Button8.Enabled = False
@@ -3828,11 +4087,21 @@ Public Class Form1
             Case Else
                 If gHS.Systems(vSystem).IsEXE = False Then
                     If File.Exists(gHS.Systems(vSystem).XMLPath) Then
+                        DataGridView4.Columns("DataGridViewCheckBoxColumn2").AutoSizeMode = DataGridViewAutoSizeColumnMode.None
+                        Cursor = Cursors.WaitCursor
                         gHS.Systems(vSystem).Roms.Clear()
                         gHS.Systems(vSystem).LoadSystemRoms(gCheckRoms)
 
                         'part1
                         FillRomsMediaCheckDatagrid(vSystem, DataGridView1)
+                        DataGridView1.ReadOnly = False
+                        For Each xC As DataGridViewColumn In DataGridView1.Columns
+                            If xC.HeaderText = "Enabled" Then
+                                xC.ReadOnly = False
+                            Else
+                                xC.ReadOnly = True
+                            End If
+                        Next
                         Button4.Enabled = True
 
                         'part2
@@ -3847,6 +4116,8 @@ Public Class Form1
                         Button8.Enabled = True
                         ToolStripButton6.Enabled = True
                         ToolStripButton11.Enabled = True
+                        DataGridView4.CommitEdit(DataGridViewDataErrorContexts.Commit)
+                        Cursor = Cursors.Default
                     Else
                         MsgBox("Oops, """ & vSystem & ".xml"" does not exist in your ""HyperSpin\Databases\" & vSystem & """ folder.", MsgBoxStyle.Information, "Information")
                         Button12.Enabled = False
@@ -3862,11 +4133,13 @@ Public Class Form1
                     Button13.Enabled = False
                     Button14.Enabled = False
                     Button8.Enabled = False
+                    Button15.Enabled = False
+                    Button16.Enabled = False
                     ToolStripButton6.Enabled = False
                     ToolStripButton11.Enabled = False
                 End If
         End Select
-        DataGridView3.ResumeLayout()
+        'DataGridView3.ResumeLayout()
     End Sub
 
     Private Sub ToolStripMenuItem67_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem67.Click
@@ -3882,8 +4155,7 @@ Public Class Form1
     End Sub
 
     Private Sub ToolStripButton9_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripButton9.Click
-        Dim vRow As Integer = DataGridView4.SelectedCells(0).RowIndex
-        Dim vRom As String = DataGridView4.Rows(vRow).Cells(0).Value.ToString
+        Dim vRom As String = DataGridView4.SelectedRows(0).Cells(0).Value.ToString
         Dim vSystem As String = ToolStripLabel2.Text
 
         If vSystem = "" Or vSystem = "System" Or vRom = "" Then
@@ -3893,19 +4165,23 @@ Public Class Form1
         Try
             Dim psi As New ProcessStartInfo
             Dim p As New Process
-            psi.FileName = gHLPath & "\HyperLaunch.exe"
+            If File.Exists(gHLPath & "\RocketLauncher.exe") Then
+                psi.FileName = gHLPath & "\RocketLauncher.exe"
+            Else
+                psi.FileName = gHLPath & "\HyperLaunch.exe"
+            End If
+
             psi.Arguments = """" & vSystem & """ """ & vRom & """"
-            LogEntry(LogType._Info, "Launching : " & psi.FileName & " with arguments: " & psi.Arguments)
+            LogEntry(LogType._Info, "{0}", "Launching : " & psi.FileName & " with arguments: " & psi.Arguments)
             p.StartInfo = psi
             p.Start()
         Catch ex As Exception
-            LogEntry(LogType._Info, "Error: cannot launch " & vRom & " in System:" & vSystem & " ! -> " & ex.Message)
+            LogEntry(LogType._Info, "{0}", "Error: cannot launch " & vRom & " in System:" & vSystem & " ! -> " & ex.Message)
         End Try
     End Sub
 
     Private Sub ToolStripButton10_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripButton10.Click
-        Dim vRow As Integer = DataGridView1.SelectedCells(0).RowIndex
-        Dim vRom As String = DataGridView1.Rows(vRow).Cells(0).Value.ToString
+        Dim vRom As String = DataGridView4.SelectedRows(0).Cells(0).Value.ToString
         Dim vSystem As String = ToolStripLabel1.Text
 
         If vSystem = "" Or vSystem = "System" Or vRom = "" Then
@@ -3915,13 +4191,17 @@ Public Class Form1
         Try
             Dim psi As New ProcessStartInfo
             Dim p As New Process
-            psi.FileName = gHLPath & "\HyperLaunch.exe"
+            If File.Exists(gHLPath & "\RocketLauncher.exe") Then
+                psi.FileName = gHLPath & "\RocketLauncher.exe"
+            Else
+                psi.FileName = gHLPath & "\HyperLaunch.exe"
+            End If
             psi.Arguments = """" & vSystem & """ """ & vRom & """"
-            LogEntry(LogType._Info, "Launching : " & psi.FileName & " with arguments: " & psi.Arguments)
+            LogEntry(LogType._Info, "{0}", "Launching : " & psi.FileName & " with arguments: " & psi.Arguments)
             p.StartInfo = psi
             p.Start()
         Catch ex As Exception
-            LogEntry(LogType._Info, "Error: cannot launch " & vRom & " in System:" & vSystem & " ! -> " & ex.Message)
+            LogEntry(LogType._Info, "{0}", "Error: cannot launch " & vRom & " in System:" & vSystem & " ! -> " & ex.Message)
         End Try
     End Sub
 
@@ -3930,6 +4210,1538 @@ Public Class Form1
         'youtube-dl "ytsearch:allintitle:3D Twist & Match PSP" -o "c:\location you want your videos\3D Twist & Match (USA) (minis) (PSN).mp4" --max-quality 18
 
     End Sub
+
+    'Choose RocketL path
+    Private Sub Button9_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button9.Click
+        Dim GetRLPath As New FolderBrowserDialog
+        GetRLPath.Description = "Hyperspin Folder"
+        GetRLPath.RootFolder = Environment.SpecialFolder.MyComputer
+        If GetRLPath.ShowDialog() = System.Windows.Forms.DialogResult.OK Then
+            Try
+                gHLPath = GetRLPath.SelectedPath
+                TextBox3.Text = gHLPath
+            Catch Ex As Exception
+                LogEntry(LogType._Warning, "{0}", Ex.Message.ToString)
+            Finally
+                SaveHyperT00lsParameters()
+            End Try
+        End If
+
+        LoadConfigFile()
+        If File.Exists(gMainMenuXML) Then
+            LoadSystems()
+        Else
+            MsgBox("Sorry but there is an error ! Cannot find : " & gMainMenuXML & " !")
+        End If
+
+    End Sub
+
+    ''Enable all roms
+    'Private Sub Button10_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    '    If gHSOldVersion = False Then
+    '        Dim i As Integer = 0
+    '        DataGridView4.CommitEdit(DataGridViewDataErrorContexts.Commit)
+    '        DataGridView4.Columns("DataGridViewCheckBoxColumn2").AutoSizeMode = DataGridViewAutoSizeColumnMode.None
+    '        'Dim vSystem As String = ToolStripLabel1.Text
+    '        Cursor = Cursors.WaitCursor
+    '        Try
+    '            Dim xx As Integer = DataGridView4.Columns.IndexOf(DataGridView4.Columns("DataGridViewCheckBoxColumn2"))
+    '            For Each vRow As DataGridViewRow In DataGridView4.Rows
+    '                vRow.Cells(xx).Value = True
+    '                i = i + 1
+    '                ToolStripStatusLabel1.Text = "Enabling rom " & i.ToString & "/" & DataGridView4.Rows.Count.ToString
+    '                Application.DoEvents()
+    '            Next
+    '        Catch ex As Exception
+    '            ToolStripStatusLabel1.Text = ex.Message.ToString
+    '            LogEntry(LogType._Warning, "{0}", ex.Message.ToString)
+    '        Finally
+    '            Cursor = Cursors.Default
+    '            DataGridView4.CommitEdit(DataGridViewDataErrorContexts.Commit)
+    '            Application.DoEvents()
+    '        End Try
+    '        MsgBox("Done ! " & i & " entries Enabled, do not forget to save.", MsgBoxStyle.Information, "Job done")
+    '        Label1.Text = "DO NOT FORGET TO SAVE !!"
+    '    End If
+    'End Sub
+
+    ''disable all roms
+    'Private Sub Button11_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    '    If gHSOldVersion = False Then
+    '        Dim i As Integer = 0
+    '        DataGridView4.CommitEdit(DataGridViewDataErrorContexts.Commit)
+    '        DataGridView4.Columns("DataGridViewCheckBoxColumn2").AutoSizeMode = DataGridViewAutoSizeColumnMode.None
+    '        Dim vSystem As String = ToolStripLabel1.Text
+    '        Try
+    '            Cursor = Cursors.WaitCursor
+    '            Dim xx As Integer = DataGridView4.Columns.IndexOf(DataGridView4.Columns("DataGridViewCheckBoxColumn2"))
+    '            For Each vRow As DataGridViewRow In DataGridView4.Rows
+    '                vRow.Cells(xx).Value = False
+    '                i = i + 1
+    '                ToolStripStatusLabel1.Text = "Disabling rom " & i.ToString & "/" & DataGridView4.Rows.Count.ToString
+    '                Application.DoEvents()
+    '            Next
+    '        Catch ex As Exception
+    '            ToolStripStatusLabel1.Text = ex.Message.ToString
+    '            LogEntry(LogType._Warning, "{0}", ex.Message.ToString)
+    '        Finally
+    '            Cursor = Cursors.Default
+    '            DataGridView4.CommitEdit(DataGridViewDataErrorContexts.Commit)
+    '            Application.DoEvents()
+    '        End Try
+    '        MsgBox("Done ! " & i & " entries Disabled, do not forget to save.", MsgBoxStyle.Information, "Job done")
+    '        Label1.Text = "DO NOT FORGET TO SAVE !!"
+    '    End If
+    'End Sub
+
+    Private Sub ToolStripButton13_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripButton13.Click
+        DataGridView3.Rows.Clear()
+        File.Delete(gDebugLogFile)
+        LogEntry(LogType._Info, "{0}", "Cleaning debug and deleting log file")
+    End Sub
+
+    Private Sub ToolStripButton12_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripButton12.Click
+        LogEntry(LogType._Info, "{0}", "Loading log file")
+        DataGridView3.Rows.Clear()
+        For Each col As DataGridViewColumn In DataGridView3.Columns
+            col.AutoSizeMode = DataGridViewAutoSizeColumnMode.None
+        Next
+        DataGridView3.Enabled = False
+        DataGridView3.SuspendLayout()
+        Me.Cursor = Cursors.WaitCursor
+        Dim filePath As String = gDebugLogFile
+        If File.Exists(filePath) Then
+            Using MyReader As New Microsoft.VisualBasic.FileIO.TextFieldParser(filePath)
+                MyReader.TextFieldType = FileIO.FieldType.Delimited
+                MyReader.SetDelimiters(";")
+                Dim currentRow As String()
+                While Not MyReader.EndOfData
+                    Try
+                        Dim n As Integer
+                        Dim vDisplayLine As Boolean = True
+                        currentRow = MyReader.ReadFields()
+                        Select Case gDebugDisplayLevel
+                            Case LogType._Error
+                                Select Case currentRow(2)
+                                    Case "Debug"
+                                        vDisplayLine = False
+                                    Case "Error"
+                                        vDisplayLine = True
+                                    Case "Info"
+                                        vDisplayLine = False
+                                    Case "Warning"
+                                        vDisplayLine = False
+                                    Case Else
+                                        vDisplayLine = False
+                                End Select
+                            Case LogType._Warning
+                                Select Case currentRow(2)
+                                    Case "Debug"
+                                        vDisplayLine = False
+                                    Case "Error"
+                                        vDisplayLine = True
+                                    Case "Info"
+                                        vDisplayLine = False
+                                    Case "Warning"
+                                        vDisplayLine = True
+                                    Case Else
+                                        vDisplayLine = False
+                                End Select
+                            Case LogType._Info
+                                Select Case currentRow(2)
+                                    Case "Debug"
+                                        vDisplayLine = False
+                                    Case "Error"
+                                        vDisplayLine = True
+                                    Case "Info"
+                                        vDisplayLine = True
+                                    Case "Warning"
+                                        vDisplayLine = True
+                                    Case Else
+                                        vDisplayLine = False
+                                End Select
+                            Case LogType._Debug
+                                Select Case currentRow(2)
+                                    Case "Debug"
+                                        vDisplayLine = True
+                                    Case "Error"
+                                        vDisplayLine = True
+                                    Case "Info"
+                                        vDisplayLine = True
+                                    Case "Warning"
+                                        vDisplayLine = True
+                                    Case Else
+                                        vDisplayLine = True
+                                End Select
+                        End Select
+
+                        If vDisplayLine = True Then
+                            n = DataGridView3.Rows.Add()
+                            Dim currentField As String
+                            Dim i As Integer = 0
+                            For Each currentField In currentRow
+                                DataGridView3.Rows(n).Cells(i).Value = currentField
+                                If i = 2 Then
+                                    Select Case currentField
+                                        Case "Debug"
+                                            DataGridView3.Rows(n).DefaultCellStyle.BackColor = Color.GreenYellow
+                                        Case "Error"
+                                            DataGridView3.Rows(n).DefaultCellStyle.BackColor = Color.Red
+                                        Case "Info"
+                                            DataGridView3.Rows(n).DefaultCellStyle.BackColor = Color.LightGreen
+                                        Case "Warning"
+                                            DataGridView3.Rows(n).DefaultCellStyle.BackColor = Color.Orange
+                                        Case Else
+                                            DataGridView3.Rows(n).DefaultCellStyle.BackColor = Color.White
+                                    End Select
+                                End If
+                                i = i + 1
+                            Next
+                        End If
+                    Catch ex As Microsoft.VisualBasic.FileIO.MalformedLineException
+                        MsgBox("Line " & ex.Message & "is not valid and will be skipped.")
+                    End Try
+                End While
+            End Using
+        End If
+        For Each col As DataGridViewColumn In DataGridView3.Columns
+            col.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+        Next
+        DataGridView3.ResumeLayout()
+        DataGridView3.Enabled = True
+        Me.Cursor = Cursors.Default
+    End Sub
+
+    Private Sub ErrorLevelToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ErrorLevelToolStripMenuItem.Click
+        gDebugDisplayLevel = LogType._Error
+        ToolStripDropDownButton1.Text = "Debug level (Error)"
+        LogEntry(LogType._Info, "{0}", "Set Debug Level to ERROR")
+        ErrorLevelToolStripMenuItem.Checked = True
+        WarningLevelToolStripMenuItem.Checked = False
+        InfoLevelToolStripMenuItem.Checked = False
+        DebugLevelToolStripMenuItem.Checked = False
+        ToolStripButton12.PerformClick()
+    End Sub
+
+    Private Sub WarningLevelToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles WarningLevelToolStripMenuItem.Click
+        gDebugDisplayLevel = LogType._Warning
+        ToolStripDropDownButton1.Text = "Debug level (Warning)"
+        LogEntry(LogType._Info, "{0}", "Set Debug Level to WARNING")
+        ErrorLevelToolStripMenuItem.Checked = False
+        WarningLevelToolStripMenuItem.Checked = True
+        InfoLevelToolStripMenuItem.Checked = False
+        DebugLevelToolStripMenuItem.Checked = False
+        ToolStripButton12.PerformClick()
+    End Sub
+
+    Private Sub InfoLevelToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles InfoLevelToolStripMenuItem.Click
+        gDebugDisplayLevel = LogType._Info
+        ToolStripDropDownButton1.Text = "Debug level (Info)"
+        LogEntry(LogType._Info, "{0}", "Set Debug Level to INFO")
+        ErrorLevelToolStripMenuItem.Checked = False
+        WarningLevelToolStripMenuItem.Checked = False
+        InfoLevelToolStripMenuItem.Checked = True
+        DebugLevelToolStripMenuItem.Checked = False
+        ToolStripButton12.PerformClick()
+    End Sub
+
+    Private Sub DebugLevelToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DebugLevelToolStripMenuItem.Click
+        gDebugDisplayLevel = LogType._Debug
+        ToolStripDropDownButton1.Text = "Debug level (Debug)"
+        LogEntry(LogType._Info, "{0}", "Set Debug Level to DEBUG")
+        ErrorLevelToolStripMenuItem.Checked = False
+        WarningLevelToolStripMenuItem.Checked = False
+        InfoLevelToolStripMenuItem.Checked = False
+        DebugLevelToolStripMenuItem.Checked = True
+        ToolStripButton12.PerformClick()
+    End Sub
+
+    Private Sub Button16_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button16.Click
+        DataGridView4.Columns("DataGridViewCheckBoxColumn2").AutoSizeMode = DataGridViewAutoSizeColumnMode.None
+        Cursor = Cursors.WaitCursor
+        If DataGridView4.SelectedRows.Count > 0 Then
+            For Each vRow As DataGridViewRow In DataGridView4.SelectedRows
+                Try
+                    LogEntry(LogType._Info, "{0}", "Enabling rom : " & vRow.Cells(0).Value.ToString)
+                    vRow.Cells("DataGridViewCheckBoxColumn2").Value = True
+                Catch ex As Exception
+                    LogEntry(LogType._Warning, "{0}", ex.Message.ToString)
+                End Try
+            Next
+        End If
+        DataGridView4.CommitEdit(DataGridViewDataErrorContexts.Commit)
+        Cursor = Cursors.Default
+        Label1.Text = "DO NOT FORGET TO SAVE !"
+        'Call ToolStripButton6.PerformClick()
+    End Sub
+
+    Private Sub Button15_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button15.Click
+        DataGridView4.Columns("DataGridViewCheckBoxColumn2").AutoSizeMode = DataGridViewAutoSizeColumnMode.None
+        Cursor = Cursors.WaitCursor
+        If DataGridView4.SelectedRows.Count > 0 Then
+            For Each vRow As DataGridViewRow In DataGridView4.SelectedRows
+                Try
+                    LogEntry(LogType._Info, "{0}", "Disabling rom : " & vRow.Cells(0).Value.ToString)
+                    vRow.Cells("DataGridViewCheckBoxColumn2").Value = False
+                Catch ex As Exception
+                    LogEntry(LogType._Warning, "{0}", ex.Message.ToString)
+                End Try
+            Next
+        End If
+        DataGridView4.CommitEdit(DataGridViewDataErrorContexts.Commit)
+        Cursor = Cursors.Default
+        Label1.Text = "DO NOT FORGET TO SAVE !"
+    End Sub
+
+#Region "CLEANUP"
+    'SIMULATION CLEANUP for SELECTED SYSTEM
+    Private Sub Button18_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button18.Click
+        DataGridView5.Rows.Clear()
+        Me.Cursor = Cursors.WaitCursor
+        ListBox2.Items.Clear()
+        Try
+            Select Case ComboBox1.SelectedItem.ToString
+                Case ""
+                    MsgBox("Please select a valid System." & vbCrLf & "Currently selected is not valid.", MsgBoxStyle.Information, "Information")
+                    Me.Cursor = Cursors.Default
+                    Exit Sub
+            End Select
+        Catch ex As Exception
+            MsgBox("Please select a valid System." & vbCrLf & "Currently selected is not valid.", MsgBoxStyle.Information, "Information")
+            Me.Cursor = Cursors.Default
+            Exit Sub
+        End Try
+
+        ProgressBar1.Value = 0
+        ProgressBar1.Visible = True
+        TabControl1.Enabled = False
+        LoadFULLSystem(ComboBox1.SelectedItem.ToString)
+        Me.Cursor = Cursors.WaitCursor
+        Dim array As String() = gHS.Systems(ComboBox1.SelectedItem.ToString).ReturnRomNames
+        System.Array.Sort(Of String)(array)
+        For Each xx As String In array
+            Try
+                If gHSOldVersion = False Then
+                    If CheckBox9.Checked = True Then
+                        ListBox2.Items.Add(xx)
+                    Else
+                        Try
+                            If gHS.Systems(ComboBox1.SelectedItem.ToString).Roms(xx).Enabled = True Then
+                                ListBox2.Items.Add(xx)
+                            End If
+                        Catch ex As Exception
+                            LogEntry(LogType._Warning, "{0}", ex.Message.ToString)
+                        End Try
+                    End If
+                Else
+                    ListBox2.Items.Add(xx)
+                End If
+            Catch ex As Exception
+
+            End Try
+        Next
+
+        For Each node As TreeNode In TreeView3.Nodes
+            If node.Checked = True Then
+                Select Case node.Text.ToLower
+                    Case "roms"
+                    Case "systems"
+                End Select
+            End If
+        Next
+        For Each node As TreeNode In TreeView3.Nodes("node1").Nodes 'HYPERSPIN
+            If node.Checked = True Then
+                Select Case node.Text.ToLower
+                    Case "roms"
+                    Case "wheel"
+                        Cleanup_HSWheels(ComboBox1.SelectedItem.ToString)
+                    Case "video"
+                        Cleanup_HSVideos(ComboBox1.SelectedItem.ToString)
+                    Case "theme"
+                        Cleanup_HSTheme(ComboBox1.SelectedItem.ToString)
+                    Case "art1"
+                        Cleanup_HSArt1(ComboBox1.SelectedItem.ToString)
+                    Case "art2"
+                        Cleanup_HSArt2(ComboBox1.SelectedItem.ToString)
+                    Case "art3"
+                        Cleanup_HSArt3(ComboBox1.SelectedItem.ToString)
+                    Case "art4"
+                        Cleanup_HSArt4(ComboBox1.SelectedItem.ToString)
+                End Select
+            End If
+        Next
+        For Each node As TreeNode In TreeView3.Nodes("node10").Nodes 'HYPERPAUSE
+            If node.Checked = True Then
+                Select Case node.Text.ToLower
+                    Case "artwork"
+                        Cleanup_HPArtwork(ComboBox1.SelectedItem.ToString)
+                    Case "background"
+                        Cleanup_HPBackground(ComboBox1.SelectedItem.ToString)
+                    Case "bezel"
+                        Cleanup_HPBezel(ComboBox1.SelectedItem.ToString)
+                    Case "controller"
+                        Cleanup_HPController(ComboBox1.SelectedItem.ToString)
+                    Case "fade"
+                        Cleanup_HPFade(ComboBox1.SelectedItem.ToString)
+                    Case "guides"
+                        Cleanup_HPGuides(ComboBox1.SelectedItem.ToString)
+                    Case "manuals"
+                        Cleanup_HPManuals(ComboBox1.SelectedItem.ToString)
+                    Case "music"
+                        Cleanup_HPMusic(ComboBox1.SelectedItem.ToString)
+                    Case "videos"
+                        Cleanup_HPVideos(ComboBox1.SelectedItem.ToString)
+                End Select
+            End If
+        Next
+        ProgressBar1.Visible = False
+        TabControl1.Enabled = True
+        Me.Cursor = Cursors.Default
+    End Sub
+
+    Private Sub TreeView1_NodeMouseDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.TreeNodeMouseClickEventArgs) Handles TreeView1.NodeMouseDoubleClick
+        Me.Cursor = Cursors.WaitCursor
+        LoadFULLSystem(TreeView1.SelectedNode.Text)
+        Me.Cursor = Cursors.Default
+    End Sub
+
+    Private Sub CheckBox5_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBox5.CheckedChanged
+        If CheckBox5.CheckState = CheckState.Checked Then 'MOVE
+            Button21.Enabled = True
+            Button21.Visible = True
+            TextBox4.Enabled = True
+            TextBox4.Visible = True
+            'Button10.Text = "Mark selected for Move"
+            'Button20.Text = "UNMark selected for Move"
+            CheckBox7.Text = "Move all selected if Rom is DISABLED (HS1.4+)"
+            CheckBox6.Text = "Move all selected if Rom is NOT FOUND"
+            Try
+                If Directory.Exists(TextBox4.Text) = True Then
+                    ToolStripButton18.Enabled = True
+                Else
+                    ToolStripButton18.Enabled = False
+                End If
+            Catch ex As Exception
+                ToolStripButton18.Enabled = False
+            End Try
+            ToolStripButton18.Text = "MOVE"
+            Try
+                DataGridView5.Columns(0).HeaderText = "Move"
+            Catch ex As Exception
+
+            End Try
+        Else 'DELETE
+            Button21.Enabled = False
+            Button21.Visible = False
+            TextBox4.Enabled = False
+            TextBox4.Visible = False
+            'Button10.Text = "Mark selected for Deletion"
+            'Button20.Text = "UNMark selected for Deletion"
+            ToolStripButton18.Enabled = True
+            ToolStripButton18.Text = "DELETE"
+            CheckBox7.Text = "Remove all selected if Rom is DISABLED (HS1.4+)"
+            CheckBox6.Text = "Remove all selected if Rom is NOT FOUND"
+            Try
+                DataGridView5.Columns(0).HeaderText = "Delete"
+            Catch ex As Exception
+
+            End Try
+        End If
+    End Sub
+
+    Private Sub Button21_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button21.Click
+        Dim GetHSPath As New FolderBrowserDialog
+        GetHSPath.Description = "Backup Folder"
+        GetHSPath.RootFolder = Environment.SpecialFolder.MyComputer
+        If GetHSPath.ShowDialog() = System.Windows.Forms.DialogResult.OK Then
+            Try
+                TextBox4.Text = GetHSPath.SelectedPath
+            Catch Ex As Exception
+                LogEntry(LogType._Warning, "{0}", Ex.Message.ToString)
+            End Try
+        End If
+
+        If Directory.Exists(TextBox4.Text) = False Then
+            MsgBox("Sorry but there is an error ! Cannot find : " & TextBox4.Text & " !")
+        Else
+            ToolStripButton18.Enabled = True
+        End If
+    End Sub
+
+    Private Sub AddRowForCleanup(ByVal pDir As String, ByVal pFileName As String, ByVal pExtension As String, ByVal pReason As String)
+        Dim n As Integer = DataGridView5.Rows.Add
+        DataGridView5.Rows(n).Cells(0).Value = False 'checked
+        DataGridView5.Rows(n).Cells(1).Value = pDir 'path
+        DataGridView5.Rows(n).Cells(2).Value = pFileName 'filename
+        DataGridView5.Rows(n).Cells(3).Value = pExtension 'extension
+        DataGridView5.Rows(n).Cells(4).Value = pReason
+    End Sub
+
+    Private Sub Cleanup_HSVideos(ByVal cSystem As String)
+        Dim WorkingPath As String = gHSPath & "\Media\" & cSystem & "\Video\"
+        WorkingPath = Path.GetFullPath(WorkingPath)
+
+        If Directory.Exists(WorkingPath) Then
+            For Each vFile In System.IO.Directory.GetFiles(WorkingPath)
+                Dim vFileName As String = Path.GetFileNameWithoutExtension(vFile)
+                Dim vExtension As String = Path.GetExtension(vFile)
+                Dim vDir As String = Path.GetDirectoryName(vFile)
+                Dim IsDeleted As Boolean = False
+
+                Try
+                    If gHSOldVersion = False Then
+                        If gHS.Systems(cSystem).Roms(vFileName).Enabled = False Then
+                            If CheckBox7.Checked = True Then
+                                AddRowForCleanup(vDir, vFileName, vExtension, "Rom disabled")
+                                IsDeleted = True
+                            End If
+                        End If
+                    End If
+                Catch ex As Exception
+                    AddRowForCleanup(vDir, vFileName, vExtension, "Rom entry not found in XML")
+                    IsDeleted = True
+                End Try
+
+                If IsDeleted = False Then
+                    Try
+                        If gHS.Systems(cSystem).Roms(vFileName).RomFound = True Then
+                            If vExtension = ".png" And (File.Exists(WorkingPath & vFileName & ".flv") Or File.Exists(WorkingPath & vFileName & ".mp4")) Then
+                                AddRowForCleanup(vDir, vFileName, vExtension, "Flv or MP4 already exists")
+                            End If
+                            If vExtension = ".flv" And File.Exists(WorkingPath & vFileName & ".mp4") Then
+                                AddRowForCleanup(vDir, vFileName, vExtension, "MP4 already exists")
+                            End If
+                        Else
+                            If CheckBox6.Checked = True Then
+                                AddRowForCleanup(vDir, vFileName, vExtension, "Rom is not found")
+                            End If
+                        End If
+                    Catch ex As Exception
+                        AddRowForCleanup(vDir, vFileName, vExtension, "Rom entry not found in XML")
+                    End Try
+                End If
+            Next
+        End If
+    End Sub
+
+    Private Sub Cleanup_HSWheels(ByVal cSystem As String)
+        Dim WorkingPath As String = gHSPath & "\Media\" & cSystem & "\Images\Wheel\"
+        Dim ExpectedExtension As String = ".png"
+        WorkingPath = Path.GetFullPath(WorkingPath)
+
+        If Directory.Exists(WorkingPath) Then
+            For Each vFile In System.IO.Directory.GetFiles(WorkingPath)
+                Dim vFileName As String = Path.GetFileNameWithoutExtension(vFile)
+                Dim vExtension As String = Path.GetExtension(vFile)
+                Dim vDir As String = Path.GetDirectoryName(vFile)
+
+                Dim IsDeleted As Boolean = False
+                If vExtension.ToLower <> ExpectedExtension Then
+                    AddRowForCleanup(vDir, vFileName, vExtension, "Wrong extension (wheels are " & ExpectedExtension & ")")
+                    IsDeleted = True
+                Else
+                    Try
+                        If gHSOldVersion = False Then
+                            If gHS.Systems(cSystem).Roms(vFileName).Enabled = False Then
+                                If CheckBox7.Checked = True Then
+                                    AddRowForCleanup(vDir, vFileName, vExtension, "Rom disabled")
+                                    IsDeleted = True
+                                End If
+                            End If
+                        End If
+                    Catch ex As Exception
+                        AddRowForCleanup(vDir, vFileName, vExtension, "Rom entry not found in XML")
+                        IsDeleted = True
+                    End Try
+                End If
+
+                If IsDeleted = False Then
+                    Try
+                        If gHS.Systems(cSystem).Roms(vFileName).RomFound = False Then
+                            If CheckBox6.Checked = True Then
+                                AddRowForCleanup(vDir, vFileName, vExtension, "Rom is not found")
+                            End If
+                        End If
+                    Catch ex As Exception
+                        AddRowForCleanup(vDir, vFileName, vExtension, "Rom entry not found in XML")
+                    End Try
+                End If
+            Next
+        End If
+    End Sub
+
+    Private Sub Cleanup_HSTheme(ByVal cSystem As String)
+        Dim WorkingPath As String = gHSPath & "\Media\" & cSystem & "\Themes\"
+        Dim ExpectedExtension As String = ".zip"
+        WorkingPath = Path.GetFullPath(WorkingPath)
+
+        If Directory.Exists(WorkingPath) Then
+            For Each vFile In System.IO.Directory.GetFiles(WorkingPath)
+                Dim vFileName As String = Path.GetFileNameWithoutExtension(vFile)
+                Dim vExtension As String = Path.GetExtension(vFile)
+                Dim vDir As String = Path.GetDirectoryName(vFile)
+                Dim IsDeleted As Boolean = False
+
+                If vFileName.ToLower <> "default" Then
+                    If vExtension.ToLower <> ExpectedExtension Then
+                        Dim n As Integer = DataGridView5.Rows.Add
+                        AddRowForCleanup(vDir, vFileName, vExtension, "Wrong extension (Themes are " & ExpectedExtension & ")")
+                        IsDeleted = True
+                    Else
+                        Try
+                            If gHSOldVersion = False Then
+                                If gHS.Systems(cSystem).Roms(vFileName).Enabled = False Then
+                                    If CheckBox7.Checked = True Then
+                                        AddRowForCleanup(vDir, vFileName, vExtension, "Rom disabled")
+                                        IsDeleted = True
+                                    End If
+                                End If
+                            End If
+                        Catch ex As Exception
+                            AddRowForCleanup(vDir, vFileName, vExtension, "Rom entry not found in XML")
+                            IsDeleted = True
+                        End Try
+                    End If
+
+                    If IsDeleted = False Then
+                        Try
+                            If gHS.Systems(cSystem).Roms(vFileName).RomFound = False Then
+                                If CheckBox6.Checked = True Then
+                                    AddRowForCleanup(vDir, vFileName, vExtension, "Rom is not found")
+                                End If
+                            End If
+                        Catch ex As Exception
+                            AddRowForCleanup(vDir, vFileName, vExtension, "Rom entry not found in XML")
+                        End Try
+                    End If
+                End If
+            Next
+        End If
+    End Sub
+
+    Private Sub Cleanup_HSArt1(ByVal cSystem As String)
+        Dim WorkingPath As String = gHSPath & "\Media\" & cSystem & "\Images\Artwork1\"
+        Dim ExpectedExtensions As String = ".png|.swf"
+        WorkingPath = Path.GetFullPath(WorkingPath)
+
+        If Directory.Exists(WorkingPath) Then
+            For Each vFile In System.IO.Directory.GetFiles(WorkingPath)
+                Dim vFileName As String = Path.GetFileNameWithoutExtension(vFile)
+                Dim vExtension As String = Path.GetExtension(vFile)
+                Dim vDir As String = Path.GetDirectoryName(vFile)
+
+                Dim IsDeleted As Boolean = False
+                If ExpectedExtensions.Contains("|") Then
+                    Dim ToDelete As Boolean = True
+                    For Each vVal As String In ExpectedExtensions.Split("|")
+                        If vExtension.ToLower = vVal.ToLower Then
+                            ToDelete = False
+                        End If
+                    Next
+                    If ToDelete = True Then
+                        If IsDeleted = False Then
+                            AddRowForCleanup(vDir, vFileName, vExtension, "Wrong extension (Artwork1 are " & ExpectedExtensions.Replace("|", " or ") & ")")
+                        End If
+                        IsDeleted = True
+                    End If
+                ElseIf vExtension.ToLower <> ExpectedExtensions Then
+                    AddRowForCleanup(vDir, vFileName, vExtension, "Wrong extension (Artwork1 are " & ExpectedExtensions.Replace("|", " or ") & ")")
+                    IsDeleted = True
+                Else
+                    Try
+                        If gHSOldVersion = False Then
+                            If gHS.Systems(cSystem).Roms(vFileName).Enabled = False Then
+                                If CheckBox7.Checked = True Then
+                                    AddRowForCleanup(vDir, vFileName, vExtension, "Rom disabled")
+                                    IsDeleted = True
+                                End If
+                            End If
+                        End If
+                    Catch ex As Exception
+                        AddRowForCleanup(vDir, vFileName, vExtension, "Rom entry not found in XML")
+                        IsDeleted = True
+                    End Try
+                End If
+
+                If IsDeleted = False Then
+                    Try
+                        If gHS.Systems(cSystem).Roms(vFileName).RomFound = False Then
+                            If CheckBox6.Checked = True Then
+                                AddRowForCleanup(vDir, vFileName, vExtension, "Rom is not found")
+                            End If
+                        End If
+                    Catch ex As Exception
+                        AddRowForCleanup(vDir, vFileName, vExtension, "Rom entry not found in XML")
+                    End Try
+                End If
+            Next
+        End If
+    End Sub
+
+    Private Sub Cleanup_HSArt2(ByVal cSystem As String)
+        Dim WorkingPath As String = gHSPath & "\Media\" & cSystem & "\Images\Artwork2\"
+        Dim ExpectedExtensions As String = ".png|.swf"
+        WorkingPath = Path.GetFullPath(WorkingPath)
+
+        If Directory.Exists(WorkingPath) Then
+            For Each vFile In System.IO.Directory.GetFiles(WorkingPath)
+                Dim vFileName As String = Path.GetFileNameWithoutExtension(vFile)
+                Dim vExtension As String = Path.GetExtension(vFile)
+                Dim vDir As String = Path.GetDirectoryName(vFile)
+
+                Dim IsDeleted As Boolean = False
+                If ExpectedExtensions.Contains("|") Then
+                    Dim ToDelete As Boolean = True
+                    For Each vVal As String In ExpectedExtensions.Split("|")
+                        If vExtension.ToLower = vVal.ToLower Then
+                            ToDelete = False
+                        End If
+                    Next
+                    If ToDelete = True Then
+                        If IsDeleted = False Then
+                            AddRowForCleanup(vDir, vFileName, vExtension, "Wrong extension (Artwork2 are " & ExpectedExtensions.Replace("|", " or ") & ")")
+                        End If
+                        IsDeleted = True
+                    End If
+                ElseIf vExtension.ToLower <> ExpectedExtensions Then
+                    AddRowForCleanup(vDir, vFileName, vExtension, "Wrong extension (Artwork2 are " & ExpectedExtensions.Replace("|", " or ") & ")")
+                    IsDeleted = True
+                Else
+                    Try
+                        If gHSOldVersion = False Then
+                            If gHS.Systems(cSystem).Roms(vFileName).Enabled = False Then
+                                If CheckBox7.Checked = True Then
+                                    AddRowForCleanup(vDir, vFileName, vExtension, "Rom disabled")
+                                    IsDeleted = True
+                                End If
+                            End If
+                        End If
+                    Catch ex As Exception
+                        AddRowForCleanup(vDir, vFileName, vExtension, "Rom entry not found in XML")
+                        IsDeleted = True
+                    End Try
+                End If
+
+                If IsDeleted = False Then
+                    Try
+                        If gHS.Systems(cSystem).Roms(vFileName).RomFound = False Then
+                            If CheckBox6.Checked = True Then
+                                AddRowForCleanup(vDir, vFileName, vExtension, "Rom is not found")
+                            End If
+                        End If
+                    Catch ex As Exception
+                        AddRowForCleanup(vDir, vFileName, vExtension, "Rom entry not found in XML")
+                    End Try
+                End If
+            Next
+        End If
+    End Sub
+
+    Private Sub Cleanup_HSArt3(ByVal cSystem As String)
+        Dim WorkingPath As String = gHSPath & "\Media\" & cSystem & "\Images\Artwork3\"
+        Dim ExpectedExtensions As String = ".png|.swf"
+        WorkingPath = Path.GetFullPath(WorkingPath)
+
+        If Directory.Exists(WorkingPath) Then
+            For Each vFile In System.IO.Directory.GetFiles(WorkingPath)
+                Dim vFileName As String = Path.GetFileNameWithoutExtension(vFile)
+                Dim vExtension As String = Path.GetExtension(vFile)
+                Dim vDir As String = Path.GetDirectoryName(vFile)
+
+                Dim IsDeleted As Boolean = False
+                If ExpectedExtensions.Contains("|") Then
+                    Dim ToDelete As Boolean = True
+                    For Each vVal As String In ExpectedExtensions.Split("|")
+                        If vExtension.ToLower = vVal.ToLower Then
+                            ToDelete = False
+                        End If
+                    Next
+                    If ToDelete = True Then
+                        If IsDeleted = False Then
+                            AddRowForCleanup(vDir, vFileName, vExtension, "Wrong extension (Artwork3 are " & ExpectedExtensions.Replace("|", " or ") & ")")
+                        End If
+                        IsDeleted = True
+                    End If
+                ElseIf vExtension.ToLower <> ExpectedExtensions Then
+                    AddRowForCleanup(vDir, vFileName, vExtension, "Wrong extension (Artwork3 are " & ExpectedExtensions.Replace("|", " or ") & ")")
+                IsDeleted = True
+                Else
+                Try
+                    If gHSOldVersion = False Then
+                        If gHS.Systems(cSystem).Roms(vFileName).Enabled = False Then
+                            If CheckBox7.Checked = True Then
+                                AddRowForCleanup(vDir, vFileName, vExtension, "Rom disabled")
+                                IsDeleted = True
+                            End If
+                        End If
+                    End If
+                Catch ex As Exception
+                    AddRowForCleanup(vDir, vFileName, vExtension, "Rom entry not found in XML")
+                    IsDeleted = True
+                End Try
+                End If
+
+        If IsDeleted = False Then
+            Try
+                If gHS.Systems(cSystem).Roms(vFileName).RomFound = False Then
+                    If CheckBox6.Checked = True Then
+                        AddRowForCleanup(vDir, vFileName, vExtension, "Rom is not found")
+                    End If
+                End If
+            Catch ex As Exception
+                AddRowForCleanup(vDir, vFileName, vExtension, "Rom entry not found in XML")
+            End Try
+        End If
+            Next
+        End If
+    End Sub
+
+    Private Sub Cleanup_HSArt4(ByVal cSystem As String)
+        Dim WorkingPath As String = gHSPath & "\Media\" & cSystem & "\Images\Artwork4\"
+        Dim ExpectedExtensions As String = ".png|.swf"
+        WorkingPath = Path.GetFullPath(WorkingPath)
+
+        If Directory.Exists(WorkingPath) Then
+            For Each vFile In System.IO.Directory.GetFiles(WorkingPath)
+                Dim vFileName As String = Path.GetFileNameWithoutExtension(vFile)
+                Dim vExtension As String = Path.GetExtension(vFile)
+                Dim vDir As String = Path.GetDirectoryName(vFile)
+
+                Dim IsDeleted As Boolean = False
+                If ExpectedExtensions.Contains("|") Then
+                    Dim ToDelete As Boolean = True
+                    For Each vVal As String In ExpectedExtensions.Split("|")
+                        If vExtension.ToLower = vVal.ToLower Then
+                            ToDelete = False
+                        End If
+                    Next
+                    If ToDelete = True Then
+                        If IsDeleted = False Then
+                            AddRowForCleanup(vDir, vFileName, vExtension, "Wrong extension (Artwork4 are " & ExpectedExtensions.Replace("|", " or ") & ")")
+                        End If
+                        IsDeleted = True
+                    End If
+                ElseIf vExtension.ToLower <> ExpectedExtensions Then
+                    AddRowForCleanup(vDir, vFileName, vExtension, "Wrong extension (Artwork4 are " & ExpectedExtensions.Replace("|", " or ") & ")")
+                    IsDeleted = True
+                Else
+                    Try
+                        If gHSOldVersion = False Then
+                            If gHS.Systems(cSystem).Roms(vFileName).Enabled = False Then
+                                If CheckBox7.Checked = True Then
+                                    AddRowForCleanup(vDir, vFileName, vExtension, "Rom disabled")
+                                    IsDeleted = True
+                                End If
+                            End If
+                        End If
+                    Catch ex As Exception
+                        AddRowForCleanup(vDir, vFileName, vExtension, "Rom entry not found in XML")
+                        IsDeleted = True
+                    End Try
+                End If
+
+                If IsDeleted = False Then
+                    Try
+                        If gHS.Systems(cSystem).Roms(vFileName).RomFound = False Then
+                            If CheckBox6.Checked = True Then
+                                AddRowForCleanup(vDir, vFileName, vExtension, "Rom is not found")
+                            End If
+                        End If
+                    Catch ex As Exception
+                        AddRowForCleanup(vDir, vFileName, vExtension, "Rom entry not found in XML")
+                    End Try
+                End If
+            Next
+        End If
+    End Sub
+
+    Private Sub Cleanup_HPArtwork(ByVal cSystem As String)
+        Dim WorkingPath As String = gHLPath & "\Media\Artwork\" & cSystem & "\"
+        WorkingPath = Path.GetFullPath(WorkingPath)
+
+        If Directory.Exists(WorkingPath) Then
+            For Each vFoundDir In System.IO.Directory.GetDirectories(WorkingPath)
+                vFoundDir = Path.GetFullPath(vFoundDir)
+                Dim vRomDir As String = Path.GetFileName(vFoundDir)
+                Dim IsDeleted As Boolean = False
+                If vRomDir.ToLower <> "_default" Then
+                    Try
+                        If gHSOldVersion = False Then
+                            If gHS.Systems(cSystem).Roms(vRomDir).Enabled = False Then
+                                If CheckBox7.Checked = True Then
+                                    AddRowForCleanup(vFoundDir, "", "", "Rom disabled")
+                                    IsDeleted = True
+                                End If
+                            End If
+                        End If
+                    Catch ex As Exception
+                        AddRowForCleanup(vFoundDir, "", "", "Rom entry not found in XML")
+                        IsDeleted = True
+                    End Try
+
+                    If IsDeleted = False Then
+                        Try
+                            If gHS.Systems(cSystem).Roms(vRomDir).RomFound = False Then
+                                If CheckBox6.Checked = True Then
+                                    AddRowForCleanup(vFoundDir, "", "", "Rom is not found")
+                                End If
+                            End If
+                        Catch ex As Exception
+                            AddRowForCleanup(vFoundDir, "", "", "Rom entry not found in XML")
+                        End Try
+                    End If
+                End If
+            Next
+        End If
+    End Sub
+
+    Private Sub Cleanup_HPBackground(ByVal cSystem As String)
+        Dim WorkingPath As String = gHLPath & "\Media\Backgrounds\" & cSystem & "\"
+        WorkingPath = Path.GetFullPath(WorkingPath)
+
+        If Directory.Exists(WorkingPath) Then
+            For Each vFoundDir In System.IO.Directory.GetDirectories(WorkingPath)
+                vFoundDir = Path.GetFullPath(vFoundDir)
+                Dim vRomDir As String = Path.GetFileName(vFoundDir)
+                Dim IsDeleted As Boolean = False
+                If vRomDir.ToLower <> "_default" Then
+                    Try
+                        If gHSOldVersion = False Then
+                            If gHS.Systems(cSystem).Roms(vRomDir).Enabled = False Then
+                                If CheckBox7.Checked = True Then
+                                    AddRowForCleanup(vFoundDir, "", "", "Rom disabled")
+                                    IsDeleted = True
+                                End If
+                            End If
+                        End If
+                    Catch ex As Exception
+                        AddRowForCleanup(vFoundDir, "", "", "Rom entry not found in XML")
+                        IsDeleted = True
+                    End Try
+
+                    If IsDeleted = False Then
+                        Try
+                            If gHS.Systems(cSystem).Roms(vRomDir).RomFound = False Then
+                                If CheckBox6.Checked = True Then
+                                    AddRowForCleanup(vFoundDir, "", "", "Rom is not found")
+                                End If
+                            End If
+                        Catch ex As Exception
+                            AddRowForCleanup(vFoundDir, "", "", "Rom entry not found in XML")
+                        End Try
+                    End If
+                End If
+            Next
+        End If
+    End Sub
+
+    Private Sub Cleanup_HPBezel(ByVal cSystem As String)
+        Dim WorkingPath As String = gHLPath & "\Media\Bezels\" & cSystem & "\"
+        WorkingPath = Path.GetFullPath(WorkingPath)
+
+        If Directory.Exists(WorkingPath) Then
+            For Each vFoundDir In System.IO.Directory.GetDirectories(WorkingPath)
+                vFoundDir = Path.GetFullPath(vFoundDir)
+                Dim vRomDir As String = Path.GetFileName(vFoundDir)
+                Dim IsDeleted As Boolean = False
+                If vRomDir.ToLower <> "_default" Then
+                    Try
+                        If gHSOldVersion = False Then
+                            If gHS.Systems(cSystem).Roms(vRomDir).Enabled = False Then
+                                If CheckBox7.Checked = True Then
+                                    AddRowForCleanup(vFoundDir, "", "", "Rom disabled")
+                                    IsDeleted = True
+                                End If
+                            End If
+                        End If
+                    Catch ex As Exception
+                        AddRowForCleanup(vFoundDir, "", "", "Rom entry not found in XML")
+                        IsDeleted = True
+                    End Try
+
+                    If IsDeleted = False Then
+                        Try
+                            If gHS.Systems(cSystem).Roms(vRomDir).RomFound = False Then
+                                If CheckBox6.Checked = True Then
+                                    AddRowForCleanup(vFoundDir, "", "", "Rom is not found")
+                                End If
+                            End If
+                        Catch ex As Exception
+                            AddRowForCleanup(vFoundDir, "", "", "Rom entry not found in XML")
+                        End Try
+                    End If
+                End If
+            Next
+        End If
+    End Sub
+
+    Private Sub Cleanup_HPController(ByVal cSystem As String)
+        Dim WorkingPath As String = gHLPath & "\Media\Controller\" & cSystem & "\"
+        WorkingPath = Path.GetFullPath(WorkingPath)
+
+        If Directory.Exists(WorkingPath) Then
+            For Each vFoundDir In System.IO.Directory.GetDirectories(WorkingPath)
+                vFoundDir = Path.GetFullPath(vFoundDir)
+                Dim vRomDir As String = Path.GetFileName(vFoundDir)
+                Dim IsDeleted As Boolean = False
+                If vRomDir.ToLower <> "_default" Then
+                    Try
+                        If gHSOldVersion = False Then
+                            If gHS.Systems(cSystem).Roms(vRomDir).Enabled = False Then
+                                If CheckBox7.Checked = True Then
+                                    AddRowForCleanup(vFoundDir, "", "", "Rom disabled")
+                                    IsDeleted = True
+                                End If
+                            End If
+                        End If
+                    Catch ex As Exception
+                        AddRowForCleanup(vFoundDir, "", "", "Rom entry not found in XML")
+                        IsDeleted = True
+                    End Try
+
+                    If IsDeleted = False Then
+                        Try
+                            If gHS.Systems(cSystem).Roms(vRomDir).RomFound = False Then
+                                If CheckBox6.Checked = True Then
+                                    AddRowForCleanup(vFoundDir, "", "", "Rom is not found")
+                                End If
+                            End If
+                        Catch ex As Exception
+                            AddRowForCleanup(vFoundDir, "", "", "Rom entry not found in XML")
+                        End Try
+                    End If
+                End If
+            Next
+        End If
+    End Sub
+
+    Private Sub Cleanup_HPFade(ByVal cSystem As String)
+        Dim WorkingPath As String = gHLPath & "\Media\Fade\" & cSystem & "\"
+        WorkingPath = Path.GetFullPath(WorkingPath)
+
+        If Directory.Exists(WorkingPath) Then
+            For Each vFoundDir In System.IO.Directory.GetDirectories(WorkingPath)
+                vFoundDir = Path.GetFullPath(vFoundDir)
+                Dim vRomDir As String = Path.GetFileName(vFoundDir)
+                Dim IsDeleted As Boolean = False
+                If vRomDir.ToLower <> "_default" Then
+                    Try
+                        If gHSOldVersion = False Then
+                            If gHS.Systems(cSystem).Roms(vRomDir).Enabled = False Then
+                                If CheckBox7.Checked = True Then
+                                    AddRowForCleanup(vFoundDir, "", "", "Rom disabled")
+                                    IsDeleted = True
+                                End If
+                            End If
+                        End If
+                    Catch ex As Exception
+                        AddRowForCleanup(vFoundDir, "", "", "Rom entry not found in XML")
+                        IsDeleted = True
+                    End Try
+
+                    If IsDeleted = False Then
+                        Try
+                            If gHS.Systems(cSystem).Roms(vRomDir).RomFound = False Then
+                                If CheckBox6.Checked = True Then
+                                    AddRowForCleanup(vFoundDir, "", "", "Rom is not found")
+                                End If
+                            End If
+                        Catch ex As Exception
+                            AddRowForCleanup(vFoundDir, "", "", "Rom entry not found in XML")
+                        End Try
+                    End If
+                End If
+            Next
+        End If
+    End Sub
+
+    Private Sub Cleanup_HPGuides(ByVal cSystem As String)
+        Dim WorkingPath As String = gHLPath & "\Media\Guides\" & cSystem & "\"
+        WorkingPath = Path.GetFullPath(WorkingPath)
+
+        If Directory.Exists(WorkingPath) Then
+            For Each vFoundDir In System.IO.Directory.GetDirectories(WorkingPath)
+                vFoundDir = Path.GetFullPath(vFoundDir)
+                Dim vRomDir As String = Path.GetFileName(vFoundDir)
+                Dim IsDeleted As Boolean = False
+                If vRomDir.ToLower <> "_default" Then
+                    Try
+                        If gHSOldVersion = False Then
+                            If gHS.Systems(cSystem).Roms(vRomDir).Enabled = False Then
+                                If CheckBox7.Checked = True Then
+                                    AddRowForCleanup(vFoundDir, "", "", "Rom disabled")
+                                    IsDeleted = True
+                                End If
+                            End If
+                        End If
+                    Catch ex As Exception
+                        AddRowForCleanup(vFoundDir, "", "", "Rom entry not found in XML")
+                        IsDeleted = True
+                    End Try
+
+                    If IsDeleted = False Then
+                        Try
+                            If gHS.Systems(cSystem).Roms(vRomDir).RomFound = False Then
+                                If CheckBox6.Checked = True Then
+                                    AddRowForCleanup(vFoundDir, "", "", "Rom is not found")
+                                End If
+                            End If
+                        Catch ex As Exception
+                            AddRowForCleanup(vFoundDir, "", "", "Rom entry not found in XML")
+                        End Try
+                    End If
+                End If
+            Next
+        End If
+    End Sub
+
+    Private Sub Cleanup_HPManuals(ByVal cSystem As String)
+        Dim WorkingPath As String = gHLPath & "\Media\Manuals\" & cSystem & "\"
+        WorkingPath = Path.GetFullPath(WorkingPath)
+
+        If Directory.Exists(WorkingPath) Then
+            For Each vFoundDir In System.IO.Directory.GetDirectories(WorkingPath)
+                vFoundDir = Path.GetFullPath(vFoundDir)
+                Dim vRomDir As String = Path.GetFileName(vFoundDir)
+                Dim IsDeleted As Boolean = False
+                If vRomDir.ToLower <> "_default" Then
+                    Try
+                        If gHSOldVersion = False Then
+                            If gHS.Systems(cSystem).Roms(vRomDir).Enabled = False Then
+                                If CheckBox7.Checked = True Then
+                                    AddRowForCleanup(vFoundDir, "", "", "Rom disabled")
+                                    IsDeleted = True
+                                End If
+                            End If
+                        End If
+                    Catch ex As Exception
+                        AddRowForCleanup(vFoundDir, "", "", "Rom entry not found in XML")
+                        IsDeleted = True
+                    End Try
+
+                    If IsDeleted = False Then
+                        Try
+                            If gHS.Systems(cSystem).Roms(vRomDir).RomFound = False Then
+                                If CheckBox6.Checked = True Then
+                                    AddRowForCleanup(vFoundDir, "", "", "Rom is not found")
+                                End If
+                            End If
+                        Catch ex As Exception
+                            AddRowForCleanup(vFoundDir, "", "", "Rom entry not found in XML")
+                        End Try
+                    End If
+                End If
+            Next
+        End If
+    End Sub
+
+    Private Sub Cleanup_HPMusic(ByVal cSystem As String)
+        Dim WorkingPath As String = gHLPath & "\Media\Music\" & cSystem & "\"
+        WorkingPath = Path.GetFullPath(WorkingPath)
+
+        If Directory.Exists(WorkingPath) Then
+            For Each vFoundDir In System.IO.Directory.GetDirectories(WorkingPath)
+                vFoundDir = Path.GetFullPath(vFoundDir)
+                Dim vRomDir As String = Path.GetFileName(vFoundDir)
+                Dim IsDeleted As Boolean = False
+                If vRomDir.ToLower <> "_default" Then
+                    Try
+                        If gHSOldVersion = False Then
+                            If gHS.Systems(cSystem).Roms(vRomDir).Enabled = False Then
+                                If CheckBox7.Checked = True Then
+                                    AddRowForCleanup(vFoundDir, "", "", "Rom disabled")
+                                    IsDeleted = True
+                                End If
+                            End If
+                        End If
+                    Catch ex As Exception
+                        AddRowForCleanup(vFoundDir, "", "", "Rom entry not found in XML")
+                        IsDeleted = True
+                    End Try
+
+                    If IsDeleted = False Then
+                        Try
+                            If gHS.Systems(cSystem).Roms(vRomDir).RomFound = False Then
+                                If CheckBox6.Checked = True Then
+                                    AddRowForCleanup(vFoundDir, "", "", "Rom is not found")
+                                End If
+                            End If
+                        Catch ex As Exception
+                            AddRowForCleanup(vFoundDir, "", "", "Rom entry not found in XML")
+                        End Try
+                    End If
+                End If
+            Next
+        End If
+    End Sub
+
+    Private Sub Cleanup_HPVideos(ByVal cSystem As String)
+        Dim WorkingPath As String = gHLPath & "\Media\Videos\" & cSystem & "\"
+        WorkingPath = Path.GetFullPath(WorkingPath)
+
+        If Directory.Exists(WorkingPath) Then
+            For Each vFoundDir In System.IO.Directory.GetDirectories(WorkingPath)
+                vFoundDir = Path.GetFullPath(vFoundDir)
+                Dim vRomDir As String = Path.GetFileName(vFoundDir)
+                Dim IsDeleted As Boolean = False
+                If vRomDir.ToLower <> "_default" Then
+                    Try
+                        If gHSOldVersion = False Then
+                            If gHS.Systems(cSystem).Roms(vRomDir).Enabled = False Then
+                                If CheckBox7.Checked = True Then
+                                    AddRowForCleanup(vFoundDir, "", "", "Rom disabled")
+                                    IsDeleted = True
+                                End If
+                            End If
+                        End If
+                    Catch ex As Exception
+                        AddRowForCleanup(vFoundDir, "", "", "Rom entry not found in XML")
+                        IsDeleted = True
+                    End Try
+
+                    If IsDeleted = False Then
+                        Try
+                            If gHS.Systems(cSystem).Roms(vRomDir).RomFound = False Then
+                                If CheckBox6.Checked = True Then
+                                    AddRowForCleanup(vFoundDir, "", "", "Rom is not found")
+                                End If
+                            End If
+                        Catch ex As Exception
+                            AddRowForCleanup(vFoundDir, "", "", "Rom entry not found in XML")
+                        End Try
+                    End If
+                End If
+            Next
+        End If
+    End Sub
+
+    Private Sub ToolStripButton14_Click(sender As System.Object, e As System.EventArgs) Handles ToolStripButton14.Click
+        DataGridView5.Columns("colDeletion").AutoSizeMode = DataGridViewAutoSizeColumnMode.None
+        Cursor = Cursors.WaitCursor
+        If DataGridView5.SelectedRows.Count > 0 Then
+            For Each vRow As DataGridViewRow In DataGridView5.SelectedRows
+                Try
+                    vRow.Cells("colDeletion").Value = True
+                Catch ex As Exception
+                    LogEntry(LogType._Warning, "{0}", ex.Message.ToString)
+                End Try
+            Next
+        End If
+        DataGridView5.CommitEdit(DataGridViewDataErrorContexts.Commit)
+        Cursor = Cursors.Default
+    End Sub
+
+    Private Sub ToolStripButton15_Click(sender As System.Object, e As System.EventArgs) Handles ToolStripButton15.Click
+        DataGridView5.Columns("colDeletion").AutoSizeMode = DataGridViewAutoSizeColumnMode.None
+        Cursor = Cursors.WaitCursor
+        If DataGridView5.SelectedRows.Count > 0 Then
+            For Each vRow As DataGridViewRow In DataGridView5.SelectedRows
+                Try
+                    vRow.Cells("colDeletion").Value = False
+                Catch ex As Exception
+                    LogEntry(LogType._Warning, "{0}", ex.Message.ToString)
+                End Try
+            Next
+        End If
+        DataGridView5.CommitEdit(DataGridViewDataErrorContexts.Commit)
+        Cursor = Cursors.Default
+    End Sub
+
+    Private Sub ToolStripButton16_Click(sender As System.Object, e As System.EventArgs) Handles ToolStripButton16.Click
+        DataGridView5.Columns("colDeletion").AutoSizeMode = DataGridViewAutoSizeColumnMode.None
+        Cursor = Cursors.WaitCursor
+        For Each vRow As DataGridViewRow In DataGridView5.Rows
+            Try
+                vRow.Cells("colDeletion").Value = True
+            Catch ex As Exception
+                LogEntry(LogType._Warning, "{0}", ex.Message.ToString)
+            End Try
+        Next
+        DataGridView5.CommitEdit(DataGridViewDataErrorContexts.Commit)
+        Cursor = Cursors.Default
+    End Sub
+
+    Private Sub ToolStripButton17_Click(sender As System.Object, e As System.EventArgs) Handles ToolStripButton17.Click
+        DataGridView5.Columns("colDeletion").AutoSizeMode = DataGridViewAutoSizeColumnMode.None
+        Cursor = Cursors.WaitCursor
+        For Each vRow As DataGridViewRow In DataGridView5.Rows
+            Try
+                vRow.Cells("colDeletion").Value = False
+            Catch ex As Exception
+                LogEntry(LogType._Warning, "{0}", ex.Message.ToString)
+            End Try
+        Next
+        DataGridView5.CommitEdit(DataGridViewDataErrorContexts.Commit)
+        Cursor = Cursors.Default
+    End Sub
+
+    Private Sub ToolStripButton18_Click(sender As System.Object, e As System.EventArgs) Handles ToolStripButton18.Click
+        If MsgBox("This is for real ! Are you sure ?", MsgBoxStyle.YesNo, "WARNING !") = MsgBoxResult.Yes Then
+            DataGridView5.Columns("colDeletion").AutoSizeMode = DataGridViewAutoSizeColumnMode.None
+            Cursor = Cursors.WaitCursor
+            DataGridView5.ClearSelection()
+            Application.DoEvents()
+            For Each vRow As DataGridViewRow In DataGridView5.Rows
+                If vRow.Cells("colDeletion").Value = True Then
+                    Dim fToDel As String = vRow.Cells(1).Value & "\" & vRow.Cells(2).Value & vRow.Cells(3).Value
+                    Dim fDest As String = TextBox4.Text & "\" & fToDel.Replace(Path.GetPathRoot(fToDel), "")
+                    Dim TypeToDelIsFile As Boolean = True
+                    Dim Del As Boolean = False
+                    If vRow.Cells("colFilename").Value <> "" Then
+                        If File.Exists(fToDel) Then
+                            Del = True
+                        End If
+                    Else
+                        TypeToDelIsFile = False
+                        If Directory.Exists(fToDel) Then
+                            Del = True
+                        End If
+                    End If
+                    Application.DoEvents()
+                    If Del = True Then
+                        Try
+                            If CheckBox5.CheckState = CheckState.Checked Then
+                                Dim vDestDir As String = Path.GetDirectoryName(fDest)
+                                If Directory.Exists(vDestDir) = False Then
+                                    Directory.CreateDirectory(vDestDir)
+                                End If
+                                If TypeToDelIsFile = True Then
+                                    My.Computer.FileSystem.MoveFile(fToDel, fDest, True)
+                                Else
+                                    My.Computer.FileSystem.MoveDirectory(fToDel, fDest, True)
+                                End If
+                            Else
+                                If TypeToDelIsFile = True Then
+                                    File.Delete(fToDel)
+                                Else
+                                    Directory.Delete(fToDel, True)
+                                End If
+                            End If
+                            vRow.Selected = True
+                            Application.DoEvents()
+                        Catch ex As Exception
+                            If CheckBox5.CheckState = CheckState.Checked Then
+                                LogEntry(LogType._Warning, "{0}", "Cannot move " & fToDel & " to " & fDest & " - " & ex.Message.ToString)
+                            Else
+                                LogEntry(LogType._Warning, "{0}", "Cannot delete : " & fToDel & " - " & ex.Message.ToString)
+                            End If
+                        End Try
+                    End If
+                End If
+            Next
+            For Each selectedrow As DataGridViewRow In DataGridView5.SelectedRows
+                DataGridView5.Rows.Remove(selectedrow)
+            Next
+            'DataGridView5.FirstDisplayedScrollingRowIndex = 0
+            DataGridView5.CommitEdit(DataGridViewDataErrorContexts.Commit)
+            Cursor = Cursors.Default
+        End If
+    End Sub
+
+    Private Sub SplitContainer8_SplitterMoved(sender As System.Object, e As System.Windows.Forms.SplitterEventArgs) Handles SplitContainer8.SplitterMoved
+        Try
+            SplitContainer9.SplitterDistance = CheckBox8.Width + 15
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub ButtonAssign_Click(sender As System.Object, e As System.EventArgs) Handles ButtonAssign.Click
+        'basic checks first
+        'left selection must have 1 entry selected (and only one)
+        'right selection must have 1 entry selected (and only one)
+        ' - initial file/folder must be renamed to a temporary name first (in order to get rid of capitalization issues)
+        ' then -> rename
+
+        If DataGridView5.SelectedRows.Count <> 1 Then
+            MsgBox("Please select one entry on the left before (and only one)", MsgBoxStyle.Information, "Warning")
+            Exit Sub
+        End If
+
+        If ListBox2.SelectedItems.Count <> 1 Then
+            MsgBox("Please select one romName on the right before (and only one)", MsgBoxStyle.Information, "Warning")
+            Exit Sub
+        End If
+
+        Me.Cursor = Cursors.WaitCursor
+        Dim vIsFile As Boolean = True
+        If DataGridView5.SelectedRows(0).Cells(2).Value = "" Then
+            vIsFile = False
+        End If
+
+        Dim vOldName As String = ""
+        Dim vNewName As String = ""
+        If vIsFile = True Then
+            vOldName = DataGridView5.SelectedRows(0).Cells(1).Value & "\" & DataGridView5.SelectedRows(0).Cells(2).Value & DataGridView5.SelectedRows(0).Cells(3).Value
+            vNewName = DataGridView5.SelectedRows(0).Cells(1).Value & "\" & ListBox2.SelectedItem & DataGridView5.SelectedRows(0).Cells(3).Value
+        Else
+            vOldName = DataGridView5.SelectedRows(0).Cells(1).Value
+            vNewName = Path.GetDirectoryName(DataGridView5.SelectedRows(0).Cells(1).Value) & "\" & ListBox2.SelectedItem
+        End If
+        UnloadMediaFromPictureBoxes(vOldName)
+        UnloadSystemMediaFromPictureBoxes(vOldName)
+        Application.DoEvents()
+
+        Dim vCopyOnly As Boolean = RadioButton1.Checked
+        Dim vOverwrite As Boolean = CheckBox8.Checked
+        Dim vErrors As String = ""
+
+        If vIsFile = True Then
+            If vCopyOnly = True Then
+                Try
+                    If DataGridView5.SelectedRows(0).Cells(2).Value.ToString.ToLower = ListBox2.SelectedItem.ToString.ToLower Then
+                        Dim vTmp As String = vOldName & Date.Now.ToString("yyyy-MM-dd_HH-mm-ss")
+                        My.Computer.FileSystem.MoveFile(vOldName, vTmp, vOverwrite)
+                        Application.DoEvents()
+                        My.Computer.FileSystem.MoveFile(vTmp, vNewName, vOverwrite)
+                    Else
+                        My.Computer.FileSystem.CopyFile(vOldName, vNewName, vOverwrite)
+                    End If
+                Catch ex As Exception
+                    vErrors = ex.Message.ToString
+                End Try
+            Else
+                Try
+                    If DataGridView5.SelectedRows(0).Cells(2).Value.ToString.ToLower = ListBox2.SelectedItem.ToString.ToLower Then
+                        Dim vTmp As String = vOldName & Date.Now.ToString("yyyy-MM-dd_HH-mm-ss")
+                        My.Computer.FileSystem.MoveFile(vOldName, vTmp, vOverwrite)
+                        Application.DoEvents()
+                        My.Computer.FileSystem.MoveFile(vTmp, vNewName, vOverwrite)
+                    Else
+                        My.Computer.FileSystem.MoveFile(vOldName, vNewName, vOverwrite)
+                    End If
+                Catch ex As Exception
+                    vErrors = ex.Message.ToString
+                End Try
+            End If
+        Else
+            If vCopyOnly = True Then
+                Try
+                    If Path.GetFileName(DataGridView5.SelectedRows(0).Cells(1).Value).ToString.ToLower = ListBox2.SelectedItem.ToString.ToLower Then
+                        Dim vTmp As String = vOldName & Date.Now.ToString("yyyy-MM-dd_HH-mm-ss")
+                        My.Computer.FileSystem.MoveDirectory(vOldName, vTmp, vOverwrite)
+                        Application.DoEvents()
+                        My.Computer.FileSystem.MoveDirectory(vTmp, vNewName, vOverwrite)
+                    Else
+                        My.Computer.FileSystem.CopyDirectory(vOldName, vNewName, vOverwrite)
+                    End If
+                Catch ex As Exception
+                    vErrors = ex.Message.ToString
+                End Try
+            Else
+                Try
+                    If DataGridView5.SelectedRows(0).Cells(2).Value.ToString.ToLower = ListBox2.SelectedItem.ToString.ToLower Then
+                        Dim vTmp As String = vOldName & Date.Now.ToString("yyyy-MM-dd_HH-mm-ss")
+                        My.Computer.FileSystem.MoveDirectory(vOldName, vTmp, vOverwrite)
+                        Application.DoEvents()
+                        My.Computer.FileSystem.MoveDirectory(vTmp, vNewName, vOverwrite)
+                    Else
+                        My.Computer.FileSystem.MoveDirectory(vOldName, vNewName, vOverwrite)
+                    End If
+                Catch ex As Exception
+                    vErrors = ex.Message.ToString
+                End Try
+            End If
+        End If
+
+        Me.Cursor = Cursors.Default
+        If vErrors <> "" Then
+            MsgBox("Error during operation :" & vErrors, MsgBoxStyle.Critical, "Errors")
+        Else
+            For Each selectedrow As DataGridViewRow In DataGridView5.SelectedRows
+                DataGridView5.Rows.Remove(selectedrow)
+            Next
+        End If
+    End Sub
+
+#End Region
+
+    Private Sub CheckBox9_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles CheckBox9.CheckedChanged
+        If Me.Visible = True Then
+            Me.Cursor = Cursors.WaitCursor
+            ListBox2.Items.Clear()
+            Dim array As String() = gHS.Systems(ComboBox1.SelectedItem.ToString).ReturnRomNames
+            System.Array.Sort(Of String)(array)
+            For Each xx As String In array
+                Try
+                    If gHSOldVersion = False Then
+                        If CheckBox9.Checked = True Then
+                            ListBox2.Items.Add(xx)
+                        Else
+                            Try
+                                If gHS.Systems(ComboBox1.SelectedItem.ToString).Roms(xx).Enabled = True Then
+                                    ListBox2.Items.Add(xx)
+                                End If
+                            Catch ex As Exception
+                                LogEntry(LogType._Warning, "{0}", ex.Message.ToString)
+                            End Try
+                        End If
+                    Else
+                        ListBox2.Items.Add(xx)
+                    End If
+                Catch ex As Exception
+
+                End Try
+            Next
+            Me.Cursor = Cursors.Default
+        End If
+    End Sub
+
+    Private Sub DataGridView1_CurrentCellDirtyStateChanged(sender As Object, e As EventArgs) Handles DataGridView1.CurrentCellDirtyStateChanged
+        If Me.Visible = True And Me.Cursor = Cursors.Default Then
+            Try
+                If DataGridView1.IsCurrentCellDirty Then
+                    DataGridView1.CommitEdit(DataGridViewDataErrorContexts.Commit)
+                End If
+            Catch ex As Exception
+
+            End Try
+        End If
+    End Sub
+
+    Private Sub DataGridView1_CellValueChanged(sender As Object, e As System.Windows.Forms.DataGridViewCellEventArgs) Handles DataGridView1.CellValueChanged
+        If Me.Visible = True And Me.Cursor = Cursors.Default Then
+            Dim vRomName As String = ""
+            Try
+                If DataGridView1.Columns(e.ColumnIndex).Name.ToLower = "colenabled" Then
+                    vRomName = DataGridView1.Rows(e.RowIndex).Cells("colRomName").Value
+                    Dim vCheckState As Boolean = DataGridView1.Rows(e.RowIndex).Cells("colEnabled").Value
+                    DataGridView4.Rows(GetRowID(vRomName, DataGridView4, "DataGridViewTextBoxColumn1")).Cells("DataGridViewCheckBoxColumn2").Value = vCheckState
+                    ToolStripLabel3.Text = "PLEASE SAVE YOUR CHANGES IN ""ROMS XML"""
+                    If vCheckState = True Then
+                        LogEntry(LogType._Info, "{0}", vRomName & " set to ENABLED")
+                    Else
+                        LogEntry(LogType._Info, "{0}", vRomName & " set to DISABLED")
+                    End If
+                End If
+            Catch ex As Exception
+                ToolStripLabel3.Text = "ERROR TRYING TO DISABLE ROM ENTRY IN XML !"
+                LogEntry(LogType._Error, "{0}", "Cannot change " & vRomName & " enabled status : " & ex.Message.ToString)
+            End Try
+        End If
+    End Sub
+
+    Public Function GetRowID(ByVal RomName As String, ByVal DestGrid As DataGridView, ByVal CellIDToCheck As Integer)
+        GetRowID = Nothing
+        For Each vRow As DataGridViewRow In DestGrid.Rows
+            If vRow.Cells(CellIDToCheck).Value = RomName Then
+                GetRowID = vRow.Index
+                Exit For
+            End If
+        Next
+        Return GetRowID
+    End Function
+
+    Public Function GetRowID(ByVal RomName As String, ByVal DestGrid As DataGridView, ByVal CellColNameToCheck As String)
+        GetRowID = Nothing
+        For Each vRow As DataGridViewRow In DestGrid.Rows
+            If vRow.Cells(CellColNameToCheck).Value = RomName Then
+                GetRowID = vRow.Index
+                Exit For
+            End If
+        Next
+        Return GetRowID
+    End Function
 End Class
 
 'HYPERLAUNCH MEDIA

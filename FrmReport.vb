@@ -47,7 +47,7 @@ Public Class FrmReport
             End If
         Catch ex As Exception
             MsgBox("Cannot create directory ! : " & vOutPath)
-            LogEntry(LogType._Error, "Cannot create directory : " & vOutPath & vbCrLf & ex.Message.ToString)
+            LogEntry(LogType._Error, "{0}", "Cannot create directory : " & vOutPath & vbCrLf & ex.Message.ToString)
             Exit Sub
         End Try
 

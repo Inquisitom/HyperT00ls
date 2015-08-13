@@ -3,8 +3,11 @@
 Module ModGeneral
     Public IsLoading As Boolean = False
     Public gCONFIGFILE As String = Application.StartupPath & "\config.ini"
+    Public gDebugLogFile As String = Application.StartupPath & "\HyperT00ls.log"
+    Public gDebugDisplayLevel As LogType = LogType._Warning
     Public gINI As New IniFile
     Public gHSPath As String
+    Public gHSOldVersion As Boolean = True
     Public gHLPath As String
     Public gDBPath As String
     Public gMainMenuXML As String
@@ -22,6 +25,8 @@ Module ModGeneral
     Public gColHSArt2 As Boolean = True
     Public gColHSArt3 As Boolean = True
     Public gColHSArt4 As Boolean = True
+    Public gColEnabled As Boolean = True
+
     'HP
     Public gColHPArtwork As Boolean = True
     Public gColHPBackground As Boolean = True
@@ -92,6 +97,13 @@ Module ModGeneral
             Catch ex As Exception
                 gColDesc = True
                 gINI.GetSection("MAIN").AddKey("gColDesc").SetValue(gColDesc)
+            End Try
+            'gColEnabled
+            Try
+                gColEnabled = CBool(gINI.GetSection("MAIN").GetKey("gColEnabled").GetValue())
+            Catch ex As Exception
+                gColEnabled = True
+                gINI.GetSection("MAIN").AddKey("gColEnabled").SetValue(gColEnabled)
             End Try
             'gColHSWheel
             Try
@@ -287,6 +299,9 @@ Module ModGeneral
         'Desc
         Form1.TreeView2.Nodes("Node0").Checked = gColDesc
 
+        'Enabled
+        Form1.TreeView2.Nodes("NodeEnabled").Checked = gColEnabled
+
         'HS
         For Each vNode As TreeNode In Form1.TreeView2.Nodes("Node1").Nodes
             Select Case vNode.Text
@@ -343,36 +358,70 @@ Module ModGeneral
             End Select
         Next
 
-        'Check entry in HL\Settings\settings.ini for HL path
-        '[Main]
-        'Hyperlaunch_Path=D:\Hyperspin\HyperLaunch\
-        Dim INIHL As New IniFile
+        'HL/RocketLauncher
         Try
-            LogEntry(LogType._Info, "Loading " & gHSPath & "\Settings\Settings.ini")
-            INIHL.Load(gHSPath & "\Settings\Settings.ini")
-            gHLPath = INIHL.GetSection("Main").AddKey("Hyperlaunch_Path").GetValue()
-            If gHLPath.StartsWith("\") Then
-                If gHSPath.EndsWith("\") Then
-                    gHLPath = gHSPath & "..\" & gHLPath
-                Else
-                    gHLPath = gHSPath & "\..\" & gHLPath
+            gHLPath = gINI.GetSection("MAIN").GetKey("RocketLauncherPath").GetValue()
+            If gHLPath = "" Then
+                gHLPath = GetHLPath()
+            Else
+                If gHLPath.StartsWith("\") Then
+                    If gHSPath.EndsWith("\") Then
+                        gHLPath = gHSPath & "..\" & gHLPath
+                    Else
+                        gHLPath = gHSPath & "\..\" & gHLPath
+                    End If
+                End If
+                If gHLPath.EndsWith("\") Then
+                    gHLPath = Path.GetDirectoryName(gHLPath)
+                End If
+                If gHLPath.StartsWith("..") Then
+                    gHLPath = gHLPath.Replace("..", gHSPath)
                 End If
             End If
-            If gHLPath.EndsWith("\") Then
+            If Path.HasExtension(gHLPath) = True Then
                 gHLPath = Path.GetDirectoryName(gHLPath)
             End If
-            If gHLPath.StartsWith("..") Then
-                gHLPath = gHLPath.Replace("..", gHSPath)
-            End If
-            LogEntry(LogType._Info, "Finished loading configuration file for HyperLaunch.")
-            Console.WriteLine("Load OK !")
         Catch ex As Exception
-            LogEntry(LogType._Error, "Cannot load configuration file for HyperLaunch !")
+            gHLPath = GetHLPath()
+        Finally
+            SaveHyperT00lsParameters()
+        End Try
+        Form1.TextBox3.Text = gHLPath
+    End Sub
+
+    Public Function GetHLPath() As String
+        GetHLPath = ""
+        Dim INIHL As New IniFile
+        Try
+            LogEntry(LogType._Info, "{0}", "Loading " & gHSPath & "\Settings\Settings.ini")
+            INIHL.Load(gHSPath & "\Settings\Settings.ini")
+            GetHLPath = INIHL.GetSection("Main").AddKey("Hyperlaunch_Path").GetValue()
+            If GetHLPath.StartsWith("\") Then
+                If gHSPath.EndsWith("\") Then
+                    GetHLPath = gHSPath & "..\" & GetHLPath
+                Else
+                    GetHLPath = gHSPath & "\..\" & GetHLPath
+                End If
+            End If
+            If GetHLPath.EndsWith("\") Then
+                GetHLPath = Path.GetDirectoryName(GetHLPath)
+            End If
+            If GetHLPath.StartsWith("..") Then
+                GetHLPath = GetHLPath.Replace("..", gHSPath)
+            End If
+            If Path.HasExtension(GetHLPath) = True Then
+                GetHLPath = Path.GetDirectoryName(GetHLPath)
+            End If
+            LogEntry(LogType._Info, "{0}", "Finished loading configuration file for HyperLaunch.")
+            Console.WriteLine("Load OK !")
+        Catch ex1 As Exception
+            LogEntry(LogType._Error, "{0}", "Cannot load configuration file for HyperLaunch !")
             Console.WriteLine("Load config file ERROR !")
         Finally
             INIHL = Nothing
         End Try
-    End Sub
+        Return GetHLPath
+    End Function
 
     Public Sub SaveHyperT00lsParameters()
         If File.Exists(gCONFIGFILE) Then
@@ -382,6 +431,10 @@ Module ModGeneral
 
         'Desc
         gColDesc = Form1.TreeView2.Nodes("Node0").Checked
+
+        'Enabled
+        gColEnabled = Form1.TreeView2.Nodes("NodeEnabled").Checked
+
         'HS
         For Each vNode As TreeNode In Form1.TreeView2.Nodes("Node1").Nodes
             Select Case vNode.Text
@@ -440,10 +493,12 @@ Module ModGeneral
 
         gINI.AddSection("MAIN")
         gINI.GetSection("MAIN").AddKey("HSPath").SetValue(gHSPath)
+        gINI.GetSection("MAIN").AddKey("RocketLauncherPath").SetValue(gHLPath)
         gINI.GetSection("MAIN").AddKey("DisplayAllSystems").SetValue(gDisplayAllSystems)
         gINI.GetSection("MAIN").AddKey("Debug").SetValue(gDebugLog)
         gINI.GetSection("MAIN").AddKey("CheckRoms").SetValue(gCheckRoms)
         gINI.GetSection("MAIN").AddKey("gColDesc").SetValue(gColDesc)
+        gINI.GetSection("MAIN").AddKey("gColEnabled").SetValue(gColEnabled)
         gINI.GetSection("MAIN").AddKey("gColHSWheel").SetValue(gColHSWheel)
         gINI.GetSection("MAIN").AddKey("gColHSVideo").SetValue(gColHSVideo)
         gINI.GetSection("MAIN").AddKey("gColHSTheme").SetValue(gColHSTheme)
@@ -466,43 +521,48 @@ Module ModGeneral
         gINI.GetSection("MAIN").AddKey("gColHPVideos").SetValue(gColHPVideos)
         gINI.GetSection("MAIN").AddKey("gColHPWheels").SetValue(gColHPWheels)
         gINI.Save(gCONFIGFILE)
-        LogEntry(LogType._Info, "Config saved ...")
+        LogEntry(LogType._Info, "{0}", "Config saved ...")
     End Sub
 
-    Public Sub LogEntry(ByVal Type As LogType, ByVal Message As String)
+    Public Function GetFileVersionInfo(ByVal filename As String) As Version
+        Return Version.Parse(FileVersionInfo.GetVersionInfo(filename).FileVersion)
+    End Function
+
+    Public Sub LogEntry(ByVal Type As LogType, ByVal Func As String, ByVal Message As String)
         If gDebugLog = True Then
-            Dim vDate As String
-            Dim vHour As String
-            Dim vMessage As String = Message
-            Dim vType As String
-            Dim time As DateTime = DateTime.Now
-            Dim n As Integer = Form1.DataGridView3.Rows.Add()
-            vDate = time.ToString("yyyy-MM-dd")
-            vHour = time.ToString("HH:mm")
+            Dim filePath As String = gDebugLogFile
+            Using writer As New StreamWriter(filePath, True)
+                Dim vDate As String
+                Dim vHour As String
+                Dim vType As String
+                Dim vMessage As String = Message.Replace(";", " - ")
+                Dim regex As New System.Text.RegularExpressions.Regex("[ \t\r\n]")
+                vMessage = regex.Replace(vMessage, " ")
+                Dim time As DateTime = DateTime.Now
+                vDate = time.ToString("yyyy-MM-dd")
+                vHour = time.ToString("HH:mm")
 
-            Select Case Type
-                Case LogType._Debug
-                    vType = "Debug"
-                    Form1.DataGridView3.Rows(n).DefaultCellStyle.BackColor = Color.White
-                Case (LogType._Error)
-                    vType = "Error"
-                    Form1.DataGridView3.Rows(n).DefaultCellStyle.BackColor = Color.IndianRed
-                Case LogType._Info
-                    vType = "Info"
-                    Form1.DataGridView3.Rows(n).DefaultCellStyle.BackColor = Color.LightGreen
-                Case LogType._Warning
-                    vType = "Warning"
-                    Form1.DataGridView3.Rows(n).DefaultCellStyle.BackColor = Color.MediumOrchid
-                Case Else
-                    vType = ""
-                    Form1.DataGridView3.Rows(n).DefaultCellStyle.BackColor = Color.White
-            End Select
+                Select Case Type
+                    Case LogType._Debug
+                        vType = "Debug"
+                    Case (LogType._Error)
+                        vType = "Error"
+                    Case LogType._Info
+                        vType = "Info"
+                    Case LogType._Warning
+                        vType = "Warning"
+                    Case Else
+                        vType = ""
+                End Select
 
-            Form1.DataGridView3.Rows(n).Cells(0).Value = vDate
-            Form1.DataGridView3.Rows(n).Cells(1).Value = vHour
-            Form1.DataGridView3.Rows(n).Cells(2).Value = vType
-            Form1.DataGridView3.Rows(n).Cells(3).Value = vMessage
+                writer.WriteLine(vDate & ";" & vHour & ";" & vType & ";" & String.Format(Func, New System.Diagnostics.StackFrame(1).GetMethod().Name) & ";" & vMessage)
+            End Using
         End If
     End Sub
+
+    Public Function GetDirnameOnly(ByVal vFullPath As String) As String
+        Dim vDir As New System.IO.DirectoryInfo(vFullPath)
+        Return vDir.Name
+    End Function
 #End Region
 End Module

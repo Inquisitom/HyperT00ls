@@ -23,44 +23,63 @@ Partial Class Form1
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim TreeNode1 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Systems")
+        Dim TreeNode45 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Systems")
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim TreeNode2 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Description")
-        Dim TreeNode3 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Wheel")
-        Dim TreeNode4 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Video")
-        Dim TreeNode5 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Theme")
-        Dim TreeNode6 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Art1")
-        Dim TreeNode7 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Art2")
-        Dim TreeNode8 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Art3")
-        Dim TreeNode9 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Art4")
-        Dim TreeNode10 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Hyperspin", New System.Windows.Forms.TreeNode() {TreeNode3, TreeNode4, TreeNode5, TreeNode6, TreeNode7, TreeNode8, TreeNode9})
-        Dim TreeNode11 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Artwork")
-        Dim TreeNode12 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Background")
-        Dim TreeNode13 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Bezel")
-        Dim TreeNode14 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Controller")
-        Dim TreeNode15 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Fade")
-        Dim TreeNode16 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Fonts")
-        Dim TreeNode17 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Guides")
-        Dim TreeNode18 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Manuals")
-        Dim TreeNode19 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Menu Images")
-        Dim TreeNode20 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Multigame")
-        Dim TreeNode21 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Music")
-        Dim TreeNode22 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Sounds")
-        Dim TreeNode23 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Videos")
-        Dim TreeNode24 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Wheels")
-        Dim TreeNode25 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("HyperPause", New System.Windows.Forms.TreeNode() {TreeNode11, TreeNode12, TreeNode13, TreeNode14, TreeNode15, TreeNode16, TreeNode17, TreeNode18, TreeNode19, TreeNode20, TreeNode21, TreeNode22, TreeNode23, TreeNode24})
+        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle19 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle20 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle21 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim TreeNode46 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Wheel")
+        Dim TreeNode47 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Video")
+        Dim TreeNode48 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Theme")
+        Dim TreeNode49 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Art1")
+        Dim TreeNode50 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Art2")
+        Dim TreeNode51 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Art3")
+        Dim TreeNode52 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Art4")
+        Dim TreeNode53 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Hyperspin", New System.Windows.Forms.TreeNode() {TreeNode46, TreeNode47, TreeNode48, TreeNode49, TreeNode50, TreeNode51, TreeNode52})
+        Dim TreeNode54 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Artwork")
+        Dim TreeNode55 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Background")
+        Dim TreeNode56 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Bezel")
+        Dim TreeNode57 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Controller")
+        Dim TreeNode58 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Fade")
+        Dim TreeNode59 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Guides")
+        Dim TreeNode60 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Manuals")
+        Dim TreeNode61 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Music")
+        Dim TreeNode62 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Videos")
+        Dim TreeNode63 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("HyperPause", New System.Windows.Forms.TreeNode() {TreeNode54, TreeNode55, TreeNode56, TreeNode57, TreeNode58, TreeNode59, TreeNode60, TreeNode61, TreeNode62})
+        Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle24 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim TreeNode64 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Description")
+        Dim TreeNode65 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Enabled")
+        Dim TreeNode66 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Wheel")
+        Dim TreeNode67 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Video")
+        Dim TreeNode68 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Theme")
+        Dim TreeNode69 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Art1")
+        Dim TreeNode70 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Art2")
+        Dim TreeNode71 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Art3")
+        Dim TreeNode72 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Art4")
+        Dim TreeNode73 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Hyperspin", New System.Windows.Forms.TreeNode() {TreeNode66, TreeNode67, TreeNode68, TreeNode69, TreeNode70, TreeNode71, TreeNode72})
+        Dim TreeNode74 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Artwork")
+        Dim TreeNode75 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Background")
+        Dim TreeNode76 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Bezel")
+        Dim TreeNode77 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Controller")
+        Dim TreeNode78 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Fade")
+        Dim TreeNode79 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Fonts")
+        Dim TreeNode80 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Guides")
+        Dim TreeNode81 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Manuals")
+        Dim TreeNode82 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Menu Images")
+        Dim TreeNode83 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Multigame")
+        Dim TreeNode84 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Music")
+        Dim TreeNode85 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Sounds")
+        Dim TreeNode86 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Videos")
+        Dim TreeNode87 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Wheels")
+        Dim TreeNode88 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("HyperPause", New System.Windows.Forms.TreeNode() {TreeNode74, TreeNode75, TreeNode76, TreeNode77, TreeNode78, TreeNode79, TreeNode80, TreeNode81, TreeNode82, TreeNode83, TreeNode84, TreeNode85, TreeNode86, TreeNode87})
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
@@ -81,6 +100,7 @@ Partial Class Form1
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.SplitContainer3 = New System.Windows.Forms.SplitContainer()
+        Me.CheckBox4 = New System.Windows.Forms.CheckBox()
         Me.DataGridView2 = New System.Windows.Forms.DataGridView()
         Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewCheckBoxColumn1 = New System.Windows.Forms.DataGridViewCheckBoxColumn()
@@ -157,7 +177,7 @@ Partial Class Form1
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.colRomName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ColDescription = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column3 = New System.Windows.Forms.DataGridViewCheckBoxColumn()
+        Me.ColEnabled = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.Column10 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -226,6 +246,8 @@ Partial Class Form1
         Me.ToolStripButton6 = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripLabel2 = New System.Windows.Forms.ToolStripLabel()
         Me.ToolStripButton9 = New System.Windows.Forms.ToolStripButton()
+        Me.Button15 = New System.Windows.Forms.Button()
+        Me.Button16 = New System.Windows.Forms.Button()
         Me.Button8 = New System.Windows.Forms.Button()
         Me.Button5 = New System.Windows.Forms.Button()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
@@ -237,13 +259,63 @@ Partial Class Form1
         Me.Button12 = New System.Windows.Forms.Button()
         Me.Button7 = New System.Windows.Forms.Button()
         Me.Button13 = New System.Windows.Forms.Button()
+        Me.TabPage10 = New System.Windows.Forms.TabPage()
+        Me.SplitContainer7 = New System.Windows.Forms.SplitContainer()
+        Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
+        Me.Button21 = New System.Windows.Forms.Button()
+        Me.TextBox4 = New System.Windows.Forms.TextBox()
+        Me.CheckBox5 = New System.Windows.Forms.CheckBox()
+        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.Button18 = New System.Windows.Forms.Button()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.CheckBox7 = New System.Windows.Forms.CheckBox()
+        Me.CheckBox6 = New System.Windows.Forms.CheckBox()
+        Me.TreeView3 = New System.Windows.Forms.TreeView()
+        Me.SplitContainer8 = New System.Windows.Forms.SplitContainer()
+        Me.DataGridView5 = New System.Windows.Forms.DataGridView()
+        Me.colDeletion = New System.Windows.Forms.DataGridViewCheckBoxColumn()
+        Me.colPath = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colFilename = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colExt = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colReason = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ToolStrip7 = New System.Windows.Forms.ToolStrip()
+        Me.ToolStripButton14 = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripButton15 = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripButton16 = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripButton17 = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator6 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripButton18 = New System.Windows.Forms.ToolStripButton()
+        Me.SplitContainer9 = New System.Windows.Forms.SplitContainer()
+        Me.RadioButton2 = New System.Windows.Forms.RadioButton()
+        Me.RadioButton1 = New System.Windows.Forms.RadioButton()
+        Me.ButtonAssign = New System.Windows.Forms.Button()
+        Me.CheckBox8 = New System.Windows.Forms.CheckBox()
+        Me.ListBox2 = New System.Windows.Forms.ListBox()
+        Me.CheckBox9 = New System.Windows.Forms.CheckBox()
+        Me.ToolStrip6 = New System.Windows.Forms.ToolStrip()
         Me.TabPage7 = New System.Windows.Forms.TabPage()
         Me.DataGridView3 = New System.Windows.Forms.DataGridView()
         Me.Column12 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column13 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column14 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column15 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ToolStrip5 = New System.Windows.Forms.ToolStrip()
+        Me.ToolStripButton12 = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripButton13 = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripDropDownButton1 = New System.Windows.Forms.ToolStripDropDownButton()
+        Me.ErrorLevelToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.WarningLevelToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.InfoLevelToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DebugLevelToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TabPage8 = New System.Windows.Forms.TabPage()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.Button9 = New System.Windows.Forms.Button()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.TextBox3 = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Button6 = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
@@ -342,6 +414,7 @@ Partial Class Form1
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.DeleteSelectedFileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
+        Me.ToolStripLabel3 = New System.Windows.Forms.ToolStripLabel()
         Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -398,8 +471,25 @@ Partial Class Form1
         CType(Me.DataGridView4, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ToolStrip4.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
+        Me.TabPage10.SuspendLayout()
+        CType(Me.SplitContainer7, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SplitContainer7.Panel1.SuspendLayout()
+        Me.SplitContainer7.Panel2.SuspendLayout()
+        Me.SplitContainer7.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
+        CType(Me.SplitContainer8, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SplitContainer8.Panel1.SuspendLayout()
+        Me.SplitContainer8.Panel2.SuspendLayout()
+        Me.SplitContainer8.SuspendLayout()
+        CType(Me.DataGridView5, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.ToolStrip7.SuspendLayout()
+        CType(Me.SplitContainer9, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SplitContainer9.Panel1.SuspendLayout()
+        Me.SplitContainer9.Panel2.SuspendLayout()
+        Me.SplitContainer9.SuspendLayout()
         Me.TabPage7.SuspendLayout()
         CType(Me.DataGridView3, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.ToolStrip5.SuspendLayout()
         Me.TabPage8.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         CType(Me.PictureBox6, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -436,53 +526,53 @@ Partial Class Form1
         '
         Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ExitToolStripMenuItem})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
+        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(35, 20)
         Me.FileToolStripMenuItem.Text = "&File"
         '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(92, 22)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(103, 22)
         Me.ExitToolStripMenuItem.Text = "E&xit"
         '
         'ToolsToolStripMenuItem
         '
         Me.ToolsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TestConnectionsToolStripMenuItem, Me.OptionsToolStripMenuItem})
         Me.ToolsToolStripMenuItem.Name = "ToolsToolStripMenuItem"
-        Me.ToolsToolStripMenuItem.Size = New System.Drawing.Size(48, 20)
+        Me.ToolsToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
         Me.ToolsToolStripMenuItem.Text = "&Tools"
         Me.ToolsToolStripMenuItem.Visible = False
         '
         'TestConnectionsToolStripMenuItem
         '
         Me.TestConnectionsToolStripMenuItem.Name = "TestConnectionsToolStripMenuItem"
-        Me.TestConnectionsToolStripMenuItem.Size = New System.Drawing.Size(166, 22)
+        Me.TestConnectionsToolStripMenuItem.Size = New System.Drawing.Size(168, 22)
         Me.TestConnectionsToolStripMenuItem.Text = "&Test Connections"
         '
         'OptionsToolStripMenuItem
         '
         Me.OptionsToolStripMenuItem.Name = "OptionsToolStripMenuItem"
-        Me.OptionsToolStripMenuItem.Size = New System.Drawing.Size(166, 22)
+        Me.OptionsToolStripMenuItem.Size = New System.Drawing.Size(168, 22)
         Me.OptionsToolStripMenuItem.Text = "&Parameters"
         '
         'HelpToolStripMenuItem
         '
         Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CheckUpdatesToolStripMenuItem, Me.AboutToolStripMenuItem})
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(40, 20)
         Me.HelpToolStripMenuItem.Text = "&Help"
         Me.HelpToolStripMenuItem.Visible = False
         '
         'CheckUpdatesToolStripMenuItem
         '
         Me.CheckUpdatesToolStripMenuItem.Name = "CheckUpdatesToolStripMenuItem"
-        Me.CheckUpdatesToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.CheckUpdatesToolStripMenuItem.Size = New System.Drawing.Size(156, 22)
         Me.CheckUpdatesToolStripMenuItem.Text = "&Check updates"
         '
         'AboutToolStripMenuItem
         '
         Me.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem"
-        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(156, 22)
         Me.AboutToolStripMenuItem.Text = "&About"
         '
         'SplitContainer1
@@ -508,9 +598,9 @@ Partial Class Form1
         Me.TreeView1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TreeView1.Location = New System.Drawing.Point(0, 25)
         Me.TreeView1.Name = "TreeView1"
-        TreeNode1.Name = "Node0"
-        TreeNode1.Text = "Systems"
-        Me.TreeView1.Nodes.AddRange(New System.Windows.Forms.TreeNode() {TreeNode1})
+        TreeNode45.Name = "Node0"
+        TreeNode45.Text = "Systems"
+        Me.TreeView1.Nodes.AddRange(New System.Windows.Forms.TreeNode() {TreeNode45})
         Me.TreeView1.Size = New System.Drawing.Size(285, 728)
         Me.TreeView1.TabIndex = 2
         '
@@ -556,6 +646,7 @@ Partial Class Form1
         Me.TabControl1.Controls.Add(Me.TabPage1)
         Me.TabControl1.Controls.Add(Me.TabPage2)
         Me.TabControl1.Controls.Add(Me.TabPage3)
+        Me.TabControl1.Controls.Add(Me.TabPage10)
         Me.TabControl1.Controls.Add(Me.TabPage7)
         Me.TabControl1.Controls.Add(Me.TabPage8)
         Me.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill
@@ -585,6 +676,7 @@ Partial Class Form1
         '
         'SplitContainer3.Panel1
         '
+        Me.SplitContainer3.Panel1.Controls.Add(Me.CheckBox4)
         Me.SplitContainer3.Panel1.Controls.Add(Me.DataGridView2)
         Me.SplitContainer3.Panel1.Controls.Add(Me.ToolStrip1)
         '
@@ -595,6 +687,17 @@ Partial Class Form1
         Me.SplitContainer3.SplitterDistance = 479
         Me.SplitContainer3.TabIndex = 0
         '
+        'CheckBox4
+        '
+        Me.CheckBox4.AutoSize = True
+        Me.CheckBox4.BackColor = System.Drawing.Color.Transparent
+        Me.CheckBox4.Location = New System.Drawing.Point(198, 3)
+        Me.CheckBox4.Name = "CheckBox4"
+        Me.CheckBox4.Size = New System.Drawing.Size(236, 17)
+        Me.CheckBox4.TabIndex = 4
+        Me.CheckBox4.Text = "Keep disabled systems in XML (HS1.4+ only)"
+        Me.CheckBox4.UseVisualStyleBackColor = False
+        '
         'DataGridView2
         '
         Me.DataGridView2.AllowDrop = True
@@ -602,36 +705,36 @@ Partial Class Form1
         Me.DataGridView2.AllowUserToDeleteRows = False
         Me.DataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.DataGridView2.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView2.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle16.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView2.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle16
         Me.DataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView2.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn2, Me.DataGridViewCheckBoxColumn1, Me.DataGridViewTextBoxColumn4, Me.DataGridViewTextBoxColumn5, Me.DataGridViewTextBoxColumn6, Me.Column9, Me.Column11, Me.Column17})
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DataGridView2.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle17.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DataGridView2.DefaultCellStyle = DataGridViewCellStyle17
         Me.DataGridView2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DataGridView2.Location = New System.Drawing.Point(0, 25)
         Me.DataGridView2.MultiSelect = False
         Me.DataGridView2.Name = "DataGridView2"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView2.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle18.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView2.RowHeadersDefaultCellStyle = DataGridViewCellStyle18
         Me.DataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DataGridView2.Size = New System.Drawing.Size(953, 454)
         Me.DataGridView2.TabIndex = 3
@@ -712,7 +815,7 @@ Partial Class Form1
         Me.ToolStripButton7.Image = CType(resources.GetObject("ToolStripButton7.Image"), System.Drawing.Image)
         Me.ToolStripButton7.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripButton7.Name = "ToolStripButton7"
-        Me.ToolStripButton7.Size = New System.Drawing.Size(63, 22)
+        Me.ToolStripButton7.Size = New System.Drawing.Size(60, 22)
         Me.ToolStripButton7.Text = "Reload"
         '
         'ToolStripButton2
@@ -720,7 +823,7 @@ Partial Class Form1
         Me.ToolStripButton2.Image = Global.HyperT00ls.My.Resources.Resources.saved
         Me.ToolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripButton2.Name = "ToolStripButton2"
-        Me.ToolStripButton2.Size = New System.Drawing.Size(100, 22)
+        Me.ToolStripButton2.Size = New System.Drawing.Size(96, 22)
         Me.ToolStripButton2.Text = "Save Changes"
         Me.ToolStripButton2.ToolTipText = "Save changes to ""Main Menu.xml"""
         '
@@ -896,13 +999,13 @@ Partial Class Form1
         '
         Me.ContextMenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem52, Me.ToolStripMenuItem131, Me.ToolStripMenuItem132, Me.ToolStripMenuItem133, Me.ToolStripSeparator4, Me.ToolStripMenuItem134})
         Me.ContextMenuStrip2.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip2.Size = New System.Drawing.Size(198, 120)
+        Me.ContextMenuStrip2.Size = New System.Drawing.Size(195, 120)
         '
         'ToolStripMenuItem52
         '
         Me.ToolStripMenuItem52.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem53, Me.ToolStripMenuItem54, Me.ToolStripMenuItem58, Me.ToolStripMenuItem61, Me.ToolStripMenuItem62, Me.ToolStripMenuItem70, Me.ToolStripMenuItem74, Me.ToolStripSeparator3, Me.ToolStripMenuItem78, Me.ToolStripMenuItem83, Me.ToolStripMenuItem95, Me.ToolStripMenuItem66})
         Me.ToolStripMenuItem52.Name = "ToolStripMenuItem52"
-        Me.ToolStripMenuItem52.Size = New System.Drawing.Size(197, 22)
+        Me.ToolStripMenuItem52.Size = New System.Drawing.Size(194, 22)
         Me.ToolStripMenuItem52.Text = "Add new ..."
         '
         'ToolStripMenuItem53
@@ -922,19 +1025,19 @@ Partial Class Form1
         'ToolStripMenuItem55
         '
         Me.ToolStripMenuItem55.Name = "ToolStripMenuItem55"
-        Me.ToolStripMenuItem55.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem55.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem55.Text = "From file"
         '
         'ToolStripMenuItem56
         '
         Me.ToolStripMenuItem56.Name = "ToolStripMenuItem56"
-        Me.ToolStripMenuItem56.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem56.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem56.Text = "From clipboard (img)"
         '
         'ToolStripMenuItem57
         '
         Me.ToolStripMenuItem57.Name = "ToolStripMenuItem57"
-        Me.ToolStripMenuItem57.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem57.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem57.Text = "From URL"
         '
         'ToolStripMenuItem58
@@ -947,14 +1050,14 @@ Partial Class Form1
         'ToolStripMenuItem59
         '
         Me.ToolStripMenuItem59.Name = "ToolStripMenuItem59"
-        Me.ToolStripMenuItem59.Size = New System.Drawing.Size(153, 22)
+        Me.ToolStripMenuItem59.Size = New System.Drawing.Size(154, 22)
         Me.ToolStripMenuItem59.Text = "From file"
         '
         'ToolStripMenuItem60
         '
         Me.ToolStripMenuItem60.Enabled = False
         Me.ToolStripMenuItem60.Name = "ToolStripMenuItem60"
-        Me.ToolStripMenuItem60.Size = New System.Drawing.Size(153, 22)
+        Me.ToolStripMenuItem60.Size = New System.Drawing.Size(154, 22)
         Me.ToolStripMenuItem60.Text = "From YouTube"
         '
         'ToolStripMenuItem61
@@ -973,19 +1076,19 @@ Partial Class Form1
         'ToolStripMenuItem63
         '
         Me.ToolStripMenuItem63.Name = "ToolStripMenuItem63"
-        Me.ToolStripMenuItem63.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem63.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem63.Text = "From file"
         '
         'ToolStripMenuItem64
         '
         Me.ToolStripMenuItem64.Name = "ToolStripMenuItem64"
-        Me.ToolStripMenuItem64.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem64.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem64.Text = "From clipboard (img)"
         '
         'ToolStripMenuItem65
         '
         Me.ToolStripMenuItem65.Name = "ToolStripMenuItem65"
-        Me.ToolStripMenuItem65.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem65.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem65.Text = "From URL"
         '
         'ToolStripMenuItem70
@@ -999,19 +1102,19 @@ Partial Class Form1
         'ToolStripMenuItem71
         '
         Me.ToolStripMenuItem71.Name = "ToolStripMenuItem71"
-        Me.ToolStripMenuItem71.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem71.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem71.Text = "From file"
         '
         'ToolStripMenuItem72
         '
         Me.ToolStripMenuItem72.Name = "ToolStripMenuItem72"
-        Me.ToolStripMenuItem72.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem72.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem72.Text = "From clipboard (img)"
         '
         'ToolStripMenuItem73
         '
         Me.ToolStripMenuItem73.Name = "ToolStripMenuItem73"
-        Me.ToolStripMenuItem73.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem73.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem73.Text = "From URL"
         '
         'ToolStripMenuItem74
@@ -1025,19 +1128,19 @@ Partial Class Form1
         'ToolStripMenuItem75
         '
         Me.ToolStripMenuItem75.Name = "ToolStripMenuItem75"
-        Me.ToolStripMenuItem75.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem75.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem75.Text = "From file"
         '
         'ToolStripMenuItem76
         '
         Me.ToolStripMenuItem76.Name = "ToolStripMenuItem76"
-        Me.ToolStripMenuItem76.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem76.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem76.Text = "From clipboard (img)"
         '
         'ToolStripMenuItem77
         '
         Me.ToolStripMenuItem77.Name = "ToolStripMenuItem77"
-        Me.ToolStripMenuItem77.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem77.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem77.Text = "From URL"
         '
         'ToolStripSeparator3
@@ -1062,19 +1165,19 @@ Partial Class Form1
         'ToolStripMenuItem84
         '
         Me.ToolStripMenuItem84.Name = "ToolStripMenuItem84"
-        Me.ToolStripMenuItem84.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem84.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem84.Text = "From file"
         '
         'ToolStripMenuItem85
         '
         Me.ToolStripMenuItem85.Name = "ToolStripMenuItem85"
-        Me.ToolStripMenuItem85.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem85.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem85.Text = "From clipboard (img)"
         '
         'ToolStripMenuItem86
         '
         Me.ToolStripMenuItem86.Name = "ToolStripMenuItem86"
-        Me.ToolStripMenuItem86.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem86.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem86.Text = "From URL"
         '
         'ToolStripMenuItem95
@@ -1087,19 +1190,19 @@ Partial Class Form1
         'ToolStripMenuItem96
         '
         Me.ToolStripMenuItem96.Name = "ToolStripMenuItem96"
-        Me.ToolStripMenuItem96.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem96.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem96.Text = "From file"
         '
         'ToolStripMenuItem97
         '
         Me.ToolStripMenuItem97.Name = "ToolStripMenuItem97"
-        Me.ToolStripMenuItem97.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem97.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem97.Text = "From clipboard (img)"
         '
         'ToolStripMenuItem98
         '
         Me.ToolStripMenuItem98.Name = "ToolStripMenuItem98"
-        Me.ToolStripMenuItem98.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem98.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem98.Text = "From URL"
         '
         'ToolStripMenuItem66
@@ -1112,49 +1215,49 @@ Partial Class Form1
         'ToolStripMenuItem67
         '
         Me.ToolStripMenuItem67.Name = "ToolStripMenuItem67"
-        Me.ToolStripMenuItem67.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem67.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem67.Text = "From file"
         '
         'ToolStripMenuItem68
         '
         Me.ToolStripMenuItem68.Name = "ToolStripMenuItem68"
-        Me.ToolStripMenuItem68.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem68.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem68.Text = "From clipboard (img)"
         '
         'ToolStripMenuItem69
         '
         Me.ToolStripMenuItem69.Name = "ToolStripMenuItem69"
-        Me.ToolStripMenuItem69.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem69.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem69.Text = "From URL"
         '
         'ToolStripMenuItem131
         '
         Me.ToolStripMenuItem131.Enabled = False
         Me.ToolStripMenuItem131.Name = "ToolStripMenuItem131"
-        Me.ToolStripMenuItem131.Size = New System.Drawing.Size(197, 22)
+        Me.ToolStripMenuItem131.Size = New System.Drawing.Size(194, 22)
         Me.ToolStripMenuItem131.Text = "Copy all Media to ..."
         '
         'ToolStripMenuItem132
         '
         Me.ToolStripMenuItem132.Name = "ToolStripMenuItem132"
-        Me.ToolStripMenuItem132.Size = New System.Drawing.Size(197, 22)
+        Me.ToolStripMenuItem132.Size = New System.Drawing.Size(194, 22)
         Me.ToolStripMenuItem132.Text = "Open containing folder"
         '
         'ToolStripMenuItem133
         '
         Me.ToolStripMenuItem133.Name = "ToolStripMenuItem133"
-        Me.ToolStripMenuItem133.Size = New System.Drawing.Size(197, 22)
+        Me.ToolStripMenuItem133.Size = New System.Drawing.Size(194, 22)
         Me.ToolStripMenuItem133.Text = "Open"
         '
         'ToolStripSeparator4
         '
         Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
-        Me.ToolStripSeparator4.Size = New System.Drawing.Size(194, 6)
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(191, 6)
         '
         'ToolStripMenuItem134
         '
         Me.ToolStripMenuItem134.Name = "ToolStripMenuItem134"
-        Me.ToolStripMenuItem134.Size = New System.Drawing.Size(197, 22)
+        Me.ToolStripMenuItem134.Size = New System.Drawing.Size(194, 22)
         Me.ToolStripMenuItem134.Text = "Delete"
         '
         'PictureBox16
@@ -1214,37 +1317,36 @@ Partial Class Form1
         Me.DataGridView1.AllowUserToDeleteRows = False
         Me.DataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.DataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle13.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle13
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colRomName, Me.ColDescription, Me.Column3, Me.Column10, Me.Column4, Me.Column5, Me.Column2, Me.Column6, Me.Column7, Me.Column8, Me.Column1, Me.DataGridViewTextBoxColumn11, Me.ColArtwork, Me.ColBackgrounds, Me.ColBezels, Me.ColController, Me.ColFade, Me.ColFonts, Me.ColGuides, Me.ColManuals, Me.ColMenuImages, Me.ColMultigame, Me.ColMusic, Me.ColSounds, Me.ColVideos, Me.ColHLWheels})
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DataGridView1.DefaultCellStyle = DataGridViewCellStyle5
+        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colRomName, Me.ColDescription, Me.ColEnabled, Me.Column10, Me.Column4, Me.Column5, Me.Column2, Me.Column6, Me.Column7, Me.Column8, Me.Column1, Me.DataGridViewTextBoxColumn11, Me.ColArtwork, Me.ColBackgrounds, Me.ColBezels, Me.ColController, Me.ColFade, Me.ColFonts, Me.ColGuides, Me.ColManuals, Me.ColMenuImages, Me.ColMultigame, Me.ColMusic, Me.ColSounds, Me.ColVideos, Me.ColHLWheels})
+        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle14.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DataGridView1.DefaultCellStyle = DataGridViewCellStyle14
         Me.DataGridView1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DataGridView1.Location = New System.Drawing.Point(0, 25)
         Me.DataGridView1.MultiSelect = False
         Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.ReadOnly = True
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView1.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle15.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView1.RowHeadersDefaultCellStyle = DataGridViewCellStyle15
         Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DataGridView1.Size = New System.Drawing.Size(953, 378)
         Me.DataGridView1.TabIndex = 4
@@ -1255,7 +1357,6 @@ Partial Class Form1
         Me.colRomName.Frozen = True
         Me.colRomName.HeaderText = "Rom Name"
         Me.colRomName.Name = "colRomName"
-        Me.colRomName.ReadOnly = True
         Me.colRomName.Width = 85
         '
         'ColDescription
@@ -1263,25 +1364,22 @@ Partial Class Form1
         Me.ColDescription.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
         Me.ColDescription.HeaderText = "Description"
         Me.ColDescription.Name = "ColDescription"
-        Me.ColDescription.ReadOnly = True
         Me.ColDescription.Width = 85
         '
-        'Column3
+        'ColEnabled
         '
-        Me.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
-        Me.Column3.HeaderText = "Enabled"
-        Me.Column3.Name = "Column3"
-        Me.Column3.ReadOnly = True
-        Me.Column3.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.Column3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.Column3.Visible = False
+        Me.ColEnabled.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
+        Me.ColEnabled.HeaderText = "Enabled"
+        Me.ColEnabled.Name = "ColEnabled"
+        Me.ColEnabled.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.ColEnabled.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.ColEnabled.Width = 71
         '
         'Column10
         '
         Me.Column10.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
         Me.Column10.HeaderText = "Rom"
         Me.Column10.Name = "Column10"
-        Me.Column10.ReadOnly = True
         Me.Column10.Width = 54
         '
         'Column4
@@ -1289,7 +1387,6 @@ Partial Class Form1
         Me.Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
         Me.Column4.HeaderText = "Wheel"
         Me.Column4.Name = "Column4"
-        Me.Column4.ReadOnly = True
         Me.Column4.Width = 63
         '
         'Column5
@@ -1297,7 +1394,6 @@ Partial Class Form1
         Me.Column5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
         Me.Column5.HeaderText = "Video"
         Me.Column5.Name = "Column5"
-        Me.Column5.ReadOnly = True
         Me.Column5.Width = 59
         '
         'Column2
@@ -1305,7 +1401,6 @@ Partial Class Form1
         Me.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
         Me.Column2.HeaderText = "Theme"
         Me.Column2.Name = "Column2"
-        Me.Column2.ReadOnly = True
         Me.Column2.Width = 65
         '
         'Column6
@@ -1313,7 +1408,6 @@ Partial Class Form1
         Me.Column6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
         Me.Column6.HeaderText = "Art1"
         Me.Column6.Name = "Column6"
-        Me.Column6.ReadOnly = True
         Me.Column6.Width = 51
         '
         'Column7
@@ -1321,7 +1415,6 @@ Partial Class Form1
         Me.Column7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
         Me.Column7.HeaderText = "Art2"
         Me.Column7.Name = "Column7"
-        Me.Column7.ReadOnly = True
         Me.Column7.Width = 51
         '
         'Column8
@@ -1329,7 +1422,6 @@ Partial Class Form1
         Me.Column8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
         Me.Column8.HeaderText = "Art3"
         Me.Column8.Name = "Column8"
-        Me.Column8.ReadOnly = True
         Me.Column8.Width = 51
         '
         'Column1
@@ -1337,7 +1429,6 @@ Partial Class Form1
         Me.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
         Me.Column1.HeaderText = "Art4"
         Me.Column1.Name = "Column1"
-        Me.Column1.ReadOnly = True
         Me.Column1.Width = 51
         '
         'DataGridViewTextBoxColumn11
@@ -1345,110 +1436,95 @@ Partial Class Form1
         Me.DataGridViewTextBoxColumn11.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
         Me.DataGridViewTextBoxColumn11.HeaderText = "CRC"
         Me.DataGridViewTextBoxColumn11.Name = "DataGridViewTextBoxColumn11"
-        Me.DataGridViewTextBoxColumn11.ReadOnly = True
         Me.DataGridViewTextBoxColumn11.Width = 54
         '
         'ColArtwork
         '
         Me.ColArtwork.HeaderText = "Artwork"
         Me.ColArtwork.Name = "ColArtwork"
-        Me.ColArtwork.ReadOnly = True
         Me.ColArtwork.Width = 68
         '
         'ColBackgrounds
         '
         Me.ColBackgrounds.HeaderText = "Backgrounds"
         Me.ColBackgrounds.Name = "ColBackgrounds"
-        Me.ColBackgrounds.ReadOnly = True
         Me.ColBackgrounds.Width = 95
         '
         'ColBezels
         '
         Me.ColBezels.HeaderText = "Bezels"
         Me.ColBezels.Name = "ColBezels"
-        Me.ColBezels.ReadOnly = True
         Me.ColBezels.Width = 63
         '
         'ColController
         '
         Me.ColController.HeaderText = "Controller"
         Me.ColController.Name = "ColController"
-        Me.ColController.ReadOnly = True
         Me.ColController.Width = 76
         '
         'ColFade
         '
         Me.ColFade.HeaderText = "Fade"
         Me.ColFade.Name = "ColFade"
-        Me.ColFade.ReadOnly = True
         Me.ColFade.Width = 56
         '
         'ColFonts
         '
         Me.ColFonts.HeaderText = "Fonts"
         Me.ColFonts.Name = "ColFonts"
-        Me.ColFonts.ReadOnly = True
         Me.ColFonts.Width = 58
         '
         'ColGuides
         '
         Me.ColGuides.HeaderText = "Guides"
         Me.ColGuides.Name = "ColGuides"
-        Me.ColGuides.ReadOnly = True
         Me.ColGuides.Width = 65
         '
         'ColManuals
         '
         Me.ColManuals.HeaderText = "Manuals"
         Me.ColManuals.Name = "ColManuals"
-        Me.ColManuals.ReadOnly = True
         Me.ColManuals.Width = 72
         '
         'ColMenuImages
         '
         Me.ColMenuImages.HeaderText = "MenuImages"
         Me.ColMenuImages.Name = "ColMenuImages"
-        Me.ColMenuImages.ReadOnly = True
         Me.ColMenuImages.Width = 93
         '
         'ColMultigame
         '
         Me.ColMultigame.HeaderText = "Multigame"
         Me.ColMultigame.Name = "ColMultigame"
-        Me.ColMultigame.ReadOnly = True
         Me.ColMultigame.Width = 80
         '
         'ColMusic
         '
         Me.ColMusic.HeaderText = "Music"
         Me.ColMusic.Name = "ColMusic"
-        Me.ColMusic.ReadOnly = True
         Me.ColMusic.Width = 60
         '
         'ColSounds
         '
         Me.ColSounds.HeaderText = "Sounds"
         Me.ColSounds.Name = "ColSounds"
-        Me.ColSounds.ReadOnly = True
         Me.ColSounds.Width = 68
         '
         'ColVideos
         '
         Me.ColVideos.HeaderText = "Videos"
         Me.ColVideos.Name = "ColVideos"
-        Me.ColVideos.ReadOnly = True
         Me.ColVideos.Width = 64
         '
         'ColHLWheels
         '
         Me.ColHLWheels.HeaderText = "HLWheels"
         Me.ColHLWheels.Name = "ColHLWheels"
-        Me.ColHLWheels.ReadOnly = True
         Me.ColHLWheels.Width = 82
         '
         'ToolStrip2
         '
-        Me.ToolStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripButton1, Me.ToolStripProgressBar1, Me.ToolStripLabel1, Me.ToolStripButton10, Me.ToolStripButton11})
+        Me.ToolStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripButton1, Me.ToolStripProgressBar1, Me.ToolStripLabel1, Me.ToolStripButton10, Me.ToolStripButton11, Me.ToolStripLabel3})
         Me.ToolStrip2.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip2.Name = "ToolStrip2"
         Me.ToolStrip2.Size = New System.Drawing.Size(953, 25)
@@ -1460,7 +1536,7 @@ Partial Class Form1
         Me.ToolStripButton1.Image = CType(resources.GetObject("ToolStripButton1.Image"), System.Drawing.Image)
         Me.ToolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripButton1.Name = "ToolStripButton1"
-        Me.ToolStripButton1.Size = New System.Drawing.Size(60, 22)
+        Me.ToolStripButton1.Size = New System.Drawing.Size(56, 22)
         Me.ToolStripButton1.Text = "Check"
         '
         'ToolStripProgressBar1
@@ -1733,6 +1809,8 @@ Partial Class Form1
         '
         'SplitContainer4.Panel2
         '
+        Me.SplitContainer4.Panel2.Controls.Add(Me.Button15)
+        Me.SplitContainer4.Panel2.Controls.Add(Me.Button16)
         Me.SplitContainer4.Panel2.Controls.Add(Me.Button8)
         Me.SplitContainer4.Panel2.Controls.Add(Me.Button5)
         Me.SplitContainer4.Panel2.Controls.Add(Me.GroupBox3)
@@ -1746,44 +1824,44 @@ Partial Class Form1
         '
         Me.DataGridView4.AllowDrop = True
         Me.DataGridView4.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
-        Me.DataGridView4.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView4.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle7
+        Me.DataGridView4.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells
+        DataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle19.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView4.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle19
         Me.DataGridView4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView4.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn3, Me.Column18, Me.Column19, Me.Column20, Me.Column21, Me.DataGridViewTextBoxColumn16, Me.Column16, Me.DataGridViewCheckBoxColumn2, Me.Column22, Me.Column23})
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DataGridView4.DefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle20.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DataGridView4.DefaultCellStyle = DataGridViewCellStyle20
         Me.DataGridView4.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DataGridView4.Location = New System.Drawing.Point(0, 25)
-        Me.DataGridView4.MultiSelect = False
         Me.DataGridView4.Name = "DataGridView4"
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView4.RowHeadersDefaultCellStyle = DataGridViewCellStyle9
-        Me.DataGridView4.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
+        DataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle21.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView4.RowHeadersDefaultCellStyle = DataGridViewCellStyle21
+        Me.DataGridView4.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DataGridView4.Size = New System.Drawing.Size(959, 396)
         Me.DataGridView4.TabIndex = 4
         '
         'DataGridViewTextBoxColumn1
         '
         Me.DataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
+        Me.DataGridViewTextBoxColumn1.Frozen = True
         Me.DataGridViewTextBoxColumn1.HeaderText = "Rom"
         Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
         Me.DataGridViewTextBoxColumn1.Width = 54
@@ -1867,7 +1945,7 @@ Partial Class Form1
         Me.ToolStripButton5.Image = CType(resources.GetObject("ToolStripButton5.Image"), System.Drawing.Image)
         Me.ToolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripButton5.Name = "ToolStripButton5"
-        Me.ToolStripButton5.Size = New System.Drawing.Size(80, 22)
+        Me.ToolStripButton5.Size = New System.Drawing.Size(72, 22)
         Me.ToolStripButton5.Text = "Load XML"
         '
         'ToolStripProgressBar2
@@ -1904,6 +1982,26 @@ Partial Class Form1
         Me.ToolStripButton9.Size = New System.Drawing.Size(23, 22)
         Me.ToolStripButton9.Text = "Launch rom"
         '
+        'Button15
+        '
+        Me.Button15.Enabled = False
+        Me.Button15.Location = New System.Drawing.Point(792, 34)
+        Me.Button15.Name = "Button15"
+        Me.Button15.Size = New System.Drawing.Size(145, 27)
+        Me.Button15.TabIndex = 28
+        Me.Button15.Text = "Disable SELECTED roms"
+        Me.Button15.UseVisualStyleBackColor = True
+        '
+        'Button16
+        '
+        Me.Button16.Enabled = False
+        Me.Button16.Location = New System.Drawing.Point(792, 3)
+        Me.Button16.Name = "Button16"
+        Me.Button16.Size = New System.Drawing.Size(145, 27)
+        Me.Button16.TabIndex = 27
+        Me.Button16.Text = "Enable SELECTED roms"
+        Me.Button16.UseVisualStyleBackColor = True
+        '
         'Button8
         '
         Me.Button8.Enabled = False
@@ -1917,7 +2015,7 @@ Partial Class Form1
         'Button5
         '
         Me.Button5.Enabled = False
-        Me.Button5.Location = New System.Drawing.Point(217, 10)
+        Me.Button5.Location = New System.Drawing.Point(215, 10)
         Me.Button5.Name = "Button5"
         Me.Button5.Size = New System.Drawing.Size(171, 29)
         Me.Button5.TabIndex = 23
@@ -1976,6 +2074,7 @@ Partial Class Form1
         Me.Button14.TabIndex = 24
         Me.Button14.Text = "Highlight duplicate rom entries in XML"
         Me.Button14.UseVisualStyleBackColor = True
+        Me.Button14.Visible = False
         '
         'ListBox1
         '
@@ -2008,16 +2107,455 @@ Partial Class Form1
         'Button13
         '
         Me.Button13.Enabled = False
-        Me.Button13.Location = New System.Drawing.Point(411, 10)
+        Me.Button13.Location = New System.Drawing.Point(409, 10)
         Me.Button13.Name = "Button13"
         Me.Button13.Size = New System.Drawing.Size(155, 29)
         Me.Button13.TabIndex = 22
         Me.Button13.Text = "Crop XML to found roms"
         Me.Button13.UseVisualStyleBackColor = True
         '
+        'TabPage10
+        '
+        Me.TabPage10.Controls.Add(Me.SplitContainer7)
+        Me.TabPage10.Controls.Add(Me.ToolStrip6)
+        Me.TabPage10.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage10.Name = "TabPage10"
+        Me.TabPage10.Size = New System.Drawing.Size(959, 727)
+        Me.TabPage10.TabIndex = 8
+        Me.TabPage10.Text = "CleanUp"
+        Me.TabPage10.UseVisualStyleBackColor = True
+        '
+        'SplitContainer7
+        '
+        Me.SplitContainer7.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SplitContainer7.Location = New System.Drawing.Point(0, 25)
+        Me.SplitContainer7.Name = "SplitContainer7"
+        Me.SplitContainer7.Orientation = System.Windows.Forms.Orientation.Horizontal
+        '
+        'SplitContainer7.Panel1
+        '
+        Me.SplitContainer7.Panel1.Controls.Add(Me.ProgressBar1)
+        Me.SplitContainer7.Panel1.Controls.Add(Me.Button21)
+        Me.SplitContainer7.Panel1.Controls.Add(Me.TextBox4)
+        Me.SplitContainer7.Panel1.Controls.Add(Me.CheckBox5)
+        Me.SplitContainer7.Panel1.Controls.Add(Me.ComboBox1)
+        Me.SplitContainer7.Panel1.Controls.Add(Me.Button18)
+        Me.SplitContainer7.Panel1.Controls.Add(Me.Label12)
+        Me.SplitContainer7.Panel1.Controls.Add(Me.GroupBox2)
+        Me.SplitContainer7.Panel1.Controls.Add(Me.TreeView3)
+        '
+        'SplitContainer7.Panel2
+        '
+        Me.SplitContainer7.Panel2.Controls.Add(Me.SplitContainer8)
+        Me.SplitContainer7.Size = New System.Drawing.Size(959, 702)
+        Me.SplitContainer7.SplitterDistance = 342
+        Me.SplitContainer7.TabIndex = 1
+        '
+        'ProgressBar1
+        '
+        Me.ProgressBar1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.ProgressBar1.Location = New System.Drawing.Point(259, 218)
+        Me.ProgressBar1.Name = "ProgressBar1"
+        Me.ProgressBar1.Size = New System.Drawing.Size(265, 22)
+        Me.ProgressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous
+        Me.ProgressBar1.TabIndex = 16
+        Me.ProgressBar1.Visible = False
+        '
+        'Button21
+        '
+        Me.Button21.Location = New System.Drawing.Point(428, 132)
+        Me.Button21.Name = "Button21"
+        Me.Button21.Size = New System.Drawing.Size(29, 21)
+        Me.Button21.TabIndex = 15
+        Me.Button21.Text = "..."
+        Me.Button21.UseVisualStyleBackColor = True
+        '
+        'TextBox4
+        '
+        Me.TextBox4.Location = New System.Drawing.Point(463, 133)
+        Me.TextBox4.Name = "TextBox4"
+        Me.TextBox4.ReadOnly = True
+        Me.TextBox4.Size = New System.Drawing.Size(321, 20)
+        Me.TextBox4.TabIndex = 14
+        Me.TextBox4.Text = "select a folder -"
+        '
+        'CheckBox5
+        '
+        Me.CheckBox5.AutoSize = True
+        Me.CheckBox5.Checked = True
+        Me.CheckBox5.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.CheckBox5.Location = New System.Drawing.Point(259, 135)
+        Me.CheckBox5.Name = "CheckBox5"
+        Me.CheckBox5.Size = New System.Drawing.Size(142, 17)
+        Me.CheckBox5.TabIndex = 13
+        Me.CheckBox5.Text = "Move instead of deletion"
+        Me.CheckBox5.UseVisualStyleBackColor = True
+        '
+        'ComboBox1
+        '
+        Me.ComboBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ComboBox1.ForeColor = System.Drawing.Color.Red
+        Me.ComboBox1.FormattingEnabled = True
+        Me.ComboBox1.Location = New System.Drawing.Point(428, 177)
+        Me.ComboBox1.Name = "ComboBox1"
+        Me.ComboBox1.Size = New System.Drawing.Size(356, 23)
+        Me.ComboBox1.TabIndex = 12
+        '
+        'Button18
+        '
+        Me.Button18.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button18.Location = New System.Drawing.Point(259, 246)
+        Me.Button18.Name = "Button18"
+        Me.Button18.Size = New System.Drawing.Size(266, 33)
+        Me.Button18.TabIndex = 7
+        Me.Button18.Text = "Perform CHECK"
+        Me.Button18.UseVisualStyleBackColor = True
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label12.Location = New System.Drawing.Point(255, 180)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(177, 20)
+        Me.Label12.TabIndex = 6
+        Me.Label12.Text = "Selected SYSTEM = "
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.Label18)
+        Me.GroupBox2.Controls.Add(Me.CheckBox7)
+        Me.GroupBox2.Controls.Add(Me.CheckBox6)
+        Me.GroupBox2.Location = New System.Drawing.Point(259, 8)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(298, 103)
+        Me.GroupBox2.TabIndex = 5
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Options:"
+        '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label18.Location = New System.Drawing.Point(15, 76)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(266, 13)
+        Me.Label18.TabIndex = 3
+        Me.Label18.Text = "WARNING with Uppercase/lowercase errors !"
+        '
+        'CheckBox7
+        '
+        Me.CheckBox7.AutoSize = True
+        Me.CheckBox7.Location = New System.Drawing.Point(18, 28)
+        Me.CheckBox7.Name = "CheckBox7"
+        Me.CheckBox7.Size = New System.Drawing.Size(253, 17)
+        Me.CheckBox7.TabIndex = 2
+        Me.CheckBox7.Text = "Move all selected if Rom is DISABLED (HS1.4+)"
+        Me.CheckBox7.UseVisualStyleBackColor = True
+        '
+        'CheckBox6
+        '
+        Me.CheckBox6.AutoSize = True
+        Me.CheckBox6.Location = New System.Drawing.Point(18, 51)
+        Me.CheckBox6.Name = "CheckBox6"
+        Me.CheckBox6.Size = New System.Drawing.Size(219, 17)
+        Me.CheckBox6.TabIndex = 1
+        Me.CheckBox6.Text = "Move all selected if Rom is NOT FOUND"
+        Me.CheckBox6.UseVisualStyleBackColor = True
+        '
+        'TreeView3
+        '
+        Me.TreeView3.CheckBoxes = True
+        Me.TreeView3.Location = New System.Drawing.Point(8, 8)
+        Me.TreeView3.Name = "TreeView3"
+        TreeNode46.Checked = True
+        TreeNode46.Name = "Node2"
+        TreeNode46.Text = "Wheel"
+        TreeNode47.Checked = True
+        TreeNode47.Name = "Node3"
+        TreeNode47.Text = "Video"
+        TreeNode48.Checked = True
+        TreeNode48.Name = "Node9"
+        TreeNode48.Text = "Theme"
+        TreeNode49.Checked = True
+        TreeNode49.Name = "Node4"
+        TreeNode49.Text = "Art1"
+        TreeNode50.Checked = True
+        TreeNode50.Name = "Node5"
+        TreeNode50.Text = "Art2"
+        TreeNode51.Checked = True
+        TreeNode51.Name = "Node6"
+        TreeNode51.Text = "Art3"
+        TreeNode52.Checked = True
+        TreeNode52.Name = "Node7"
+        TreeNode52.Text = "Art4"
+        TreeNode53.Checked = True
+        TreeNode53.Name = "Node1"
+        TreeNode53.Text = "Hyperspin"
+        TreeNode54.Checked = True
+        TreeNode54.Name = "Node11"
+        TreeNode54.Text = "Artwork"
+        TreeNode55.Checked = True
+        TreeNode55.Name = "Node12"
+        TreeNode55.Text = "Background"
+        TreeNode56.Checked = True
+        TreeNode56.Name = "Node13"
+        TreeNode56.Text = "Bezel"
+        TreeNode57.Checked = True
+        TreeNode57.Name = "Node14"
+        TreeNode57.Text = "Controller"
+        TreeNode58.Checked = True
+        TreeNode58.Name = "Node15"
+        TreeNode58.Text = "Fade"
+        TreeNode59.Checked = True
+        TreeNode59.Name = "Node17"
+        TreeNode59.Text = "Guides"
+        TreeNode60.Checked = True
+        TreeNode60.Name = "Node18"
+        TreeNode60.Text = "Manuals"
+        TreeNode61.Checked = True
+        TreeNode61.Name = "Node21"
+        TreeNode61.Text = "Music"
+        TreeNode62.Checked = True
+        TreeNode62.Name = "Node23"
+        TreeNode62.Text = "Videos"
+        TreeNode63.Checked = True
+        TreeNode63.Name = "Node10"
+        TreeNode63.Text = "HyperPause"
+        Me.TreeView3.Nodes.AddRange(New System.Windows.Forms.TreeNode() {TreeNode53, TreeNode63})
+        Me.TreeView3.Size = New System.Drawing.Size(219, 328)
+        Me.TreeView3.TabIndex = 2
+        '
+        'SplitContainer8
+        '
+        Me.SplitContainer8.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SplitContainer8.Location = New System.Drawing.Point(0, 0)
+        Me.SplitContainer8.Name = "SplitContainer8"
+        '
+        'SplitContainer8.Panel1
+        '
+        Me.SplitContainer8.Panel1.Controls.Add(Me.DataGridView5)
+        Me.SplitContainer8.Panel1.Controls.Add(Me.ToolStrip7)
+        '
+        'SplitContainer8.Panel2
+        '
+        Me.SplitContainer8.Panel2.Controls.Add(Me.SplitContainer9)
+        Me.SplitContainer8.Size = New System.Drawing.Size(959, 356)
+        Me.SplitContainer8.SplitterDistance = 494
+        Me.SplitContainer8.TabIndex = 0
+        '
+        'DataGridView5
+        '
+        Me.DataGridView5.AllowUserToAddRows = False
+        Me.DataGridView5.AllowUserToDeleteRows = False
+        Me.DataGridView5.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
+        Me.DataGridView5.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells
+        Me.DataGridView5.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DataGridView5.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colDeletion, Me.colPath, Me.colFilename, Me.colExt, Me.colReason})
+        Me.DataGridView5.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.DataGridView5.Location = New System.Drawing.Point(0, 25)
+        Me.DataGridView5.Name = "DataGridView5"
+        Me.DataGridView5.ReadOnly = True
+        Me.DataGridView5.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.DataGridView5.Size = New System.Drawing.Size(494, 331)
+        Me.DataGridView5.TabIndex = 2
+        '
+        'colDeletion
+        '
+        Me.colDeletion.HeaderText = "Move"
+        Me.colDeletion.Name = "colDeletion"
+        Me.colDeletion.ReadOnly = True
+        Me.colDeletion.Width = 40
+        '
+        'colPath
+        '
+        Me.colPath.HeaderText = "Path"
+        Me.colPath.Name = "colPath"
+        Me.colPath.ReadOnly = True
+        Me.colPath.Width = 54
+        '
+        'colFilename
+        '
+        Me.colFilename.HeaderText = "Filename"
+        Me.colFilename.Name = "colFilename"
+        Me.colFilename.ReadOnly = True
+        Me.colFilename.Width = 74
+        '
+        'colExt
+        '
+        Me.colExt.HeaderText = "Extension"
+        Me.colExt.Name = "colExt"
+        Me.colExt.ReadOnly = True
+        Me.colExt.Width = 78
+        '
+        'colReason
+        '
+        Me.colReason.HeaderText = "Reason"
+        Me.colReason.Name = "colReason"
+        Me.colReason.ReadOnly = True
+        Me.colReason.Width = 69
+        '
+        'ToolStrip7
+        '
+        Me.ToolStrip7.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripButton14, Me.ToolStripButton15, Me.ToolStripSeparator5, Me.ToolStripButton16, Me.ToolStripButton17, Me.ToolStripSeparator6, Me.ToolStripButton18})
+        Me.ToolStrip7.Location = New System.Drawing.Point(0, 0)
+        Me.ToolStrip7.Name = "ToolStrip7"
+        Me.ToolStrip7.Size = New System.Drawing.Size(494, 25)
+        Me.ToolStrip7.TabIndex = 1
+        Me.ToolStrip7.Text = "ToolStrip7"
+        '
+        'ToolStripButton14
+        '
+        Me.ToolStripButton14.Image = Global.HyperT00ls.My.Resources.Resources.greencheck_med
+        Me.ToolStripButton14.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.ToolStripButton14.Name = "ToolStripButton14"
+        Me.ToolStripButton14.Size = New System.Drawing.Size(100, 22)
+        Me.ToolStripButton14.Text = "Check Selected"
+        '
+        'ToolStripButton15
+        '
+        Me.ToolStripButton15.Image = Global.HyperT00ls.My.Resources.Resources.redX
+        Me.ToolStripButton15.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.ToolStripButton15.Name = "ToolStripButton15"
+        Me.ToolStripButton15.Size = New System.Drawing.Size(111, 22)
+        Me.ToolStripButton15.Text = "Uncheck Selected"
+        '
+        'ToolStripSeparator5
+        '
+        Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
+        Me.ToolStripSeparator5.Size = New System.Drawing.Size(6, 25)
+        '
+        'ToolStripButton16
+        '
+        Me.ToolStripButton16.Image = Global.HyperT00ls.My.Resources.Resources.lvl1
+        Me.ToolStripButton16.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.ToolStripButton16.Name = "ToolStripButton16"
+        Me.ToolStripButton16.Size = New System.Drawing.Size(76, 22)
+        Me.ToolStripButton16.Text = "Check ALL"
+        '
+        'ToolStripButton17
+        '
+        Me.ToolStripButton17.Image = Global.HyperT00ls.My.Resources.Resources.lvl5
+        Me.ToolStripButton17.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.ToolStripButton17.Name = "ToolStripButton17"
+        Me.ToolStripButton17.Size = New System.Drawing.Size(87, 22)
+        Me.ToolStripButton17.Text = "Uncheck ALL"
+        '
+        'ToolStripSeparator6
+        '
+        Me.ToolStripSeparator6.Name = "ToolStripSeparator6"
+        Me.ToolStripSeparator6.Size = New System.Drawing.Size(6, 25)
+        '
+        'ToolStripButton18
+        '
+        Me.ToolStripButton18.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ToolStripButton18.Image = Global.HyperT00ls.My.Resources.Resources.red_exclaim_med
+        Me.ToolStripButton18.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.ToolStripButton18.Name = "ToolStripButton18"
+        Me.ToolStripButton18.Size = New System.Drawing.Size(58, 22)
+        Me.ToolStripButton18.Text = "MOVE"
+        '
+        'SplitContainer9
+        '
+        Me.SplitContainer9.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SplitContainer9.IsSplitterFixed = True
+        Me.SplitContainer9.Location = New System.Drawing.Point(0, 0)
+        Me.SplitContainer9.Name = "SplitContainer9"
+        '
+        'SplitContainer9.Panel1
+        '
+        Me.SplitContainer9.Panel1.Controls.Add(Me.RadioButton2)
+        Me.SplitContainer9.Panel1.Controls.Add(Me.RadioButton1)
+        Me.SplitContainer9.Panel1.Controls.Add(Me.ButtonAssign)
+        Me.SplitContainer9.Panel1.Controls.Add(Me.CheckBox8)
+        '
+        'SplitContainer9.Panel2
+        '
+        Me.SplitContainer9.Panel2.Controls.Add(Me.ListBox2)
+        Me.SplitContainer9.Panel2.Controls.Add(Me.CheckBox9)
+        Me.SplitContainer9.Size = New System.Drawing.Size(461, 356)
+        Me.SplitContainer9.SplitterDistance = 146
+        Me.SplitContainer9.TabIndex = 5
+        '
+        'RadioButton2
+        '
+        Me.RadioButton2.AutoSize = True
+        Me.RadioButton2.Location = New System.Drawing.Point(16, 163)
+        Me.RadioButton2.Name = "RadioButton2"
+        Me.RadioButton2.Size = New System.Drawing.Size(116, 17)
+        Me.RadioButton2.TabIndex = 8
+        Me.RadioButton2.Text = "Move to new name"
+        Me.RadioButton2.UseVisualStyleBackColor = True
+        '
+        'RadioButton1
+        '
+        Me.RadioButton1.AutoSize = True
+        Me.RadioButton1.Checked = True
+        Me.RadioButton1.Location = New System.Drawing.Point(16, 140)
+        Me.RadioButton1.Name = "RadioButton1"
+        Me.RadioButton1.Size = New System.Drawing.Size(113, 17)
+        Me.RadioButton1.TabIndex = 7
+        Me.RadioButton1.TabStop = True
+        Me.RadioButton1.Text = "Copy to new name"
+        Me.RadioButton1.UseVisualStyleBackColor = True
+        '
+        'ButtonAssign
+        '
+        Me.ButtonAssign.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ButtonAssign.Location = New System.Drawing.Point(13, 56)
+        Me.ButtonAssign.Name = "ButtonAssign"
+        Me.ButtonAssign.Size = New System.Drawing.Size(118, 35)
+        Me.ButtonAssign.TabIndex = 6
+        Me.ButtonAssign.Text = "Rename to match selected ROM ->"
+        Me.ButtonAssign.UseVisualStyleBackColor = True
+        '
+        'CheckBox8
+        '
+        Me.CheckBox8.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.CheckBox8.AutoSize = True
+        Me.CheckBox8.Checked = True
+        Me.CheckBox8.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.CheckBox8.Location = New System.Drawing.Point(13, 97)
+        Me.CheckBox8.Name = "CheckBox8"
+        Me.CheckBox8.Size = New System.Drawing.Size(130, 17)
+        Me.CheckBox8.TabIndex = 5
+        Me.CheckBox8.Text = "Overwrite existing files"
+        Me.CheckBox8.UseVisualStyleBackColor = True
+        '
+        'ListBox2
+        '
+        Me.ListBox2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ListBox2.FormattingEnabled = True
+        Me.ListBox2.Location = New System.Drawing.Point(0, 17)
+        Me.ListBox2.Name = "ListBox2"
+        Me.ListBox2.Size = New System.Drawing.Size(311, 339)
+        Me.ListBox2.TabIndex = 2
+        '
+        'CheckBox9
+        '
+        Me.CheckBox9.AutoSize = True
+        Me.CheckBox9.Checked = True
+        Me.CheckBox9.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.CheckBox9.Dock = System.Windows.Forms.DockStyle.Top
+        Me.CheckBox9.Location = New System.Drawing.Point(0, 0)
+        Me.CheckBox9.Name = "CheckBox9"
+        Me.CheckBox9.Size = New System.Drawing.Size(311, 17)
+        Me.CheckBox9.TabIndex = 1
+        Me.CheckBox9.Text = "Display disabled ROMs (HS1.4+)"
+        Me.CheckBox9.UseVisualStyleBackColor = True
+        '
+        'ToolStrip6
+        '
+        Me.ToolStrip6.Location = New System.Drawing.Point(0, 0)
+        Me.ToolStrip6.Name = "ToolStrip6"
+        Me.ToolStrip6.Size = New System.Drawing.Size(959, 25)
+        Me.ToolStrip6.TabIndex = 0
+        Me.ToolStrip6.Text = "ToolStrip6"
+        '
         'TabPage7
         '
         Me.TabPage7.Controls.Add(Me.DataGridView3)
+        Me.TabPage7.Controls.Add(Me.ToolStrip5)
         Me.TabPage7.Location = New System.Drawing.Point(4, 22)
         Me.TabPage7.Name = "TabPage7"
         Me.TabPage7.Size = New System.Drawing.Size(959, 727)
@@ -2032,38 +2570,42 @@ Partial Class Form1
         Me.DataGridView3.AllowUserToResizeRows = False
         Me.DataGridView3.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.DataGridView3.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView3.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle10
+        Me.DataGridView3.CausesValidation = False
+        DataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle22.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle22.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle22.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView3.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle22
         Me.DataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView3.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column12, Me.Column13, Me.Column14, Me.Column15})
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle11.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DataGridView3.DefaultCellStyle = DataGridViewCellStyle11
+        Me.DataGridView3.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column12, Me.Column13, Me.Column14, Me.Column3, Me.Column15})
+        DataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle23.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DataGridView3.DefaultCellStyle = DataGridViewCellStyle23
         Me.DataGridView3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.DataGridView3.Location = New System.Drawing.Point(0, 0)
+        Me.DataGridView3.Location = New System.Drawing.Point(0, 25)
         Me.DataGridView3.Name = "DataGridView3"
         Me.DataGridView3.ReadOnly = True
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle12.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView3.RowHeadersDefaultCellStyle = DataGridViewCellStyle12
-        Me.DataGridView3.Size = New System.Drawing.Size(959, 727)
-        Me.DataGridView3.TabIndex = 0
+        DataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle24.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle24.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView3.RowHeadersDefaultCellStyle = DataGridViewCellStyle24
+        Me.DataGridView3.ShowCellErrors = False
+        Me.DataGridView3.ShowCellToolTips = False
+        Me.DataGridView3.ShowRowErrors = False
+        Me.DataGridView3.Size = New System.Drawing.Size(959, 702)
+        Me.DataGridView3.TabIndex = 2
         '
         'Column12
         '
@@ -2086,6 +2628,13 @@ Partial Class Form1
         Me.Column14.ReadOnly = True
         Me.Column14.Width = 56
         '
+        'Column3
+        '
+        Me.Column3.HeaderText = "Function"
+        Me.Column3.Name = "Column3"
+        Me.Column3.ReadOnly = True
+        Me.Column3.Width = 73
+        '
         'Column15
         '
         Me.Column15.HeaderText = "Message"
@@ -2093,8 +2642,73 @@ Partial Class Form1
         Me.Column15.ReadOnly = True
         Me.Column15.Width = 75
         '
+        'ToolStrip5
+        '
+        Me.ToolStrip5.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripButton12, Me.ToolStripButton13, Me.ToolStripDropDownButton1})
+        Me.ToolStrip5.Location = New System.Drawing.Point(0, 0)
+        Me.ToolStrip5.Name = "ToolStrip5"
+        Me.ToolStrip5.Size = New System.Drawing.Size(959, 25)
+        Me.ToolStrip5.TabIndex = 1
+        Me.ToolStrip5.Text = "ToolStrip5"
+        '
+        'ToolStripButton12
+        '
+        Me.ToolStripButton12.Image = Global.HyperT00ls.My.Resources.Resources.syncrefresh
+        Me.ToolStripButton12.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.ToolStripButton12.Name = "ToolStripButton12"
+        Me.ToolStripButton12.Size = New System.Drawing.Size(78, 22)
+        Me.ToolStripButton12.Text = "Display log"
+        '
+        'ToolStripButton13
+        '
+        Me.ToolStripButton13.Image = Global.HyperT00ls.My.Resources.Resources.redX
+        Me.ToolStripButton13.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.ToolStripButton13.Name = "ToolStripButton13"
+        Me.ToolStripButton13.Size = New System.Drawing.Size(71, 22)
+        Me.ToolStripButton13.Text = "Clean log"
+        '
+        'ToolStripDropDownButton1
+        '
+        Me.ToolStripDropDownButton1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ErrorLevelToolStripMenuItem, Me.WarningLevelToolStripMenuItem, Me.InfoLevelToolStripMenuItem, Me.DebugLevelToolStripMenuItem})
+        Me.ToolStripDropDownButton1.Image = Global.HyperT00ls.My.Resources.Resources.openicon
+        Me.ToolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.ToolStripDropDownButton1.Name = "ToolStripDropDownButton1"
+        Me.ToolStripDropDownButton1.Size = New System.Drawing.Size(143, 22)
+        Me.ToolStripDropDownButton1.Text = "Debug level (Warning)"
+        Me.ToolStripDropDownButton1.ToolTipText = "Debug level (Warning)"
+        '
+        'ErrorLevelToolStripMenuItem
+        '
+        Me.ErrorLevelToolStripMenuItem.Name = "ErrorLevelToolStripMenuItem"
+        Me.ErrorLevelToolStripMenuItem.Size = New System.Drawing.Size(150, 22)
+        Me.ErrorLevelToolStripMenuItem.Text = "Error level"
+        '
+        'WarningLevelToolStripMenuItem
+        '
+        Me.WarningLevelToolStripMenuItem.Checked = True
+        Me.WarningLevelToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.WarningLevelToolStripMenuItem.Name = "WarningLevelToolStripMenuItem"
+        Me.WarningLevelToolStripMenuItem.Size = New System.Drawing.Size(150, 22)
+        Me.WarningLevelToolStripMenuItem.Text = "Warning level"
+        '
+        'InfoLevelToolStripMenuItem
+        '
+        Me.InfoLevelToolStripMenuItem.Name = "InfoLevelToolStripMenuItem"
+        Me.InfoLevelToolStripMenuItem.Size = New System.Drawing.Size(150, 22)
+        Me.InfoLevelToolStripMenuItem.Text = "Info level"
+        '
+        'DebugLevelToolStripMenuItem
+        '
+        Me.DebugLevelToolStripMenuItem.Name = "DebugLevelToolStripMenuItem"
+        Me.DebugLevelToolStripMenuItem.Size = New System.Drawing.Size(150, 22)
+        Me.DebugLevelToolStripMenuItem.Text = "Debug level"
+        '
         'TabPage8
         '
+        Me.TabPage8.Controls.Add(Me.Label10)
+        Me.TabPage8.Controls.Add(Me.Button9)
+        Me.TabPage8.Controls.Add(Me.Label9)
+        Me.TabPage8.Controls.Add(Me.TextBox3)
         Me.TabPage8.Controls.Add(Me.Label8)
         Me.TabPage8.Controls.Add(Me.Button6)
         Me.TabPage8.Controls.Add(Me.GroupBox1)
@@ -2112,20 +2726,54 @@ Partial Class Form1
         Me.TabPage8.Text = "Parameters"
         Me.TabPage8.UseVisualStyleBackColor = True
         '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(460, 17)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(45, 13)
+        Me.Label10.TabIndex = 13
+        Me.Label10.Text = "Label10"
+        '
+        'Button9
+        '
+        Me.Button9.Location = New System.Drawing.Point(264, 75)
+        Me.Button9.Name = "Button9"
+        Me.Button9.Size = New System.Drawing.Size(26, 23)
+        Me.Button9.TabIndex = 12
+        Me.Button9.Text = "..."
+        Me.Button9.UseVisualStyleBackColor = True
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(293, 61)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(166, 13)
+        Me.Label9.TabIndex = 11
+        Me.Label9.Text = "HL/RocketLauncher Folder Path:"
+        '
+        'TextBox3
+        '
+        Me.TextBox3.Location = New System.Drawing.Point(296, 77)
+        Me.TextBox3.Name = "TextBox3"
+        Me.TextBox3.Size = New System.Drawing.Size(258, 20)
+        Me.TextBox3.TabIndex = 10
+        '
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(281, 182)
+        Me.Label8.Location = New System.Drawing.Point(281, 207)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(211, 13)
+        Me.Label8.Size = New System.Drawing.Size(224, 13)
         Me.Label8.TabIndex = 9
-        Me.Label8.Text = "(Rom scanning uses HL3 config if found ...)"
+        Me.Label8.Text = "(Rom scanning uses HL/RL config if found ...)"
         '
         'Button6
         '
         Me.Button6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button6.ForeColor = System.Drawing.Color.Red
-        Me.Button6.Location = New System.Drawing.Point(64, 443)
+        Me.Button6.Location = New System.Drawing.Point(57, 17)
         Me.Button6.Name = "Button6"
         Me.Button6.Size = New System.Drawing.Size(146, 32)
         Me.Button6.TabIndex = 7
@@ -2135,9 +2783,9 @@ Partial Class Form1
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.TreeView2)
-        Me.GroupBox1.Location = New System.Drawing.Point(20, 19)
+        Me.GroupBox1.Location = New System.Drawing.Point(20, 61)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(225, 418)
+        Me.GroupBox1.Size = New System.Drawing.Size(225, 444)
         Me.GroupBox1.TabIndex = 6
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Columns displayed in Roms/Media Check:"
@@ -2148,79 +2796,82 @@ Partial Class Form1
         Me.TreeView2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TreeView2.Location = New System.Drawing.Point(3, 16)
         Me.TreeView2.Name = "TreeView2"
-        TreeNode2.Checked = True
-        TreeNode2.Name = "Node0"
-        TreeNode2.Text = "Description"
-        TreeNode3.Checked = True
-        TreeNode3.Name = "Node2"
-        TreeNode3.Text = "Wheel"
-        TreeNode4.Checked = True
-        TreeNode4.Name = "Node3"
-        TreeNode4.Text = "Video"
-        TreeNode5.Checked = True
-        TreeNode5.Name = "Node9"
-        TreeNode5.Text = "Theme"
-        TreeNode6.Checked = True
-        TreeNode6.Name = "Node4"
-        TreeNode6.Text = "Art1"
-        TreeNode7.Checked = True
-        TreeNode7.Name = "Node5"
-        TreeNode7.Text = "Art2"
-        TreeNode8.Checked = True
-        TreeNode8.Name = "Node6"
-        TreeNode8.Text = "Art3"
-        TreeNode9.Checked = True
-        TreeNode9.Name = "Node7"
-        TreeNode9.Text = "Art4"
-        TreeNode10.Checked = True
-        TreeNode10.Name = "Node1"
-        TreeNode10.Text = "Hyperspin"
-        TreeNode11.Checked = True
-        TreeNode11.Name = "Node11"
-        TreeNode11.Text = "Artwork"
-        TreeNode12.Checked = True
-        TreeNode12.Name = "Node12"
-        TreeNode12.Text = "Background"
-        TreeNode13.Checked = True
-        TreeNode13.Name = "Node13"
-        TreeNode13.Text = "Bezel"
-        TreeNode14.Checked = True
-        TreeNode14.Name = "Node14"
-        TreeNode14.Text = "Controller"
-        TreeNode15.Checked = True
-        TreeNode15.Name = "Node15"
-        TreeNode15.Text = "Fade"
-        TreeNode16.Name = "Node16"
-        TreeNode16.Text = "Fonts"
-        TreeNode17.Checked = True
-        TreeNode17.Name = "Node17"
-        TreeNode17.Text = "Guides"
-        TreeNode18.Checked = True
-        TreeNode18.Name = "Node18"
-        TreeNode18.Text = "Manuals"
-        TreeNode19.Name = "Node19"
-        TreeNode19.Text = "Menu Images"
-        TreeNode20.Name = "Node20"
-        TreeNode20.Text = "Multigame"
-        TreeNode21.Name = "Node21"
-        TreeNode21.Text = "Music"
-        TreeNode22.Name = "Node22"
-        TreeNode22.Text = "Sounds"
-        TreeNode23.Name = "Node23"
-        TreeNode23.Text = "Videos"
-        TreeNode24.Name = "Node24"
-        TreeNode24.Text = "Wheels"
-        TreeNode25.Checked = True
-        TreeNode25.Name = "Node10"
-        TreeNode25.Text = "HyperPause"
-        Me.TreeView2.Nodes.AddRange(New System.Windows.Forms.TreeNode() {TreeNode2, TreeNode10, TreeNode25})
-        Me.TreeView2.Size = New System.Drawing.Size(219, 399)
+        TreeNode64.Checked = True
+        TreeNode64.Name = "Node0"
+        TreeNode64.Text = "Description"
+        TreeNode65.Checked = True
+        TreeNode65.Name = "NodeEnabled"
+        TreeNode65.Text = "Enabled"
+        TreeNode66.Checked = True
+        TreeNode66.Name = "Node2"
+        TreeNode66.Text = "Wheel"
+        TreeNode67.Checked = True
+        TreeNode67.Name = "Node3"
+        TreeNode67.Text = "Video"
+        TreeNode68.Checked = True
+        TreeNode68.Name = "Node9"
+        TreeNode68.Text = "Theme"
+        TreeNode69.Checked = True
+        TreeNode69.Name = "Node4"
+        TreeNode69.Text = "Art1"
+        TreeNode70.Checked = True
+        TreeNode70.Name = "Node5"
+        TreeNode70.Text = "Art2"
+        TreeNode71.Checked = True
+        TreeNode71.Name = "Node6"
+        TreeNode71.Text = "Art3"
+        TreeNode72.Checked = True
+        TreeNode72.Name = "Node7"
+        TreeNode72.Text = "Art4"
+        TreeNode73.Checked = True
+        TreeNode73.Name = "Node1"
+        TreeNode73.Text = "Hyperspin"
+        TreeNode74.Checked = True
+        TreeNode74.Name = "Node11"
+        TreeNode74.Text = "Artwork"
+        TreeNode75.Checked = True
+        TreeNode75.Name = "Node12"
+        TreeNode75.Text = "Background"
+        TreeNode76.Checked = True
+        TreeNode76.Name = "Node13"
+        TreeNode76.Text = "Bezel"
+        TreeNode77.Checked = True
+        TreeNode77.Name = "Node14"
+        TreeNode77.Text = "Controller"
+        TreeNode78.Checked = True
+        TreeNode78.Name = "Node15"
+        TreeNode78.Text = "Fade"
+        TreeNode79.Name = "Node16"
+        TreeNode79.Text = "Fonts"
+        TreeNode80.Checked = True
+        TreeNode80.Name = "Node17"
+        TreeNode80.Text = "Guides"
+        TreeNode81.Checked = True
+        TreeNode81.Name = "Node18"
+        TreeNode81.Text = "Manuals"
+        TreeNode82.Name = "Node19"
+        TreeNode82.Text = "Menu Images"
+        TreeNode83.Name = "Node20"
+        TreeNode83.Text = "Multigame"
+        TreeNode84.Name = "Node21"
+        TreeNode84.Text = "Music"
+        TreeNode85.Name = "Node22"
+        TreeNode85.Text = "Sounds"
+        TreeNode86.Name = "Node23"
+        TreeNode86.Text = "Videos"
+        TreeNode87.Name = "Node24"
+        TreeNode87.Text = "Wheels"
+        TreeNode88.Checked = True
+        TreeNode88.Name = "Node10"
+        TreeNode88.Text = "HyperPause"
+        Me.TreeView2.Nodes.AddRange(New System.Windows.Forms.TreeNode() {TreeNode64, TreeNode65, TreeNode73, TreeNode88})
+        Me.TreeView2.Size = New System.Drawing.Size(219, 425)
         Me.TreeView2.TabIndex = 1
         '
         'CheckBox3
         '
         Me.CheckBox3.AutoSize = True
-        Me.CheckBox3.Location = New System.Drawing.Point(264, 162)
+        Me.CheckBox3.Location = New System.Drawing.Point(264, 187)
         Me.CheckBox3.Name = "CheckBox3"
         Me.CheckBox3.Size = New System.Drawing.Size(240, 17)
         Me.CheckBox3.TabIndex = 5
@@ -2230,22 +2881,21 @@ Partial Class Form1
         'CheckBox2
         '
         Me.CheckBox2.AutoSize = True
-        Me.CheckBox2.Location = New System.Drawing.Point(264, 127)
+        Me.CheckBox2.Location = New System.Drawing.Point(264, 152)
         Me.CheckBox2.Name = "CheckBox2"
-        Me.CheckBox2.Size = New System.Drawing.Size(445, 17)
+        Me.CheckBox2.Size = New System.Drawing.Size(137, 17)
         Me.CheckBox2.TabIndex = 4
-        Me.CheckBox2.Text = "Enable DEBUG logging (will heavily SLOW DOWN scans if combined with rom scanning)" & _
-            ""
+        Me.CheckBox2.Text = "Enable DEBUG logging"
         Me.CheckBox2.UseVisualStyleBackColor = True
         '
         'CheckBox1
         '
         Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(264, 90)
+        Me.CheckBox1.Location = New System.Drawing.Point(264, 115)
         Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(161, 17)
+        Me.CheckBox1.Size = New System.Drawing.Size(272, 17)
         Me.CheckBox1.TabIndex = 3
-        Me.CheckBox1.Text = "Display all Databases folders"
+        Me.CheckBox1.Text = "Display all Databases folders (disabled && not in XML)"
         Me.CheckBox1.UseVisualStyleBackColor = True
         '
         'Button1
@@ -2262,9 +2912,9 @@ Partial Class Form1
         Me.Label11.AutoSize = True
         Me.Label11.Location = New System.Drawing.Point(293, 19)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(82, 13)
+        Me.Label11.Size = New System.Drawing.Size(114, 13)
         Me.Label11.TabIndex = 1
-        Me.Label11.Text = "Hyperspin Path:"
+        Me.Label11.Text = "Hyperspin Folder Path:"
         '
         'TextBox2
         '
@@ -2277,7 +2927,7 @@ Partial Class Form1
         '
         Me.PictureBox6.Image = CType(resources.GetObject("PictureBox6.Image"), System.Drawing.Image)
         Me.PictureBox6.InitialImage = CType(resources.GetObject("PictureBox6.InitialImage"), System.Drawing.Image)
-        Me.PictureBox6.Location = New System.Drawing.Point(336, 260)
+        Me.PictureBox6.Location = New System.Drawing.Point(336, 285)
         Me.PictureBox6.Name = "PictureBox6"
         Me.PictureBox6.Size = New System.Drawing.Size(184, 110)
         Me.PictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -2288,13 +2938,13 @@ Partial Class Form1
         '
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AddNewToolStripMenuItem, Me.CopyAllMediaToToolStripMenuItem, Me.OpenContainingFolderToolStripMenuItem, Me.OpenToolStripMenuItem, Me.ToolStripSeparator2, Me.DeleteSelectedFileToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(198, 120)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(195, 120)
         '
         'AddNewToolStripMenuItem
         '
         Me.AddNewToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HYPERSPINToolStripMenuItem, Me.WheelToolStripMenuItem, Me.VideoToolStripMenuItem, Me.ThemeToolStripMenuItem, Me.Art1ToolStripMenuItem, Me.Art2ToolStripMenuItem, Me.Art3ToolStripMenuItem, Me.Art4ToolStripMenuItem, Me.ToolStripSeparator1, Me.HYPERPAUSEToolStripMenuItem, Me.ArtworkToolStripMenuItem, Me.BackgroundToolStripMenuItem, Me.BezelToolStripMenuItem, Me.ControllerToolStripMenuItem, Me.FadeToolStripMenuItem, Me.FontToolStripMenuItem, Me.GuideToolStripMenuItem, Me.ManualToolStripMenuItem, Me.MenuImageToolStripMenuItem, Me.MultigameToolStripMenuItem, Me.MusicToolStripMenuItem, Me.SoundToolStripMenuItem, Me.VideoToolStripMenuItem1, Me.WheelToolStripMenuItem1})
         Me.AddNewToolStripMenuItem.Name = "AddNewToolStripMenuItem"
-        Me.AddNewToolStripMenuItem.Size = New System.Drawing.Size(197, 22)
+        Me.AddNewToolStripMenuItem.Size = New System.Drawing.Size(194, 22)
         Me.AddNewToolStripMenuItem.Text = "Add new ..."
         '
         'HYPERSPINToolStripMenuItem
@@ -2314,19 +2964,19 @@ Partial Class Form1
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem1.Text = "From file"
         '
         'FromClipboardToolStripMenuItem
         '
         Me.FromClipboardToolStripMenuItem.Name = "FromClipboardToolStripMenuItem"
-        Me.FromClipboardToolStripMenuItem.Size = New System.Drawing.Size(187, 22)
+        Me.FromClipboardToolStripMenuItem.Size = New System.Drawing.Size(182, 22)
         Me.FromClipboardToolStripMenuItem.Text = "From clipboard (img)"
         '
         'FromURLToolStripMenuItem
         '
         Me.FromURLToolStripMenuItem.Name = "FromURLToolStripMenuItem"
-        Me.FromURLToolStripMenuItem.Size = New System.Drawing.Size(187, 22)
+        Me.FromURLToolStripMenuItem.Size = New System.Drawing.Size(182, 22)
         Me.FromURLToolStripMenuItem.Text = "From URL"
         '
         'VideoToolStripMenuItem
@@ -2339,14 +2989,14 @@ Partial Class Form1
         'FromFileToolStripMenuItem
         '
         Me.FromFileToolStripMenuItem.Name = "FromFileToolStripMenuItem"
-        Me.FromFileToolStripMenuItem.Size = New System.Drawing.Size(153, 22)
+        Me.FromFileToolStripMenuItem.Size = New System.Drawing.Size(154, 22)
         Me.FromFileToolStripMenuItem.Text = "From file"
         '
         'FromYouTubeToolStripMenuItem
         '
         Me.FromYouTubeToolStripMenuItem.Enabled = False
         Me.FromYouTubeToolStripMenuItem.Name = "FromYouTubeToolStripMenuItem"
-        Me.FromYouTubeToolStripMenuItem.Size = New System.Drawing.Size(153, 22)
+        Me.FromYouTubeToolStripMenuItem.Size = New System.Drawing.Size(154, 22)
         Me.FromYouTubeToolStripMenuItem.Text = "From YouTube"
         '
         'ThemeToolStripMenuItem
@@ -2365,19 +3015,19 @@ Partial Class Form1
         'ToolStripMenuItem2
         '
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem2.Text = "From file"
         '
         'ToolStripMenuItem3
         '
         Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
-        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem3.Text = "From clipboard (img)"
         '
         'ToolStripMenuItem4
         '
         Me.ToolStripMenuItem4.Name = "ToolStripMenuItem4"
-        Me.ToolStripMenuItem4.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem4.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem4.Text = "From URL"
         '
         'Art2ToolStripMenuItem
@@ -2390,19 +3040,19 @@ Partial Class Form1
         'ToolStripMenuItem5
         '
         Me.ToolStripMenuItem5.Name = "ToolStripMenuItem5"
-        Me.ToolStripMenuItem5.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem5.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem5.Text = "From file"
         '
         'ToolStripMenuItem6
         '
         Me.ToolStripMenuItem6.Name = "ToolStripMenuItem6"
-        Me.ToolStripMenuItem6.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem6.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem6.Text = "From clipboard (img)"
         '
         'ToolStripMenuItem7
         '
         Me.ToolStripMenuItem7.Name = "ToolStripMenuItem7"
-        Me.ToolStripMenuItem7.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem7.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem7.Text = "From URL"
         '
         'Art3ToolStripMenuItem
@@ -2415,19 +3065,19 @@ Partial Class Form1
         'ToolStripMenuItem8
         '
         Me.ToolStripMenuItem8.Name = "ToolStripMenuItem8"
-        Me.ToolStripMenuItem8.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem8.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem8.Text = "From file"
         '
         'ToolStripMenuItem9
         '
         Me.ToolStripMenuItem9.Name = "ToolStripMenuItem9"
-        Me.ToolStripMenuItem9.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem9.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem9.Text = "From clipboard (img)"
         '
         'ToolStripMenuItem10
         '
         Me.ToolStripMenuItem10.Name = "ToolStripMenuItem10"
-        Me.ToolStripMenuItem10.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem10.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem10.Text = "From URL"
         '
         'Art4ToolStripMenuItem
@@ -2440,19 +3090,19 @@ Partial Class Form1
         'ToolStripMenuItem11
         '
         Me.ToolStripMenuItem11.Name = "ToolStripMenuItem11"
-        Me.ToolStripMenuItem11.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem11.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem11.Text = "From file"
         '
         'ToolStripMenuItem12
         '
         Me.ToolStripMenuItem12.Name = "ToolStripMenuItem12"
-        Me.ToolStripMenuItem12.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem12.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem12.Text = "From clipboard (img)"
         '
         'ToolStripMenuItem13
         '
         Me.ToolStripMenuItem13.Name = "ToolStripMenuItem13"
-        Me.ToolStripMenuItem13.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem13.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem13.Text = "From URL"
         '
         'ToolStripSeparator1
@@ -2477,19 +3127,19 @@ Partial Class Form1
         'ToolStripMenuItem14
         '
         Me.ToolStripMenuItem14.Name = "ToolStripMenuItem14"
-        Me.ToolStripMenuItem14.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem14.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem14.Text = "From file"
         '
         'ToolStripMenuItem15
         '
         Me.ToolStripMenuItem15.Name = "ToolStripMenuItem15"
-        Me.ToolStripMenuItem15.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem15.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem15.Text = "From clipboard (img)"
         '
         'ToolStripMenuItem16
         '
         Me.ToolStripMenuItem16.Name = "ToolStripMenuItem16"
-        Me.ToolStripMenuItem16.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem16.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem16.Text = "From URL"
         '
         'BackgroundToolStripMenuItem
@@ -2502,19 +3152,19 @@ Partial Class Form1
         'ToolStripMenuItem17
         '
         Me.ToolStripMenuItem17.Name = "ToolStripMenuItem17"
-        Me.ToolStripMenuItem17.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem17.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem17.Text = "From file"
         '
         'ToolStripMenuItem18
         '
         Me.ToolStripMenuItem18.Name = "ToolStripMenuItem18"
-        Me.ToolStripMenuItem18.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem18.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem18.Text = "From clipboard (img)"
         '
         'ToolStripMenuItem19
         '
         Me.ToolStripMenuItem19.Name = "ToolStripMenuItem19"
-        Me.ToolStripMenuItem19.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem19.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem19.Text = "From URL"
         '
         'BezelToolStripMenuItem
@@ -2527,19 +3177,19 @@ Partial Class Form1
         'ToolStripMenuItem20
         '
         Me.ToolStripMenuItem20.Name = "ToolStripMenuItem20"
-        Me.ToolStripMenuItem20.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem20.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem20.Text = "From file"
         '
         'ToolStripMenuItem21
         '
         Me.ToolStripMenuItem21.Name = "ToolStripMenuItem21"
-        Me.ToolStripMenuItem21.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem21.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem21.Text = "From clipboard (img)"
         '
         'ToolStripMenuItem22
         '
         Me.ToolStripMenuItem22.Name = "ToolStripMenuItem22"
-        Me.ToolStripMenuItem22.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem22.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem22.Text = "From URL"
         '
         'ControllerToolStripMenuItem
@@ -2552,19 +3202,19 @@ Partial Class Form1
         'ToolStripMenuItem23
         '
         Me.ToolStripMenuItem23.Name = "ToolStripMenuItem23"
-        Me.ToolStripMenuItem23.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem23.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem23.Text = "From file"
         '
         'ToolStripMenuItem24
         '
         Me.ToolStripMenuItem24.Name = "ToolStripMenuItem24"
-        Me.ToolStripMenuItem24.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem24.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem24.Text = "From clipboard (img)"
         '
         'ToolStripMenuItem25
         '
         Me.ToolStripMenuItem25.Name = "ToolStripMenuItem25"
-        Me.ToolStripMenuItem25.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem25.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem25.Text = "From URL"
         '
         'FadeToolStripMenuItem
@@ -2577,19 +3227,19 @@ Partial Class Form1
         'ToolStripMenuItem26
         '
         Me.ToolStripMenuItem26.Name = "ToolStripMenuItem26"
-        Me.ToolStripMenuItem26.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem26.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem26.Text = "From file"
         '
         'ToolStripMenuItem27
         '
         Me.ToolStripMenuItem27.Name = "ToolStripMenuItem27"
-        Me.ToolStripMenuItem27.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem27.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem27.Text = "From clipboard (img)"
         '
         'ToolStripMenuItem28
         '
         Me.ToolStripMenuItem28.Name = "ToolStripMenuItem28"
-        Me.ToolStripMenuItem28.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem28.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem28.Text = "From URL"
         '
         'FontToolStripMenuItem
@@ -2602,13 +3252,13 @@ Partial Class Form1
         'ToolStripMenuItem29
         '
         Me.ToolStripMenuItem29.Name = "ToolStripMenuItem29"
-        Me.ToolStripMenuItem29.Size = New System.Drawing.Size(126, 22)
+        Me.ToolStripMenuItem29.Size = New System.Drawing.Size(131, 22)
         Me.ToolStripMenuItem29.Text = "From file"
         '
         'ToolStripMenuItem31
         '
         Me.ToolStripMenuItem31.Name = "ToolStripMenuItem31"
-        Me.ToolStripMenuItem31.Size = New System.Drawing.Size(126, 22)
+        Me.ToolStripMenuItem31.Size = New System.Drawing.Size(131, 22)
         Me.ToolStripMenuItem31.Text = "From URL"
         '
         'GuideToolStripMenuItem
@@ -2621,19 +3271,19 @@ Partial Class Form1
         'ToolStripMenuItem30
         '
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
-        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(217, 22)
+        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(212, 22)
         Me.ToolStripMenuItem30.Text = "From file"
         '
         'ToolStripMenuItem32
         '
         Me.ToolStripMenuItem32.Name = "ToolStripMenuItem32"
-        Me.ToolStripMenuItem32.Size = New System.Drawing.Size(217, 22)
+        Me.ToolStripMenuItem32.Size = New System.Drawing.Size(212, 22)
         Me.ToolStripMenuItem32.Text = "From clipboard (img or txt)"
         '
         'ToolStripMenuItem33
         '
         Me.ToolStripMenuItem33.Name = "ToolStripMenuItem33"
-        Me.ToolStripMenuItem33.Size = New System.Drawing.Size(217, 22)
+        Me.ToolStripMenuItem33.Size = New System.Drawing.Size(212, 22)
         Me.ToolStripMenuItem33.Text = "From URL"
         '
         'ManualToolStripMenuItem
@@ -2646,19 +3296,19 @@ Partial Class Form1
         'ToolStripMenuItem34
         '
         Me.ToolStripMenuItem34.Name = "ToolStripMenuItem34"
-        Me.ToolStripMenuItem34.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem34.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem34.Text = "From file"
         '
         'ToolStripMenuItem35
         '
         Me.ToolStripMenuItem35.Name = "ToolStripMenuItem35"
-        Me.ToolStripMenuItem35.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem35.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem35.Text = "From clipboard (img)"
         '
         'ToolStripMenuItem36
         '
         Me.ToolStripMenuItem36.Name = "ToolStripMenuItem36"
-        Me.ToolStripMenuItem36.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem36.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem36.Text = "From URL"
         '
         'MenuImageToolStripMenuItem
@@ -2671,19 +3321,19 @@ Partial Class Form1
         'ToolStripMenuItem37
         '
         Me.ToolStripMenuItem37.Name = "ToolStripMenuItem37"
-        Me.ToolStripMenuItem37.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem37.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem37.Text = "From file"
         '
         'ToolStripMenuItem38
         '
         Me.ToolStripMenuItem38.Name = "ToolStripMenuItem38"
-        Me.ToolStripMenuItem38.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem38.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem38.Text = "From clipboard (img)"
         '
         'ToolStripMenuItem39
         '
         Me.ToolStripMenuItem39.Name = "ToolStripMenuItem39"
-        Me.ToolStripMenuItem39.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem39.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem39.Text = "From URL"
         '
         'MultigameToolStripMenuItem
@@ -2696,19 +3346,19 @@ Partial Class Form1
         'ToolStripMenuItem40
         '
         Me.ToolStripMenuItem40.Name = "ToolStripMenuItem40"
-        Me.ToolStripMenuItem40.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem40.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem40.Text = "From file"
         '
         'ToolStripMenuItem41
         '
         Me.ToolStripMenuItem41.Name = "ToolStripMenuItem41"
-        Me.ToolStripMenuItem41.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem41.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem41.Text = "From clipboard (img)"
         '
         'ToolStripMenuItem42
         '
         Me.ToolStripMenuItem42.Name = "ToolStripMenuItem42"
-        Me.ToolStripMenuItem42.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem42.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem42.Text = "From URL"
         '
         'MusicToolStripMenuItem
@@ -2721,13 +3371,13 @@ Partial Class Form1
         'ToolStripMenuItem43
         '
         Me.ToolStripMenuItem43.Name = "ToolStripMenuItem43"
-        Me.ToolStripMenuItem43.Size = New System.Drawing.Size(126, 22)
+        Me.ToolStripMenuItem43.Size = New System.Drawing.Size(131, 22)
         Me.ToolStripMenuItem43.Text = "From file"
         '
         'ToolStripMenuItem45
         '
         Me.ToolStripMenuItem45.Name = "ToolStripMenuItem45"
-        Me.ToolStripMenuItem45.Size = New System.Drawing.Size(126, 22)
+        Me.ToolStripMenuItem45.Size = New System.Drawing.Size(131, 22)
         Me.ToolStripMenuItem45.Text = "From URL"
         '
         'SoundToolStripMenuItem
@@ -2740,13 +3390,13 @@ Partial Class Form1
         'ToolStripMenuItem46
         '
         Me.ToolStripMenuItem46.Name = "ToolStripMenuItem46"
-        Me.ToolStripMenuItem46.Size = New System.Drawing.Size(126, 22)
+        Me.ToolStripMenuItem46.Size = New System.Drawing.Size(131, 22)
         Me.ToolStripMenuItem46.Text = "From file"
         '
         'ToolStripMenuItem48
         '
         Me.ToolStripMenuItem48.Name = "ToolStripMenuItem48"
-        Me.ToolStripMenuItem48.Size = New System.Drawing.Size(126, 22)
+        Me.ToolStripMenuItem48.Size = New System.Drawing.Size(131, 22)
         Me.ToolStripMenuItem48.Text = "From URL"
         '
         'VideoToolStripMenuItem1
@@ -2759,14 +3409,14 @@ Partial Class Form1
         'ToolStripMenuItem44
         '
         Me.ToolStripMenuItem44.Name = "ToolStripMenuItem44"
-        Me.ToolStripMenuItem44.Size = New System.Drawing.Size(153, 22)
+        Me.ToolStripMenuItem44.Size = New System.Drawing.Size(154, 22)
         Me.ToolStripMenuItem44.Text = "From file"
         '
         'ToolStripMenuItem49
         '
         Me.ToolStripMenuItem49.Enabled = False
         Me.ToolStripMenuItem49.Name = "ToolStripMenuItem49"
-        Me.ToolStripMenuItem49.Size = New System.Drawing.Size(153, 22)
+        Me.ToolStripMenuItem49.Size = New System.Drawing.Size(154, 22)
         Me.ToolStripMenuItem49.Text = "From YouTube"
         '
         'WheelToolStripMenuItem1
@@ -2779,48 +3429,48 @@ Partial Class Form1
         'ToolStripMenuItem47
         '
         Me.ToolStripMenuItem47.Name = "ToolStripMenuItem47"
-        Me.ToolStripMenuItem47.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem47.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem47.Text = "From file"
         '
         'ToolStripMenuItem50
         '
         Me.ToolStripMenuItem50.Name = "ToolStripMenuItem50"
-        Me.ToolStripMenuItem50.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem50.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem50.Text = "From clipboard (img)"
         '
         'ToolStripMenuItem51
         '
         Me.ToolStripMenuItem51.Name = "ToolStripMenuItem51"
-        Me.ToolStripMenuItem51.Size = New System.Drawing.Size(187, 22)
+        Me.ToolStripMenuItem51.Size = New System.Drawing.Size(182, 22)
         Me.ToolStripMenuItem51.Text = "From URL"
         '
         'CopyAllMediaToToolStripMenuItem
         '
         Me.CopyAllMediaToToolStripMenuItem.Name = "CopyAllMediaToToolStripMenuItem"
-        Me.CopyAllMediaToToolStripMenuItem.Size = New System.Drawing.Size(197, 22)
+        Me.CopyAllMediaToToolStripMenuItem.Size = New System.Drawing.Size(194, 22)
         Me.CopyAllMediaToToolStripMenuItem.Text = "Copy all Media to ..."
         '
         'OpenContainingFolderToolStripMenuItem
         '
         Me.OpenContainingFolderToolStripMenuItem.Name = "OpenContainingFolderToolStripMenuItem"
-        Me.OpenContainingFolderToolStripMenuItem.Size = New System.Drawing.Size(197, 22)
+        Me.OpenContainingFolderToolStripMenuItem.Size = New System.Drawing.Size(194, 22)
         Me.OpenContainingFolderToolStripMenuItem.Text = "Open containing folder"
         '
         'OpenToolStripMenuItem
         '
         Me.OpenToolStripMenuItem.Name = "OpenToolStripMenuItem"
-        Me.OpenToolStripMenuItem.Size = New System.Drawing.Size(197, 22)
+        Me.OpenToolStripMenuItem.Size = New System.Drawing.Size(194, 22)
         Me.OpenToolStripMenuItem.Text = "Open"
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(194, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(191, 6)
         '
         'DeleteSelectedFileToolStripMenuItem
         '
         Me.DeleteSelectedFileToolStripMenuItem.Name = "DeleteSelectedFileToolStripMenuItem"
-        Me.DeleteSelectedFileToolStripMenuItem.Size = New System.Drawing.Size(197, 22)
+        Me.DeleteSelectedFileToolStripMenuItem.Size = New System.Drawing.Size(194, 22)
         Me.DeleteSelectedFileToolStripMenuItem.Text = "Delete"
         '
         'ImageList1
@@ -2848,6 +3498,14 @@ Partial Class Form1
         Me.ImageList1.Images.SetKeyName(18, "sync-refresh.png")
         Me.ImageList1.Images.SetKeyName(19, "sync-refresh-t.png")
         Me.ImageList1.Images.SetKeyName(20, "Folder-icon.png")
+        '
+        'ToolStripLabel3
+        '
+        Me.ToolStripLabel3.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ToolStripLabel3.ForeColor = System.Drawing.Color.Blue
+        Me.ToolStripLabel3.Name = "ToolStripLabel3"
+        Me.ToolStripLabel3.Size = New System.Drawing.Size(36, 22)
+        Me.ToolStripLabel3.Text = "xxxx"
         '
         'Form1
         '
@@ -2931,8 +3589,34 @@ Partial Class Form1
         Me.ToolStrip4.ResumeLayout(False)
         Me.ToolStrip4.PerformLayout()
         Me.GroupBox3.ResumeLayout(False)
+        Me.TabPage10.ResumeLayout(False)
+        Me.TabPage10.PerformLayout()
+        Me.SplitContainer7.Panel1.ResumeLayout(False)
+        Me.SplitContainer7.Panel1.PerformLayout()
+        Me.SplitContainer7.Panel2.ResumeLayout(False)
+        CType(Me.SplitContainer7, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitContainer7.ResumeLayout(False)
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
+        Me.SplitContainer8.Panel1.ResumeLayout(False)
+        Me.SplitContainer8.Panel1.PerformLayout()
+        Me.SplitContainer8.Panel2.ResumeLayout(False)
+        CType(Me.SplitContainer8, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitContainer8.ResumeLayout(False)
+        CType(Me.DataGridView5, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ToolStrip7.ResumeLayout(False)
+        Me.ToolStrip7.PerformLayout()
+        Me.SplitContainer9.Panel1.ResumeLayout(False)
+        Me.SplitContainer9.Panel1.PerformLayout()
+        Me.SplitContainer9.Panel2.ResumeLayout(False)
+        Me.SplitContainer9.Panel2.PerformLayout()
+        CType(Me.SplitContainer9, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitContainer9.ResumeLayout(False)
         Me.TabPage7.ResumeLayout(False)
+        Me.TabPage7.PerformLayout()
         CType(Me.DataGridView3, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ToolStrip5.ResumeLayout(False)
+        Me.ToolStrip5.PerformLayout()
         Me.TabPage8.ResumeLayout(False)
         Me.TabPage8.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
@@ -2968,11 +3652,6 @@ Partial Class Form1
     Friend WithEvents ToolStripProgressBar1 As System.Windows.Forms.ToolStripProgressBar
     Friend WithEvents ToolStripLabel1 As System.Windows.Forms.ToolStripLabel
     Friend WithEvents ToolStripButton2 As System.Windows.Forms.ToolStripButton
-    Friend WithEvents DataGridView3 As System.Windows.Forms.DataGridView
-    Friend WithEvents Column12 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Column13 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Column14 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Column15 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents ToolStripStatusLabel1 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents DataGridViewTextBoxColumn2 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewCheckBoxColumn1 As System.Windows.Forms.DataGridViewCheckBoxColumn
@@ -2997,17 +3676,6 @@ Partial Class Form1
     Friend WithEvents ToolStripButton5 As System.Windows.Forms.ToolStripButton
     Friend WithEvents ToolStripProgressBar2 As System.Windows.Forms.ToolStripProgressBar
     Friend WithEvents ToolStripLabel2 As System.Windows.Forms.ToolStripLabel
-    Friend WithEvents DataGridViewTextBoxColumn1 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn3 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Column18 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Column19 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Column20 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Column21 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn16 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Column16 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewCheckBoxColumn2 As System.Windows.Forms.DataGridViewCheckBoxColumn
-    Friend WithEvents Column22 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Column23 As System.Windows.Forms.DataGridViewCheckBoxColumn
     Friend WithEvents ToolStripButton6 As System.Windows.Forms.ToolStripButton
     Friend WithEvents ToolStripButton7 As System.Windows.Forms.ToolStripButton
     Friend WithEvents ImageList1 As System.Windows.Forms.ImageList
@@ -3190,9 +3858,19 @@ Partial Class Form1
     Friend WithEvents Button5 As System.Windows.Forms.Button
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents TreeView2 As System.Windows.Forms.TreeView
+    Friend WithEvents Button6 As System.Windows.Forms.Button
+    Friend WithEvents PictureBox6 As System.Windows.Forms.PictureBox
+    Friend WithEvents Label8 As System.Windows.Forms.Label
+    Friend WithEvents Button8 As System.Windows.Forms.Button
+    Friend WithEvents ToolStripButton9 As System.Windows.Forms.ToolStripButton
+    Friend WithEvents ToolStripButton10 As System.Windows.Forms.ToolStripButton
+    Friend WithEvents ToolStripButton11 As System.Windows.Forms.ToolStripButton
+    Friend WithEvents Button9 As System.Windows.Forms.Button
+    Friend WithEvents Label9 As System.Windows.Forms.Label
+    Friend WithEvents TextBox3 As System.Windows.Forms.TextBox
     Friend WithEvents colRomName As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents ColDescription As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Column3 As System.Windows.Forms.DataGridViewCheckBoxColumn
+    Friend WithEvents ColEnabled As System.Windows.Forms.DataGridViewCheckBoxColumn
     Friend WithEvents Column10 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Column4 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Column5 As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -3216,12 +3894,72 @@ Partial Class Form1
     Friend WithEvents ColSounds As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents ColVideos As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents ColHLWheels As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Button6 As System.Windows.Forms.Button
-    Friend WithEvents PictureBox6 As System.Windows.Forms.PictureBox
-    Friend WithEvents Label8 As System.Windows.Forms.Label
-    Friend WithEvents Button8 As System.Windows.Forms.Button
-    Friend WithEvents ToolStripButton9 As System.Windows.Forms.ToolStripButton
-    Friend WithEvents ToolStripButton10 As System.Windows.Forms.ToolStripButton
-    Friend WithEvents ToolStripButton11 As System.Windows.Forms.ToolStripButton
+    Friend WithEvents Label10 As System.Windows.Forms.Label
+    Friend WithEvents DataGridViewTextBoxColumn1 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn3 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Column18 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Column19 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Column20 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Column21 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn16 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Column16 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewCheckBoxColumn2 As System.Windows.Forms.DataGridViewCheckBoxColumn
+    Friend WithEvents Column22 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Column23 As System.Windows.Forms.DataGridViewCheckBoxColumn
+    Friend WithEvents CheckBox4 As System.Windows.Forms.CheckBox
+    Friend WithEvents DataGridView3 As System.Windows.Forms.DataGridView
+    Friend WithEvents ToolStrip5 As System.Windows.Forms.ToolStrip
+    Friend WithEvents ToolStripButton12 As System.Windows.Forms.ToolStripButton
+    Friend WithEvents ToolStripButton13 As System.Windows.Forms.ToolStripButton
+    Friend WithEvents Column12 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Column13 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Column14 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Column3 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Column15 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents ToolStripDropDownButton1 As System.Windows.Forms.ToolStripDropDownButton
+    Friend WithEvents ErrorLevelToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents WarningLevelToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents InfoLevelToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents DebugLevelToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Button15 As System.Windows.Forms.Button
+    Friend WithEvents Button16 As System.Windows.Forms.Button
+    Friend WithEvents TabPage10 As System.Windows.Forms.TabPage
+    Friend WithEvents ToolStrip6 As System.Windows.Forms.ToolStrip
+    Friend WithEvents SplitContainer7 As System.Windows.Forms.SplitContainer
+    Friend WithEvents TreeView3 As System.Windows.Forms.TreeView
+    Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
+    Friend WithEvents Label12 As System.Windows.Forms.Label
+    Friend WithEvents Button18 As System.Windows.Forms.Button
+    Friend WithEvents CheckBox6 As System.Windows.Forms.CheckBox
+    Friend WithEvents CheckBox7 As System.Windows.Forms.CheckBox
+    Friend WithEvents SplitContainer8 As System.Windows.Forms.SplitContainer
+    Friend WithEvents ComboBox1 As System.Windows.Forms.ComboBox
+    Friend WithEvents Button21 As System.Windows.Forms.Button
+    Friend WithEvents TextBox4 As System.Windows.Forms.TextBox
+    Friend WithEvents CheckBox5 As System.Windows.Forms.CheckBox
+    Friend WithEvents Label18 As System.Windows.Forms.Label
+    Friend WithEvents DataGridView5 As System.Windows.Forms.DataGridView
+    Friend WithEvents colDeletion As System.Windows.Forms.DataGridViewCheckBoxColumn
+    Friend WithEvents colPath As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colFilename As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colExt As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colReason As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents ToolStrip7 As System.Windows.Forms.ToolStrip
+    Friend WithEvents ToolStripButton14 As System.Windows.Forms.ToolStripButton
+    Friend WithEvents ToolStripButton15 As System.Windows.Forms.ToolStripButton
+    Friend WithEvents ToolStripSeparator5 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents ToolStripButton16 As System.Windows.Forms.ToolStripButton
+    Friend WithEvents ToolStripButton17 As System.Windows.Forms.ToolStripButton
+    Friend WithEvents ToolStripSeparator6 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents ToolStripButton18 As System.Windows.Forms.ToolStripButton
+    Friend WithEvents SplitContainer9 As System.Windows.Forms.SplitContainer
+    Friend WithEvents CheckBox8 As System.Windows.Forms.CheckBox
+    Friend WithEvents ButtonAssign As System.Windows.Forms.Button
+    Friend WithEvents ProgressBar1 As System.Windows.Forms.ProgressBar
+    Friend WithEvents RadioButton2 As System.Windows.Forms.RadioButton
+    Friend WithEvents RadioButton1 As System.Windows.Forms.RadioButton
+    Friend WithEvents ListBox2 As System.Windows.Forms.ListBox
+    Friend WithEvents CheckBox9 As System.Windows.Forms.CheckBox
+    Friend WithEvents ToolStripLabel3 As System.Windows.Forms.ToolStripLabel
 
 End Class

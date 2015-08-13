@@ -14,11 +14,11 @@ Public Class SystemsCollection
 End Class
 
 Public Class clsHyperSpin
-    Public HyperSpinEXEversion As String
+    'Public HyperSpinEXEversion As String
     Public HSRootPath As String
     Public HSDatabasesPath As String
     Public HSMediaPath As String
-    Public HLRootPath As String
+    'Public HLRootPath As String
     Public MainMenuXML As String
 
     Public Systems As New SystemsCollection
@@ -41,8 +41,8 @@ Public Class clsHyperSpin
         vXML = New XmlDocument()
         If File.Exists(Me.MainMenuXML) = False Then
             'MsgBox("Ooops ! " & Me.MainMenuXML & " is not found, exiting.", MsgBoxStyle.Critical, "Error")
-            LogEntry(LogType._Error, Me.MainMenuXML & " is not found !")
-            LogEntry(LogType._Error, "Choose a valid HyperSpin folder path in PARAMETERS !!")
+            LogEntry(LogType._Error, "{0}", Me.MainMenuXML & " is not found !")
+            LogEntry(LogType._Error, "{0}", "Choose a valid HyperSpin folder path in PARAMETERS !!")
 
             Form1.TabPage7.Select()
             Form1.TabControl1.SelectedIndex = 3
@@ -51,11 +51,18 @@ Public Class clsHyperSpin
         End If
 
         'Systems in XML
-        vXML.Load(Me.MainMenuXML)
+        Try
+            vXML.Load(Me.MainMenuXML)
+        Catch ex As Exception
+            MsgBox("Your MainMenu.xml is fucked up ! Correct it before HyperT00ls can read it correctly :)")
+            Exit Sub
+        End Try
+
         vNODES = vXML.SelectNodes("menu/game")
         For Each vNode As XmlNode In vNODES
             Dim vSysName As String = ""
             Dim vSysEXE As Boolean = False
+            Dim vSysEnabled As Boolean = True
 
             For Each vAttribute As XmlAttribute In vNode.Attributes
                 'Here create a new system
@@ -64,17 +71,33 @@ Public Class clsHyperSpin
                         vSysName = vAttribute.InnerText
                     Case "exe"
                         'IsEXE
-                        vSysEXE = CBool(vAttribute.InnerText)
+                        Try
+                            vSysEXE = CBool(vAttribute.InnerText)
+                        Catch ex As Exception
+                            vSysEXE = False
+                        End Try
+                    Case "enabled"
+                        'vSysEnabled
+                        If vAttribute.InnerText = "0" Then
+                            vSysEnabled = False
+                        End If
                 End Select
             Next
             'At first, we do not load the roms
-            Dim vSys As New ClsSystem(vSysName, HSRootPath, False, vSysEXE, True)
+            Dim vSys As New ClsSystem(vSysName, HSRootPath, False, vSysEXE, vSysEnabled)
             Me.Systems.Add(vSys)
         Next
 
         'Systems not in XML, but present as folders in Databases
-        For Each vFullDir In Directory.EnumerateDirectories(gDBPath)
-            Dim vDir As String = Path.GetFileNameWithoutExtension(vFullDir)
+        'For Each vFullDir In Directory.EnumerateDirectories(gDBPath)
+        '    Dim vDir As String = Path.GetFileNameWithoutExtension(vFullDir)
+        '    If Me.Systems.Contains(vDir) = False Then
+        '        Dim vSys As New ClsSystem(vDir, HSRootPath, False, False, False)
+        '        Me.Systems.Add(vSys)
+        '    End If
+        'Next
+        For Each Dir As String In System.IO.Directory.GetDirectories(gDBPath)
+            Dim vDir As String = GetDirnameOnly(Dir)
             If Me.Systems.Contains(vDir) = False Then
                 Dim vSys As New ClsSystem(vDir, HSRootPath, False, False, False)
                 Me.Systems.Add(vSys)
@@ -91,7 +114,7 @@ Public Class clsHyperSpin
         If File.Exists(Me.MainMenuXML) = False Then
             Form1.Button1.PerformClick()
             'MsgBox("Ooops ! " & Me.MainMenuXML & " is not found, exiting.", MsgBoxStyle.Critical, "Error")
-            LogEntry(LogType._Error, Me.MainMenuXML & " is not found, exiting.")
+            LogEntry(LogType._Error, "{0}", Me.MainMenuXML & " is not found, exiting.")
             'Form1.Close()
             'Exit Sub
         End If
@@ -100,6 +123,8 @@ Public Class clsHyperSpin
         For Each vNode As XmlNode In vNODES
             Dim vSysName As String = ""
             Dim vSysEXE As Boolean = False
+            Dim vSysEnabled As Boolean = True
+
             For Each vAttribute As XmlAttribute In vNode.Attributes
                 'Here create a new system
                 Select Case vAttribute.Name
@@ -108,13 +133,18 @@ Public Class clsHyperSpin
                     Case "exe"
                         'IsEXE
                         vSysEXE = CBool(vAttribute.InnerText)
+                    Case "enabled"
+                        'vSysEnabled
+                        If vAttribute.InnerText = "0" Then
+                            vSysEnabled = False
+                        End If
                 End Select
             Next
 
             'We found the system, so we reload it, and delete the old one
 
             If vSysName = SystemName Then
-                Dim vSys As New ClsSystem(vSysName, HSRootPath, vSysEXE)
+                Dim vSys As New ClsSystem(vSysName, HSRootPath, vSysEXE, vSysEnabled)
                 Me.Systems.Add(vSys)
                 Exit Sub
             End If

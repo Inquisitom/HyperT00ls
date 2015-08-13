@@ -40,7 +40,7 @@ Public Class FrmRenameRom
                 RenameRom()
             End If
         Catch ex As Exception
-            LogEntry(LogType._Error, ex.Message.ToString)
+            LogEntry(LogType._Error, "{0}", ex.Message.ToString)
         End Try
     End Sub
 
@@ -72,7 +72,7 @@ Public Class FrmRenameRom
                 'change XML
                 Form1.DataGridView4.Rows(pRowID).Cells(0).Value = NewName
             Catch ex As Exception
-                LogEntry(LogType._Error, "Cannot change the rom name in the list ... (pls contact the Dev)")
+                LogEntry(LogType._Error, "{0}", "Cannot change the rom name in the list ... (pls contact the Dev)")
                 Exit Sub
             End Try
 
@@ -80,10 +80,10 @@ Public Class FrmRenameRom
             If RenameRomFile = True Then
                 Try
                     FileSystem.Rename(gHS.Systems(pSystem).Roms(pRom).RomPath, gHS.Systems(pSystem).mRomPath & "\" & NewName & Path.GetExtension(gHS.Systems(pSystem).Roms(pRom).RomPath))
-                    LogEntry(LogType._Info, "Rom renamed from " & gHS.Systems(pSystem).Roms(pRom).RomPath & " -to-> " & gHS.Systems(pSystem).mRomPath & "\" & NewName & Path.GetExtension(gHS.Systems(pSystem).Roms(pRom).RomPath))
+                    LogEntry(LogType._Info, "{0}", "Rom renamed from " & gHS.Systems(pSystem).Roms(pRom).RomPath & " -to-> " & gHS.Systems(pSystem).mRomPath & "\" & NewName & Path.GetExtension(gHS.Systems(pSystem).Roms(pRom).RomPath))
                 Catch ex As Exception
                     MsgBox("Error ! : cannot rename romfile :( --> abording", MsgBoxStyle.Critical, "Error")
-                    LogEntry(LogType._Error, "Error ! : cannot rename romfile :( --> abording")
+                    LogEntry(LogType._Error, "{0}", "Error ! : cannot rename romfile :( --> abording")
                     Exit Sub
                 End Try
             End If
@@ -95,17 +95,17 @@ Public Class FrmRenameRom
 
                 If IncludeHyperSpinMedia = True Then
                     'then copy theme, wheel, video, art1, art2, art3, art4
-                    LogEntry(LogType._Info, "Copy started (overwrite=" & Overwrite.ToString & ") --> ")
+                    LogEntry(LogType._Info, "{0}", "Copy started (overwrite=" & Overwrite.ToString & ") --> ")
 
                     'Theme
                     Orig = gHS.Systems(pSystem).Roms(pRom).ThemePath
                     Dest = Path.GetDirectoryName(gHS.Systems(pSystem).Roms(pRom).ThemePath) & "\" & NewName & ".zip"
                     Try
                         If File.Exists(Orig) Then
-                            LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                            LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                             If Directory.Exists(Path.GetDirectoryName(Dest)) = False Then
                                 Directory.CreateDirectory(Path.GetDirectoryName(Dest))
-                                LogEntry(LogType._Info, "Creating folder : " & Path.GetDirectoryName(Dest))
+                                LogEntry(LogType._Info, "{0}", "Creating folder : " & Path.GetDirectoryName(Dest))
                             End If
                             File.Copy(Orig, Dest, Overwrite)
                             Application.DoEvents()
@@ -113,10 +113,10 @@ Public Class FrmRenameRom
                                 File.Delete(Orig)
                             End If
                         Else
-                            LogEntry(LogType._Info, "     Theme not existing : skipping")
+                            LogEntry(LogType._Info, "{0}", "     Theme not existing : skipping")
                         End If
                     Catch ex As Exception
-                        LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                        LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                     End Try
 
                     'Video
@@ -124,10 +124,10 @@ Public Class FrmRenameRom
                     Dest = Path.GetDirectoryName(gHS.Systems(pSystem).Roms(pRom).VideoPath) & "\" & NewName & Path.GetExtension(gHS.Systems(pSystem).Roms(pRom).VideoPath)
                     Try
                         If File.Exists(Orig) Then
-                            LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                            LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                             If Directory.Exists(Path.GetDirectoryName(Dest)) = False Then
                                 Directory.CreateDirectory(Path.GetDirectoryName(Dest))
-                                LogEntry(LogType._Info, "Creating folder : " & Path.GetDirectoryName(Dest))
+                                LogEntry(LogType._Info, "{0}", "Creating folder : " & Path.GetDirectoryName(Dest))
                             End If
                             File.Copy(Orig, Dest, Overwrite)
                             Application.DoEvents()
@@ -135,10 +135,10 @@ Public Class FrmRenameRom
                                 File.Delete(Orig)
                             End If
                         Else
-                            LogEntry(LogType._Info, "     Video not existing : skipping")
+                            LogEntry(LogType._Info, "{0}", "     Video not existing : skipping")
                         End If
                     Catch ex As Exception
-                        LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                        LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                     End Try
 
                     'Wheel
@@ -146,10 +146,10 @@ Public Class FrmRenameRom
                     Dest = Path.GetDirectoryName(gHS.Systems(pSystem).Roms(pRom).WheelPath) & "\" & NewName & Path.GetExtension(gHS.Systems(pSystem).Roms(pRom).WheelPath)
                     Try
                         If File.Exists(Orig) Then
-                            LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                            LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                             If Directory.Exists(Path.GetDirectoryName(Dest)) = False Then
                                 Directory.CreateDirectory(Path.GetDirectoryName(Dest))
-                                LogEntry(LogType._Info, "Creating folder : " & Path.GetDirectoryName(Dest))
+                                LogEntry(LogType._Info, "{0}", "Creating folder : " & Path.GetDirectoryName(Dest))
                             End If
                             File.Copy(Orig, Dest, Overwrite)
                             Application.DoEvents()
@@ -157,10 +157,10 @@ Public Class FrmRenameRom
                                 File.Delete(Orig)
                             End If
                         Else
-                            LogEntry(LogType._Info, "     Wheel not existing : skipping")
+                            LogEntry(LogType._Info, "{0}", "     Wheel not existing : skipping")
                         End If
                     Catch ex As Exception
-                        LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                        LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                     End Try
 
                     'Art1
@@ -168,10 +168,10 @@ Public Class FrmRenameRom
                     Dest = Path.GetDirectoryName(gHS.Systems(pSystem).Roms(pRom).Art1Path) & "\" & NewName & Path.GetExtension(gHS.Systems(pSystem).Roms(pRom).Art1Path)
                     Try
                         If File.Exists(Orig) Then
-                            LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                            LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                             If Directory.Exists(Path.GetDirectoryName(Dest)) = False Then
                                 Directory.CreateDirectory(Path.GetDirectoryName(Dest))
-                                LogEntry(LogType._Info, "Creating folder : " & Path.GetDirectoryName(Dest))
+                                LogEntry(LogType._Info, "{0}", "Creating folder : " & Path.GetDirectoryName(Dest))
                             End If
                             File.Copy(Orig, Dest, Overwrite)
                             Application.DoEvents()
@@ -179,10 +179,10 @@ Public Class FrmRenameRom
                                 File.Delete(Orig)
                             End If
                         Else
-                            LogEntry(LogType._Info, "     Art1 not existing : skipping")
+                            LogEntry(LogType._Info, "{0}", "     Art1 not existing : skipping")
                         End If
                     Catch ex As Exception
-                        LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                        LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                     End Try
 
                     'Art2
@@ -190,10 +190,10 @@ Public Class FrmRenameRom
                     Dest = Path.GetDirectoryName(gHS.Systems(pSystem).Roms(pRom).Art2Path) & "\" & NewName & Path.GetExtension(gHS.Systems(pSystem).Roms(pRom).Art2Path)
                     Try
                         If File.Exists(Orig) Then
-                            LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                            LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                             If Directory.Exists(Path.GetDirectoryName(Dest)) = False Then
                                 Directory.CreateDirectory(Path.GetDirectoryName(Dest))
-                                LogEntry(LogType._Info, "Creating folder : " & Path.GetDirectoryName(Dest))
+                                LogEntry(LogType._Info, "{0}", "Creating folder : " & Path.GetDirectoryName(Dest))
                             End If
                             File.Copy(Orig, Dest, Overwrite)
                             Application.DoEvents()
@@ -201,10 +201,10 @@ Public Class FrmRenameRom
                                 File.Delete(Orig)
                             End If
                         Else
-                            LogEntry(LogType._Info, "     Art2 not existing : skipping")
+                            LogEntry(LogType._Info, "{0}", "     Art2 not existing : skipping")
                         End If
                     Catch ex As Exception
-                        LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                        LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                     End Try
 
                     'Art3
@@ -212,10 +212,10 @@ Public Class FrmRenameRom
                     Dest = Path.GetDirectoryName(gHS.Systems(pSystem).Roms(pRom).Art3Path) & "\" & NewName & Path.GetExtension(gHS.Systems(pSystem).Roms(pRom).Art3Path)
                     Try
                         If File.Exists(Orig) Then
-                            LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                            LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                             If Directory.Exists(Path.GetDirectoryName(Dest)) = False Then
                                 Directory.CreateDirectory(Path.GetDirectoryName(Dest))
-                                LogEntry(LogType._Info, "Creating folder : " & Path.GetDirectoryName(Dest))
+                                LogEntry(LogType._Info, "{0}", "Creating folder : " & Path.GetDirectoryName(Dest))
                             End If
                             File.Copy(Orig, Dest, Overwrite)
                             Application.DoEvents()
@@ -223,10 +223,10 @@ Public Class FrmRenameRom
                                 File.Delete(Orig)
                             End If
                         Else
-                            LogEntry(LogType._Info, "     Art3 not existing : skipping")
+                            LogEntry(LogType._Info, "{0}", "     Art3 not existing : skipping")
                         End If
                     Catch ex As Exception
-                        LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                        LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                     End Try
 
                     'Art4
@@ -234,10 +234,10 @@ Public Class FrmRenameRom
                     Dest = Path.GetDirectoryName(gHS.Systems(pSystem).Roms(pRom).Art4Path) & "\" & NewName & Path.GetExtension(gHS.Systems(pSystem).Roms(pRom).Art4Path)
                     Try
                         If File.Exists(Orig) Then
-                            LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                            LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                             If Directory.Exists(Path.GetDirectoryName(Dest)) = False Then
                                 Directory.CreateDirectory(Path.GetDirectoryName(Dest))
-                                LogEntry(LogType._Info, "Creating folder : " & Path.GetDirectoryName(Dest))
+                                LogEntry(LogType._Info, "{0}", "Creating folder : " & Path.GetDirectoryName(Dest))
                             End If
                             File.Copy(Orig, Dest, Overwrite)
                             Application.DoEvents()
@@ -245,10 +245,10 @@ Public Class FrmRenameRom
                                 File.Delete(Orig)
                             End If
                         Else
-                            LogEntry(LogType._Info, "     Art4 not existing : skipping")
+                            LogEntry(LogType._Info, "{0}", "     Art4 not existing : skipping")
                         End If
                     Catch ex As Exception
-                        LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                        LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                     End Try
 
                 End If
@@ -263,7 +263,7 @@ Public Class FrmRenameRom
                     Dest = Directory.GetParent(Orig).FullName & "\" & NewName
                     Try
                         If Directory.Exists(Orig) Then
-                            LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                            LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                             My.Computer.FileSystem.CopyDirectory(Orig, Dest, Overwrite)
                             Application.DoEvents()
                             If MoveMedia = True Then
@@ -271,7 +271,7 @@ Public Class FrmRenameRom
                             End If
                         End If
                     Catch ex As Exception
-                        LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                        LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                     End Try
 
                     'Backgrounds
@@ -282,7 +282,7 @@ Public Class FrmRenameRom
                     Dest = Directory.GetParent(Orig).FullName & "\" & NewName
                     Try
                         If Directory.Exists(Orig) Then
-                            LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                            LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                             My.Computer.FileSystem.CopyDirectory(Orig, Dest, Overwrite)
                             Application.DoEvents()
                             If MoveMedia = True Then
@@ -290,7 +290,7 @@ Public Class FrmRenameRom
                             End If
                         End If
                     Catch ex As Exception
-                        LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                        LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                     End Try
 
                     'Bezels
@@ -301,7 +301,7 @@ Public Class FrmRenameRom
                     Dest = Directory.GetParent(Orig).FullName & "\" & NewName
                     Try
                         If Directory.Exists(Orig) Then
-                            LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                            LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                             My.Computer.FileSystem.CopyDirectory(Orig, Dest, Overwrite)
                             Application.DoEvents()
                             If MoveMedia = True Then
@@ -309,7 +309,7 @@ Public Class FrmRenameRom
                             End If
                         End If
                     Catch ex As Exception
-                        LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                        LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                     End Try
 
                     'Controller
@@ -320,7 +320,7 @@ Public Class FrmRenameRom
                     Dest = Directory.GetParent(Orig).FullName & "\" & NewName
                     Try
                         If Directory.Exists(Orig) Then
-                            LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                            LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                             My.Computer.FileSystem.CopyDirectory(Orig, Dest, Overwrite)
                             Application.DoEvents()
                             If MoveMedia = True Then
@@ -328,7 +328,7 @@ Public Class FrmRenameRom
                             End If
                         End If
                     Catch ex As Exception
-                        LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                        LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                     End Try
 
                     'Fade
@@ -339,7 +339,7 @@ Public Class FrmRenameRom
                     Dest = Directory.GetParent(Orig).FullName & "\" & NewName
                     Try
                         If Directory.Exists(Orig) Then
-                            LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                            LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                             My.Computer.FileSystem.CopyDirectory(Orig, Dest, Overwrite)
                             Application.DoEvents()
                             If MoveMedia = True Then
@@ -347,7 +347,7 @@ Public Class FrmRenameRom
                             End If
                         End If
                     Catch ex As Exception
-                        LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                        LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                     End Try
 
                     'Fonts
@@ -358,7 +358,7 @@ Public Class FrmRenameRom
                     Dest = Directory.GetParent(Orig).FullName & "\" & NewName
                     Try
                         If Directory.Exists(Orig) Then
-                            LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                            LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                             My.Computer.FileSystem.CopyDirectory(Orig, Dest, Overwrite)
                             Application.DoEvents()
                             If MoveMedia = True Then
@@ -366,7 +366,7 @@ Public Class FrmRenameRom
                             End If
                         End If
                     Catch ex As Exception
-                        LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                        LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                     End Try
 
                     'Guides
@@ -377,7 +377,7 @@ Public Class FrmRenameRom
                     Dest = Directory.GetParent(Orig).FullName & "\" & NewName
                     Try
                         If Directory.Exists(Orig) Then
-                            LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                            LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                             My.Computer.FileSystem.CopyDirectory(Orig, Dest, Overwrite)
                             Application.DoEvents()
                             If MoveMedia = True Then
@@ -385,7 +385,7 @@ Public Class FrmRenameRom
                             End If
                         End If
                     Catch ex As Exception
-                        LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                        LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                     End Try
 
                     'Manuals
@@ -396,7 +396,7 @@ Public Class FrmRenameRom
                     Dest = Directory.GetParent(Orig).FullName & "\" & NewName
                     Try
                         If Directory.Exists(Orig) Then
-                            LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                            LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                             My.Computer.FileSystem.CopyDirectory(Orig, Dest, Overwrite)
                             Application.DoEvents()
                             If MoveMedia = True Then
@@ -404,7 +404,7 @@ Public Class FrmRenameRom
                             End If
                         End If
                     Catch ex As Exception
-                        LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                        LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                     End Try
 
                     'Menu Images
@@ -415,7 +415,7 @@ Public Class FrmRenameRom
                     Dest = Directory.GetParent(Orig).FullName & "\" & NewName
                     Try
                         If Directory.Exists(Orig) Then
-                            LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                            LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                             My.Computer.FileSystem.CopyDirectory(Orig, Dest, Overwrite)
                             Application.DoEvents()
                             If MoveMedia = True Then
@@ -423,7 +423,7 @@ Public Class FrmRenameRom
                             End If
                         End If
                     Catch ex As Exception
-                        LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                        LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                     End Try
 
                     'MultiGame
@@ -434,7 +434,7 @@ Public Class FrmRenameRom
                     Dest = Directory.GetParent(Orig).FullName & "\" & NewName
                     Try
                         If Directory.Exists(Orig) Then
-                            LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                            LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                             My.Computer.FileSystem.CopyDirectory(Orig, Dest, Overwrite)
                             Application.DoEvents()
                             If MoveMedia = True Then
@@ -442,7 +442,7 @@ Public Class FrmRenameRom
                             End If
                         End If
                     Catch ex As Exception
-                        LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                        LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                     End Try
 
                     'Music
@@ -453,7 +453,7 @@ Public Class FrmRenameRom
                     Dest = Directory.GetParent(Orig).FullName & "\" & NewName
                     Try
                         If Directory.Exists(Orig) Then
-                            LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                            LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                             My.Computer.FileSystem.CopyDirectory(Orig, Dest, Overwrite)
                             Application.DoEvents()
                             If MoveMedia = True Then
@@ -461,7 +461,7 @@ Public Class FrmRenameRom
                             End If
                         End If
                     Catch ex As Exception
-                        LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                        LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                     End Try
 
                     'Sounds
@@ -472,7 +472,7 @@ Public Class FrmRenameRom
                     Dest = Directory.GetParent(Orig).FullName & "\" & NewName
                     Try
                         If Directory.Exists(Orig) Then
-                            LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                            LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                             My.Computer.FileSystem.CopyDirectory(Orig, Dest, Overwrite)
                             Application.DoEvents()
                             If MoveMedia = True Then
@@ -480,7 +480,7 @@ Public Class FrmRenameRom
                             End If
                         End If
                     Catch ex As Exception
-                        LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                        LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                     End Try
 
                     'Videos
@@ -491,7 +491,7 @@ Public Class FrmRenameRom
                     Dest = Directory.GetParent(Orig).FullName & "\" & NewName
                     Try
                         If Directory.Exists(Orig) Then
-                            LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                            LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                             My.Computer.FileSystem.CopyDirectory(Orig, Dest, Overwrite)
                             Application.DoEvents()
                             If MoveMedia = True Then
@@ -499,7 +499,7 @@ Public Class FrmRenameRom
                             End If
                         End If
                     Catch ex As Exception
-                        LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                        LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                     End Try
 
                     'Wheels
@@ -510,7 +510,7 @@ Public Class FrmRenameRom
                     Dest = Directory.GetParent(Orig).FullName & "\" & NewName
                     Try
                         If Directory.Exists(Orig) Then
-                            LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                            LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                             My.Computer.FileSystem.CopyDirectory(Orig, Dest, Overwrite)
                             Application.DoEvents()
                             If MoveMedia = True Then
@@ -518,7 +518,7 @@ Public Class FrmRenameRom
                             End If
                         End If
                     Catch ex As Exception
-                        LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                        LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                     End Try
 
                 End If

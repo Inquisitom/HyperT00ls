@@ -37,7 +37,7 @@ Public Class FrmCopyMedia
                 CopyMedia()
             End If
         Catch ex As Exception
-            LogEntry(LogType._Error, ex.Message.ToString)
+            LogEntry(LogType._Error, "{0}", ex.Message.ToString)
         End Try
     End Sub
 
@@ -61,17 +61,17 @@ Public Class FrmCopyMedia
 
             If IncludeHyperSpinMedia = True Then
                 'then copy theme, wheel, video, art1, art2, art3, art4
-                LogEntry(LogType._Info, "Copy started (overwrite=" & Overwrite.ToString & ") --> ")
+                LogEntry(LogType._Info, "{0}", "Copy started (overwrite=" & Overwrite.ToString & ") --> ")
 
                 'Theme
                 Orig = gHS.Systems(OrigSystem).Roms(OrigRom).ThemePath
                 Dest = gHS.Systems(DestSystem).Roms(DestRom).ThemePath
                 Try
                     If File.Exists(Orig) Then
-                        LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                        LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                         If Directory.Exists(Path.GetDirectoryName(Dest)) = False Then
                             Directory.CreateDirectory(Path.GetDirectoryName(Dest))
-                            LogEntry(LogType._Info, "Creating folder : " & Path.GetDirectoryName(Dest))
+                            LogEntry(LogType._Info, "{0}", "Creating folder : " & Path.GetDirectoryName(Dest))
                         End If
                         File.Copy(Orig, Dest, Overwrite)
                         Application.DoEvents()
@@ -79,10 +79,10 @@ Public Class FrmCopyMedia
                             File.Delete(Orig)
                         End If
                     Else
-                        LogEntry(LogType._Info, "     Theme not existing : skipping")
+                        LogEntry(LogType._Info, "{0}", "     Theme not existing : skipping")
                     End If
                 Catch ex As Exception
-                    LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                    LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                 End Try
 
                 'Video
@@ -93,10 +93,10 @@ Public Class FrmCopyMedia
                 End If
                 Try
                     If File.Exists(Orig) Then
-                        LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                        LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                         If Directory.Exists(Path.GetDirectoryName(Dest)) = False Then
                             Directory.CreateDirectory(Path.GetDirectoryName(Dest))
-                            LogEntry(LogType._Info, "Creating folder : " & Path.GetDirectoryName(Dest))
+                            LogEntry(LogType._Info, "{0}", "Creating folder : " & Path.GetDirectoryName(Dest))
                         End If
                         File.Copy(Orig, Dest, Overwrite)
                         Application.DoEvents()
@@ -104,10 +104,10 @@ Public Class FrmCopyMedia
                             File.Delete(Orig)
                         End If
                     Else
-                        LogEntry(LogType._Info, "     Video not existing : skipping")
+                        LogEntry(LogType._Info, "{0}", "     Video not existing : skipping")
                     End If
                 Catch ex As Exception
-                    LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                    LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                 End Try
 
                 'Wheel
@@ -115,10 +115,10 @@ Public Class FrmCopyMedia
                 Dest = gHS.Systems(DestSystem).Roms(DestRom).WheelPath
                 Try
                     If File.Exists(Orig) Then
-                        LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                        LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                         If Directory.Exists(Path.GetDirectoryName(Dest)) = False Then
                             Directory.CreateDirectory(Path.GetDirectoryName(Dest))
-                            LogEntry(LogType._Info, "Creating folder : " & Path.GetDirectoryName(Dest))
+                            LogEntry(LogType._Info, "{0}", "Creating folder : " & Path.GetDirectoryName(Dest))
                         End If
                         File.Copy(Orig, Dest, Overwrite)
                         Application.DoEvents()
@@ -126,10 +126,10 @@ Public Class FrmCopyMedia
                             File.Delete(Orig)
                         End If
                     Else
-                        LogEntry(LogType._Info, "     Wheel not existing : skipping")
+                        LogEntry(LogType._Info, "{0}", "     Wheel not existing : skipping")
                     End If
                 Catch ex As Exception
-                    LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                    LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                 End Try
 
                 'Art1
@@ -137,10 +137,10 @@ Public Class FrmCopyMedia
                 Dest = gHS.Systems(DestSystem).Roms(DestRom).Art1Path
                 Try
                     If File.Exists(Orig) Then
-                        LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                        LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                         If Directory.Exists(Path.GetDirectoryName(Dest)) = False Then
                             Directory.CreateDirectory(Path.GetDirectoryName(Dest))
-                            LogEntry(LogType._Info, "Creating folder : " & Path.GetDirectoryName(Dest))
+                            LogEntry(LogType._Info, "{0}", "Creating folder : " & Path.GetDirectoryName(Dest))
                         End If
                         File.Copy(Orig, Dest, Overwrite)
                         Application.DoEvents()
@@ -148,10 +148,10 @@ Public Class FrmCopyMedia
                             File.Delete(Orig)
                         End If
                     Else
-                        LogEntry(LogType._Info, "     Art1 not existing : skipping")
+                        LogEntry(LogType._Info, "{0}", "     Art1 not existing : skipping")
                     End If
                 Catch ex As Exception
-                    LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                    LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                 End Try
 
                 'Art2
@@ -159,10 +159,10 @@ Public Class FrmCopyMedia
                 Dest = gHS.Systems(DestSystem).Roms(DestRom).Art2Path
                 Try
                     If File.Exists(Orig) Then
-                        LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                        LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                         If Directory.Exists(Path.GetDirectoryName(Dest)) = False Then
                             Directory.CreateDirectory(Path.GetDirectoryName(Dest))
-                            LogEntry(LogType._Info, "Creating folder : " & Path.GetDirectoryName(Dest))
+                            LogEntry(LogType._Info, "{0}", "Creating folder : " & Path.GetDirectoryName(Dest))
                         End If
                         File.Copy(Orig, Dest, Overwrite)
                         Application.DoEvents()
@@ -170,10 +170,10 @@ Public Class FrmCopyMedia
                             File.Delete(Orig)
                         End If
                     Else
-                        LogEntry(LogType._Info, "     Art2 not existing : skipping")
+                        LogEntry(LogType._Info, "{0}", "     Art2 not existing : skipping")
                     End If
                 Catch ex As Exception
-                    LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                    LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                 End Try
 
                 'Art3
@@ -181,10 +181,10 @@ Public Class FrmCopyMedia
                 Dest = gHS.Systems(DestSystem).Roms(DestRom).Art3Path
                 Try
                     If File.Exists(Orig) Then
-                        LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                        LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                         If Directory.Exists(Path.GetDirectoryName(Dest)) = False Then
                             Directory.CreateDirectory(Path.GetDirectoryName(Dest))
-                            LogEntry(LogType._Info, "Creating folder : " & Path.GetDirectoryName(Dest))
+                            LogEntry(LogType._Info, "{0}", "Creating folder : " & Path.GetDirectoryName(Dest))
                         End If
                         File.Copy(Orig, Dest, Overwrite)
                         Application.DoEvents()
@@ -192,10 +192,10 @@ Public Class FrmCopyMedia
                             File.Delete(Orig)
                         End If
                     Else
-                        LogEntry(LogType._Info, "     Art3 not existing : skipping")
+                        LogEntry(LogType._Info, "{0}", "     Art3 not existing : skipping")
                     End If
                 Catch ex As Exception
-                    LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                    LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                 End Try
 
                 'Art4
@@ -203,10 +203,10 @@ Public Class FrmCopyMedia
                 Dest = gHS.Systems(DestSystem).Roms(DestRom).Art4Path
                 Try
                     If File.Exists(Orig) Then
-                        LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                        LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                         If Directory.Exists(Path.GetDirectoryName(Dest)) = False Then
                             Directory.CreateDirectory(Path.GetDirectoryName(Dest))
-                            LogEntry(LogType._Info, "Creating folder : " & Path.GetDirectoryName(Dest))
+                            LogEntry(LogType._Info, "{0}", "Creating folder : " & Path.GetDirectoryName(Dest))
                         End If
                         File.Copy(Orig, Dest, Overwrite)
                         Application.DoEvents()
@@ -214,10 +214,10 @@ Public Class FrmCopyMedia
                             File.Delete(Orig)
                         End If
                     Else
-                        LogEntry(LogType._Info, "     Art4 not existing : skipping")
+                        LogEntry(LogType._Info, "{0}", "     Art4 not existing : skipping")
                     End If
                 Catch ex As Exception
-                    LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                    LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                 End Try
 
             End If
@@ -232,7 +232,7 @@ Public Class FrmCopyMedia
                 Dest = gHS.Systems(DestSystem).Roms(DestRom).ArtworkPath
                 Try
                     If Directory.Exists(Orig) Then
-                        LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                        LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                         My.Computer.FileSystem.CopyDirectory(Orig, Dest, Overwrite)
                         Application.DoEvents()
                         If MoveMedia = True Then
@@ -240,7 +240,7 @@ Public Class FrmCopyMedia
                         End If
                     End If
                 Catch ex As Exception
-                    LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                    LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                 End Try
 
                 'Backgrounds
@@ -251,7 +251,7 @@ Public Class FrmCopyMedia
                 Dest = gHS.Systems(DestSystem).Roms(DestRom).BackgroundsPath
                 Try
                     If Directory.Exists(Orig) Then
-                        LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                        LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                         My.Computer.FileSystem.CopyDirectory(Orig, Dest, Overwrite)
                         Application.DoEvents()
                         If MoveMedia = True Then
@@ -259,7 +259,7 @@ Public Class FrmCopyMedia
                         End If
                     End If
                 Catch ex As Exception
-                    LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                    LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                 End Try
 
                 'Bezels
@@ -270,7 +270,7 @@ Public Class FrmCopyMedia
                 Dest = gHS.Systems(DestSystem).Roms(DestRom).BezelsPath
                 Try
                     If Directory.Exists(Orig) Then
-                        LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                        LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                         My.Computer.FileSystem.CopyDirectory(Orig, Dest, Overwrite)
                         Application.DoEvents()
                         If MoveMedia = True Then
@@ -278,7 +278,7 @@ Public Class FrmCopyMedia
                         End If
                     End If
                 Catch ex As Exception
-                    LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                    LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                 End Try
 
                 'Controller
@@ -289,7 +289,7 @@ Public Class FrmCopyMedia
                 Dest = gHS.Systems(DestSystem).Roms(DestRom).ControllerPath
                 Try
                     If Directory.Exists(Orig) Then
-                        LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                        LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                         My.Computer.FileSystem.CopyDirectory(Orig, Dest, Overwrite)
                         Application.DoEvents()
                         If MoveMedia = True Then
@@ -297,7 +297,7 @@ Public Class FrmCopyMedia
                         End If
                     End If
                 Catch ex As Exception
-                    LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                    LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                 End Try
 
                 'Fade
@@ -308,7 +308,7 @@ Public Class FrmCopyMedia
                 Dest = gHS.Systems(DestSystem).Roms(DestRom).FadePath
                 Try
                     If Directory.Exists(Orig) Then
-                        LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                        LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                         My.Computer.FileSystem.CopyDirectory(Orig, Dest, Overwrite)
                         Application.DoEvents()
                         If MoveMedia = True Then
@@ -316,7 +316,7 @@ Public Class FrmCopyMedia
                         End If
                     End If
                 Catch ex As Exception
-                    LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                    LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                 End Try
 
                 'Fonts
@@ -327,7 +327,7 @@ Public Class FrmCopyMedia
                 Dest = gHS.Systems(DestSystem).Roms(DestRom).FontsPath
                 Try
                     If Directory.Exists(Orig) Then
-                        LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                        LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                         My.Computer.FileSystem.CopyDirectory(Orig, Dest, Overwrite)
                         Application.DoEvents()
                         If MoveMedia = True Then
@@ -335,7 +335,7 @@ Public Class FrmCopyMedia
                         End If
                     End If
                 Catch ex As Exception
-                    LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                    LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                 End Try
 
                 'Guides
@@ -346,7 +346,7 @@ Public Class FrmCopyMedia
                 Dest = gHS.Systems(DestSystem).Roms(DestRom).GuidesPath
                 Try
                     If Directory.Exists(Orig) Then
-                        LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                        LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                         My.Computer.FileSystem.CopyDirectory(Orig, Dest, Overwrite)
                         Application.DoEvents()
                         If MoveMedia = True Then
@@ -354,7 +354,7 @@ Public Class FrmCopyMedia
                         End If
                     End If
                 Catch ex As Exception
-                    LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                    LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                 End Try
 
                 'Manuals
@@ -365,7 +365,7 @@ Public Class FrmCopyMedia
                 Dest = gHS.Systems(DestSystem).Roms(DestRom).ManualsPath
                 Try
                     If Directory.Exists(Orig) Then
-                        LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                        LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                         My.Computer.FileSystem.CopyDirectory(Orig, Dest, Overwrite)
                         Application.DoEvents()
                         If MoveMedia = True Then
@@ -373,7 +373,7 @@ Public Class FrmCopyMedia
                         End If
                     End If
                 Catch ex As Exception
-                    LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                    LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                 End Try
 
                 'Menu Images
@@ -384,7 +384,7 @@ Public Class FrmCopyMedia
                 Dest = gHS.Systems(DestSystem).Roms(DestRom).MenuImagesPath
                 Try
                     If Directory.Exists(Orig) Then
-                        LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                        LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                         My.Computer.FileSystem.CopyDirectory(Orig, Dest, Overwrite)
                         Application.DoEvents()
                         If MoveMedia = True Then
@@ -392,7 +392,7 @@ Public Class FrmCopyMedia
                         End If
                     End If
                 Catch ex As Exception
-                    LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                    LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                 End Try
 
                 'MultiGame
@@ -403,7 +403,7 @@ Public Class FrmCopyMedia
                 Dest = gHS.Systems(DestSystem).Roms(DestRom).MultiGamePath
                 Try
                     If Directory.Exists(Orig) Then
-                        LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                        LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                         My.Computer.FileSystem.CopyDirectory(Orig, Dest, Overwrite)
                         Application.DoEvents()
                         If MoveMedia = True Then
@@ -411,7 +411,7 @@ Public Class FrmCopyMedia
                         End If
                     End If
                 Catch ex As Exception
-                    LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                    LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                 End Try
 
                 'Music
@@ -422,7 +422,7 @@ Public Class FrmCopyMedia
                 Dest = gHS.Systems(DestSystem).Roms(DestRom).MusicPath
                 Try
                     If Directory.Exists(Orig) Then
-                        LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                        LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                         My.Computer.FileSystem.CopyDirectory(Orig, Dest, Overwrite)
                         Application.DoEvents()
                         If MoveMedia = True Then
@@ -430,7 +430,7 @@ Public Class FrmCopyMedia
                         End If
                     End If
                 Catch ex As Exception
-                    LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                    LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                 End Try
 
                 'Sounds
@@ -441,7 +441,7 @@ Public Class FrmCopyMedia
                 Dest = gHS.Systems(DestSystem).Roms(DestRom).SoundsPath
                 Try
                     If Directory.Exists(Orig) Then
-                        LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                        LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                         My.Computer.FileSystem.CopyDirectory(Orig, Dest, Overwrite)
                         Application.DoEvents()
                         If MoveMedia = True Then
@@ -449,7 +449,7 @@ Public Class FrmCopyMedia
                         End If
                     End If
                 Catch ex As Exception
-                    LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                    LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                 End Try
 
                 'Videos
@@ -460,7 +460,7 @@ Public Class FrmCopyMedia
                 Dest = gHS.Systems(DestSystem).Roms(DestRom).HLVideosPath
                 Try
                     If Directory.Exists(Orig) Then
-                        LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                        LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                         My.Computer.FileSystem.CopyDirectory(Orig, Dest, Overwrite)
                         Application.DoEvents()
                         If MoveMedia = True Then
@@ -468,7 +468,7 @@ Public Class FrmCopyMedia
                         End If
                     End If
                 Catch ex As Exception
-                    LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                    LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                 End Try
 
                 'Wheels
@@ -479,7 +479,7 @@ Public Class FrmCopyMedia
                 Dest = gHS.Systems(DestSystem).Roms(DestRom).HLWheelsPath
                 Try
                     If Directory.Exists(Orig) Then
-                        LogEntry(LogType._Info, "     Source : " & Orig & "  ---> Dest : " & Dest)
+                        LogEntry(LogType._Info, "{0}", "     Source : " & Orig & "  ---> Dest : " & Dest)
                         My.Computer.FileSystem.CopyDirectory(Orig, Dest, Overwrite)
                         Application.DoEvents()
                         If MoveMedia = True Then
@@ -487,7 +487,7 @@ Public Class FrmCopyMedia
                         End If
                     End If
                 Catch ex As Exception
-                    LogEntry(LogType._Error, "     Cannot perform copy : " & ex.Message.ToString)
+                    LogEntry(LogType._Error, "{0}", "     Cannot perform copy : " & ex.Message.ToString)
                 End Try
 
             End If
@@ -532,7 +532,7 @@ Public Class FrmCopyMedia
                 ComboBox2.Items.Add(Entry.Name)
             Next
         Catch ex As Exception
-            LogEntry(LogType._Warning, "Problem while listing roms for system " & DestSystem & " : " & ex.Message.ToString)
+            LogEntry(LogType._Warning, "{0}", "Problem while listing roms for system " & DestSystem & " : " & ex.Message.ToString)
         End Try
         Cursor = Cursors.Default
     End Sub
